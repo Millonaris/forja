@@ -172,6 +172,9 @@ const iconos = [
   // La F queda centrada de fábrica (su caja va de x150-364, y110-402 en el
   // lienzo de 512: centro 257,256) y se amplía porque el badge se ve diminuto.
   { nombre: "badge-96.png", tam: 96, contenido: 1.5, radio: 0, fondo: null, tinta: BLANCO },
+  // Versión grande del badge para el manifest (purpose: "monochrome"): es la
+  // que usa Android para la barra de estado cuando la app está instalada.
+  { nombre: "icono-monocromo-512.png", tam: 512, contenido: 1.5, radio: 0, fondo: null, tinta: BLANCO },
 ];
 
 for (const { nombre, tam, contenido, radio, fondo = NEGRO, tinta = CIAN } of iconos) {

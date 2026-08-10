@@ -1,8 +1,18 @@
+import { readFileSync } from "node:fs";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
+const { version } = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8"));
+
 export default defineConfig({
+  // Versión y fecha de compilación visibles en Ajustes: sin esto no hay forma
+  // de saber qué versión tiene instalada el móvil cuando algo no se actualiza.
+  define: {
+    __VERSION_FORJA__: JSON.stringify(version),
+    __FECHA_FORJA__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+  },
+
   // Rutas relativas: así la app funciona igual servida en la raíz o en una
   // subcarpeta, y también abierta desde el propio dispositivo.
   base: "./",
@@ -32,6 +42,11 @@ export default defineConfig({
           { src: "iconos/icono-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
           { src: "iconos/icono-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
           { src: "iconos/icono-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+          // Monocromo: instalada como app, Android saca de AQUÍ el iconito de
+          // la barra de estado de las notificaciones (el `badge` de la propia
+          // notificación se ignora). Sin él, usa la silueta del icono normal:
+          // un cuadrado blanco.
+          { src: "iconos/icono-monocromo-512.png", sizes: "512x512", type: "image/png", purpose: "monochrome" },
         ],
         // Accesos directos desde el icono de la app (mantener pulsado en Android).
         shortcuts: [

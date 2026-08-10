@@ -340,6 +340,9 @@ export default function Ajustes() {
 
         <div style={{ font: "400 11px/1.5 var(--f-ui)", color: "var(--f-texto3)", textAlign: "center", paddingBottom: 8 }}>
           FORJA · funciona sin internet · todos los datos viven en este móvil
+          <br />
+          {/* Para saber qué versión corre el móvil cuando algo no se actualiza. */}
+          versión {__VERSION_FORJA__} · {__FECHA_FORJA__}
         </div>
       </div>
     </div>
