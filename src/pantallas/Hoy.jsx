@@ -468,8 +468,20 @@ function PrimerDia({ inicio, onApuntarPeso, dialogoPeso, cerrar }) {
     <div className="f-pantalla">
       <div className="f-scroll" style={{ paddingTop: 14, gap: 16 }}>
         <div>
-          <div style={{ font: "500 11px/1 var(--f-mono)", letterSpacing: ".16em", color: "var(--f-texto3)" }}>
-            {formatoDiaMayus(hoy)} · DÍA 1
+          {/* El engranaje también aquí: en el resto de la app se entra a Ajustes
+              por el contador de semana, que el día 1 todavía no existe. Sin
+              esto, recién instalada no hay forma de llegar a los ajustes. */}
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+            <div style={{ font: "500 11px/1 var(--f-mono)", letterSpacing: ".16em", color: "var(--f-texto3)" }}>
+              {formatoDiaMayus(hoy)} · DÍA 1
+            </div>
+            <button
+              onClick={() => navegar("/ajustes")}
+              style={{ flex: "none", padding: "4px 0 6px 12px", marginTop: -4 }}
+              aria-label="Ajustes"
+            >
+              <span className="f-etiqueta">AJUSTES ⚙</span>
+            </button>
           </div>
           <div className="f-cifra" style={{ fontSize: 40, lineHeight: 1.05, textTransform: "uppercase", marginTop: 8 }}>
             Empieza FORJA
