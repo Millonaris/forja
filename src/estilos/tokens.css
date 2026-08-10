@@ -104,5 +104,74 @@
   --f-heat-vacio: #E4E0D8;
 
   --f-sombra-tarjeta: 0 6px 20px rgba(20, 24, 28, 0.07);
-  --f-sombra-acento: 0 6px 20px rgba(11, 125, 147, 0.12);
+  --f-sombra-acento: 0 6px 20px var(--f-acento-glow);
+}
+
+/*
+ * ---- Paletas de acento ----
+ *
+ * Solo cambian el color de acción/foco: el semáforo de veredictos (verde,
+ * ámbar, rojo) no se toca porque significa rendimiento, no decoración.
+ *
+ * Cada paleta trae dos versiones: la viva para el tema oscuro y una rebajada
+ * para el claro, porque un amarillo que brilla sobre negro es ilegible sobre
+ * papel. El combo tema+paleta va en selector doble para ganar en especificidad
+ * a ambos bloques sueltos.
+ *
+ * "cian" es la de siempre y no necesita bloque: son los valores de :root.
+ */
+
+:root[data-paleta="ambar"] {
+  --f-acento: #FFD60A;
+  --f-acento-tinta: #1A1400;
+  --f-acento-glow: rgba(255, 214, 10, 0.13);
+}
+:root[data-tema="claro"][data-paleta="ambar"] {
+  --f-acento: #8A6A00;
+  --f-acento-tinta: #FFFFFF;
+  --f-acento-glow: rgba(138, 106, 0, 0.14);
+}
+
+:root[data-paleta="lima"] {
+  --f-acento: #B4F53C;
+  --f-acento-tinta: #101800;
+  --f-acento-glow: rgba(180, 245, 60, 0.12);
+}
+:root[data-tema="claro"][data-paleta="lima"] {
+  --f-acento: #49760D;
+  --f-acento-tinta: #FFFFFF;
+  --f-acento-glow: rgba(73, 118, 13, 0.14);
+}
+
+:root[data-paleta="naranja"] {
+  --f-acento: #FF7A1A;
+  --f-acento-tinta: #1A0C00;
+  --f-acento-glow: rgba(255, 122, 26, 0.13);
+}
+:root[data-tema="claro"][data-paleta="naranja"] {
+  --f-acento: #AC4A06;
+  --f-acento-tinta: #FFFFFF;
+  --f-acento-glow: rgba(172, 74, 6, 0.14);
+}
+
+:root[data-paleta="magenta"] {
+  --f-acento: #FF5CA8;
+  --f-acento-tinta: #1A0010;
+  --f-acento-glow: rgba(255, 92, 168, 0.13);
+}
+:root[data-tema="claro"][data-paleta="magenta"] {
+  --f-acento: #AC2568;
+  --f-acento-tinta: #FFFFFF;
+  --f-acento-glow: rgba(172, 37, 104, 0.14);
+}
+
+:root[data-paleta="violeta"] {
+  --f-acento: #A98BFF;
+  --f-acento-tinta: #120A24;
+  --f-acento-glow: rgba(169, 139, 255, 0.13);
+}
+:root[data-tema="claro"][data-paleta="violeta"] {
+  --f-acento: #6631D6;
+  --f-acento-tinta: #FFFFFF;
+  --f-acento-glow: rgba(102, 49, 214, 0.14);
 }

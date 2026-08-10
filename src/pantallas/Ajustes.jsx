@@ -21,6 +21,19 @@ import { estadoAlmacenamiento } from "../utiles/almacenamiento.js";
 import { exportarJSON, formatearTamano, importarJSON, tamanoCopia } from "../utiles/copiaSeguridad.js";
 import { pedirPermisoAvisos, senalGuardado, vibrar } from "../utiles/senales.js";
 
+/*
+ * Paletas de acento. Los bloques de color de verdad están en tokens.css
+ * ([data-paleta]); aquí solo va la muestra que se pinta en el selector.
+ */
+const PALETAS = [
+  { id: "cian", nombre: "cian", color: "#2FD8F5" },
+  { id: "ambar", nombre: "amarillo", color: "#FFD60A" },
+  { id: "lima", nombre: "lima", color: "#B4F53C" },
+  { id: "naranja", nombre: "naranja", color: "#FF7A1A" },
+  { id: "magenta", nombre: "magenta", color: "#FF5CA8" },
+  { id: "violeta", nombre: "violeta", color: "#A98BFF" },
+];
+
 export default function Ajustes() {
   const { ajustes } = useAjustes();
   const navegar = useNavigate();
@@ -197,6 +210,32 @@ export default function Ajustes() {
                   {t.etiqueta}
                 </button>
               ))}
+            </span>
+          </div>
+
+          <div className="f-fila" style={{ justifyContent: "space-between", gap: 12 }}>
+            <span style={{ font: "500 14.5px/1.2 var(--f-ui)", flex: "none" }}>Color</span>
+            <span style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
+              {PALETAS.map((p) => {
+                const activa = (ajustes.paleta || "cian") === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => cambiar({ paleta: p.id })}
+                    aria-label={`Color ${p.nombre}`}
+                    aria-pressed={activa}
+                    style={{
+                      // Muestra siempre la versión viva: es una muestra, no un control.
+                      width: 34,
+                      height: 34,
+                      borderRadius: "50%",
+                      background: p.color,
+                      border: activa ? "3px solid var(--f-texto)" : "3px solid transparent",
+                      boxShadow: activa ? "none" : "inset 0 0 0 1px rgba(128,128,128,.35)",
+                    }}
+                  />
+                );
+              })}
             </span>
           </div>
 

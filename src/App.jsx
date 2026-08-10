@@ -34,13 +34,14 @@ export default function App() {
   const { ajustes } = useAjustes();
   const { pathname } = useLocation();
 
-  // El tema se aplica en el <html> para que lo vean también los tokens CSS.
+  // El tema y la paleta se aplican en el <html> para que los vean los tokens CSS.
   useEffect(() => {
     document.documentElement.dataset.tema = ajustes.tema || "oscuro";
+    document.documentElement.dataset.paleta = ajustes.paleta || "cian";
     // La barra de estado de Android se tiñe del color de fondo.
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = ajustes.tema === "claro" ? "#F4F2EE" : "#000000";
-  }, [ajustes.tema]);
+  }, [ajustes.tema, ajustes.paleta]);
 
   useEffect(() => {
     configurarSenales({

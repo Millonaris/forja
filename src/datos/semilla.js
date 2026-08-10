@@ -19,6 +19,8 @@ export const AJUSTES_POR_DEFECTO = {
   proteinTarget: 180, // gramos, fijo
   deficitKcal: 250, // dentro del rango acordado 200-300
   tema: "oscuro",
+  // Color de acento de la interfaz. "cian" es el original.
+  paleta: "cian",
   vibracion: true,
   sonido: true,
   wakeLock: true,
