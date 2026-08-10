@@ -16,9 +16,14 @@ En el S24: abre ese enlace en **Chrome** → menú **⋮** → **Instalar aplica
 el icono nuevo y ya no verás la barra del navegador: es una app. A partir de ahí funciona
 **sin internet** y sin que el ordenador esté encendido.
 
-Cada cambio que se sube a `main` se compila y se publica solo
-(ver [`.github/workflows/publicar.yml`](.github/workflows/publicar.yml)); la versión nueva
-llega al móvil la próxima vez que abres la app.
+Para publicar una versión nueva, desde el ordenador:
+
+```bash
+npm run publicar
+```
+
+Compila y sube el resultado a la rama `gh-pages`. La versión nueva llega al móvil la próxima
+vez que abres la app.
 
 ### Por qué no vale la wifi de casa
 

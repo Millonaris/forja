@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "iconos": "node scripts/generar-iconos.mjs",
+    "publicar": "bash scripts/publicar.sh",
     "movil": "vite preview --host"
   },
   "dependencies": {
