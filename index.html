@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover para que el fondo negro llegue bajo la barra de gestos del S24 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="FORJA · entrenamiento, carrera, postura y nutrición. Todo local, sin internet." />
+
+    <!-- Instalable como app: sin barra de navegador y con la barra de estado en claro -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="FORJA" />
+
+    <!-- Rutas relativas, como `base` en vite.config.js: la app se sirve en una
+         subcarpeta (github.io/forja/) y con "/iconos" buscaría en la raíz. -->
+    <link rel="icon" type="image/svg+xml" href="./iconos/forja.svg" />
+    <link rel="apple-touch-icon" href="./iconos/icono-192.png" />
+
+    <title>FORJA</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

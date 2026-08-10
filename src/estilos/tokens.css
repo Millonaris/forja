@@ -1,0 +1,108 @@
+/*
+ * FORJA · Tokens de diseño
+ * Extraídos literalmente de los mockups aprobados (FORJA.dc.html).
+ * Todo el color de la app sale de aquí: cambiando el bloque [data-tema="claro"]
+ * cambia la app entera sin tocar ni un componente.
+ */
+
+:root {
+  /* ---- Tema oscuro (AMOLED puro, el principal) ---- */
+  --f-fondo: #000000;          /* fondo de pantalla, negro puro para AMOLED */
+  --f-sup: #0E1013;            /* superficie de tarjeta */
+  --f-sup2: #16191E;           /* superficie elevada / relleno de control */
+  --f-borde: #24282F;          /* borde estándar */
+  --f-borde2: #2A2E36;         /* borde de control pulsable */
+  --f-borde-sutil: #16191E;    /* separador interno de listas */
+
+  --f-acento: #2FD8F5;         /* cian: acción principal y foco */
+  --f-acento-tinta: #001318;   /* texto sobre acento */
+  --f-acento-glow: rgba(47, 216, 245, 0.13);
+
+  /* Semáforo: reservado EXCLUSIVAMENTE para veredictos de rendimiento */
+  --f-ok: #35E08B;
+  --f-ok-tinta: #00160C;
+  --f-ok-glow: rgba(53, 224, 139, 0.10);
+  --f-aviso: #FFB020;
+  --f-alerta: #FF4A55;
+  --f-alerta-tinta: #1A0004;
+
+  /* Texto en tres niveles */
+  --f-texto: #F4F6F8;
+  --f-texto2: #9BA3AD;
+  --f-texto3: #656C76;
+
+  /* Rellenos de gráfica (barras inactivas / mapa de calor) */
+  --f-barra: #16191E;
+  --f-heat-ok: #35E08B;
+  --f-heat-ok-tenue: #1D3D2C;
+  --f-heat-parcial: #3E3320;
+  --f-heat-vacio: #16191E;
+
+  --f-sombra-tarjeta: none;
+  --f-sombra-acento: 0 0 30px var(--f-acento-glow);
+
+  /* ---- Tipografía ---- */
+  --f-display: "Barlow Condensed", "Barlow", system-ui, sans-serif; /* números y titulares */
+  --f-ui: "Barlow", system-ui, -apple-system, sans-serif;           /* interfaz y texto */
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;              /* datos tabulares y tiempos */
+
+  /* ---- Espaciado (base 4) ---- */
+  --f-e1: 4px;
+  --f-e2: 8px;
+  --f-e3: 12px;
+  --f-e4: 16px;
+  --f-e6: 24px;
+  --f-e8: 32px;
+  --f-e12: 48px;
+
+  /* ---- Radios ---- */
+  --f-r-chip: 8px;
+  --f-r-control: 12px;
+  --f-r-tarjeta: 14px;
+  --f-r-tarjeta-g: 18px;
+  --f-r-boton: 16px;
+  --f-r-pill: 22px;
+
+  /* ---- Targets táctiles ---- */
+  --f-target-min: 48px;   /* mínimo en toda la app */
+  --f-target-vivo: 72px;  /* modo entreno en vivo, con guantes y sudor */
+
+  /* Altura de la barra de navegación inferior */
+  --f-nav-alto: 80px;
+  /* Zona segura inferior del dispositivo (gestos de Android) */
+  --f-safe-abajo: env(safe-area-inset-bottom, 0px);
+}
+
+/* ---- Tema claro · "taller de día" ---- */
+:root[data-tema="claro"] {
+  --f-fondo: #F4F2EE;
+  --f-sup: #FFFFFF;
+  --f-sup2: #F0EDE7;
+  --f-borde: #DCD8D0;
+  --f-borde2: #D5D0C7;
+  --f-borde-sutil: #E8E4DC;
+
+  --f-acento: #0B7D93;         /* cian rebajado para cumplir contraste sobre papel */
+  --f-acento-tinta: #FFFFFF;
+  --f-acento-glow: rgba(11, 125, 147, 0.12);
+
+  --f-ok: #0E7A44;
+  --f-ok-tinta: #FFFFFF;
+  --f-ok-glow: rgba(14, 122, 68, 0.12);
+  --f-aviso: #A56A00;
+  --f-alerta: #C0303C;
+  --f-alerta-tinta: #FFFFFF;
+
+  --f-texto: #16181B;
+  --f-texto2: #6B6F76;
+  --f-texto3: #8A8F96;
+
+  --f-barra: #E4E0D8;
+  --f-heat-ok: #0E7A44;
+  --f-heat-ok-tenue: #C6E2D2;
+  --f-heat-parcial: #F0DFBC;
+  --f-heat-vacio: #E4E0D8;
+
+  --f-sombra-tarjeta: 0 6px 20px rgba(20, 24, 28, 0.07);
+  --f-sombra-acento: 0 6px 20px rgba(11, 125, 147, 0.12);
+}

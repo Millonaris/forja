@@ -1,0 +1,420 @@
+/*
+ * FORJA · Estilos base y clases compartidas.
+ * Las clases replican exactamente los patrones del mockup:
+ * tarjeta, tarjeta destacada, chip, botón principal, botón fantasma, etiqueta mono.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--f-fondo);
+  color: var(--f-texto);
+  font-family: var(--f-ui);
+  /* Evita el rebote elástico y el zoom por doble toque en el móvil */
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Ningún texto de interfaz debe poder seleccionarse por accidente al pulsar. */
+.no-sel {
+  user-select: none;
+}
+
+/* ---------- Tipografía de apoyo ---------- */
+
+.f-mono {
+  font-family: var(--f-mono);
+}
+
+/* Etiqueta pequeña en mayúsculas sobre cada dato ("VOLUMEN TOTAL") */
+.f-etiqueta {
+  font: 500 10px/1 var(--f-mono);
+  letter-spacing: 0.14em;
+  color: var(--f-texto3);
+  text-transform: uppercase;
+}
+
+/* Titular de pantalla ("PROGRESIÓN") */
+.f-titulo {
+  font: 800 32px/1 var(--f-display);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Número protagonista */
+.f-cifra {
+  font-family: var(--f-display);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Superficies ---------- */
+
+.f-tarjeta {
+  background: var(--f-sup);
+  border: 1px solid var(--f-borde);
+  border-radius: var(--f-r-tarjeta);
+  box-shadow: var(--f-sombra-tarjeta);
+}
+
+/* Tarjeta-héroe: la acción principal de la pantalla */
+.f-tarjeta--destacada {
+  border-color: var(--f-acento);
+  border-radius: var(--f-r-tarjeta-g);
+  box-shadow: var(--f-sombra-acento);
+}
+
+.f-tarjeta--ok {
+  border-color: var(--f-ok);
+  box-shadow: 0 0 26px var(--f-ok-glow);
+}
+
+.f-tarjeta--aviso {
+  border-color: var(--f-aviso);
+}
+
+.f-tarjeta--alerta {
+  border-color: var(--f-alerta);
+}
+
+/* Fila de lista dentro de una tarjeta */
+.f-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-top: 1px solid var(--f-borde-sutil);
+}
+
+.f-fila:first-of-type {
+  border-top: none;
+}
+
+/* ---------- Controles ---------- */
+
+/* Acción principal. Alto mínimo 60 px, siempre en el tercio inferior. */
+.f-boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 60px;
+  border-radius: var(--f-r-boton);
+  background: var(--f-acento);
+  color: var(--f-acento-tinta);
+  font: 800 21px/1 var(--f-display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform 0.06s ease, opacity 0.15s ease;
+}
+
+.f-boton:active {
+  transform: scale(0.985);
+}
+
+.f-boton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Acción secundaria: solo borde, nunca compite con la principal */
+.f-boton--fantasma {
+  background: none;
+  border: 1px solid var(--f-borde);
+  color: var(--f-texto);
+}
+
+.f-boton--acento-fantasma {
+  background: none;
+  border: 1px solid var(--f-acento);
+  color: var(--f-acento);
+}
+
+.f-boton--aviso-fantasma {
+  background: none;
+  border: 1px solid var(--f-aviso);
+  color: var(--f-aviso);
+}
+
+.f-boton--alerta {
+  background: var(--f-alerta);
+  color: var(--f-alerta-tinta);
+}
+
+.f-boton--peq {
+  min-height: 48px;
+  font-size: 16px;
+}
+
+/* Chip informativo (ejercicios de la sesión, filtros) */
+.f-chip {
+  font: 500 11px/1 var(--f-mono);
+  color: var(--f-texto2);
+  background: var(--f-sup2);
+  border: 1px solid var(--f-borde);
+  border-radius: var(--f-r-chip);
+  padding: 8px 10px;
+}
+
+/* Selector de dos posiciones (EJERCICIO / GENERAL) */
+.f-segmento {
+  display: flex;
+  gap: 8px;
+  background: var(--f-sup);
+  border: 1px solid var(--f-borde);
+  border-radius: var(--f-r-control);
+  padding: 4px;
+}
+
+.f-segmento button {
+  flex: 1;
+  height: 38px;
+  border-radius: 9px;
+  color: var(--f-texto3);
+  font: 600 12px/1 var(--f-mono);
+  letter-spacing: 0.1em;
+}
+
+.f-segmento button[aria-pressed="true"] {
+  background: var(--f-sup2);
+  color: var(--f-texto);
+}
+
+/* Interruptor de Ajustes */
+.f-switch {
+  width: 46px;
+  height: 27px;
+  flex: none;
+  border-radius: 14px;
+  background: var(--f-borde);
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  transition: background 0.15s ease;
+}
+
+.f-switch[aria-checked="true"] {
+  background: var(--f-acento);
+  justify-content: flex-end;
+}
+
+.f-switch span {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--f-texto3);
+}
+
+.f-switch[aria-checked="true"] span {
+  background: var(--f-acento-tinta);
+}
+
+/* Campo numérico (peso, kcal) */
+.f-campo {
+  width: 100%;
+  height: 60px;
+  background: var(--f-sup2);
+  border: 1px solid var(--f-borde2);
+  border-radius: var(--f-r-control);
+  padding: 0 16px;
+  font: 800 28px/1 var(--f-display);
+  color: var(--f-texto);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.f-campo:focus {
+  outline: none;
+  border-color: var(--f-acento);
+}
+
+.f-area {
+  width: 100%;
+  min-height: 90px;
+  background: var(--f-sup2);
+  border: 1px solid var(--f-borde);
+  border-radius: var(--f-r-control);
+  padding: 12px 13px;
+  font: 400 14px/1.5 var(--f-ui);
+  color: var(--f-texto);
+  resize: vertical;
+}
+
+.f-area:focus {
+  outline: none;
+  border-color: var(--f-acento);
+}
+
+/* ---------- Layout de pantalla ---------- */
+
+/* Cada pantalla: cabecera fija arriba, contenido con scroll, nav abajo. */
+.f-pantalla {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--f-fondo);
+}
+
+.f-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* Deja hueco para la nav inferior y la zona de gestos de Android */
+  scroll-padding-bottom: 24px;
+}
+
+/* Barra de acciones pegada abajo, encima de la nav */
+.f-acciones {
+  flex: none;
+  padding: 10px 18px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--f-fondo);
+  border-top: 1px solid var(--f-borde-sutil);
+}
+
+/* ---------- Utilidades ---------- */
+
+.f-fila-sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.f-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.f-duo {
+  display: flex;
+  gap: 10px;
+}
+
+.f-duo > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.f-ok {
+  color: var(--f-ok);
+}
+
+.f-aviso {
+  color: var(--f-aviso);
+}
+
+.f-alerta {
+  color: var(--f-alerta);
+}
+
+.f-acento {
+  color: var(--f-acento);
+}
+
+.f-tenue {
+  color: var(--f-texto2);
+}
+
+.f-tenue2 {
+  color: var(--f-texto3);
+}
+
+.f-pretty {
+  text-wrap: pretty;
+}
+
+/* Punto de color del semáforo */
+.f-punto {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes f-pulso {
+  0% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes f-respira {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.82;
+  }
+}
+
+@keyframes f-entra {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.f-entra {
+  animation: f-entra 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
