@@ -19,6 +19,7 @@ const SALIDA = join(AQUI, "..", "public", "iconos");
 
 const NEGRO = [0, 0, 0];
 const CIAN = [47, 216, 245]; // #2FD8F5, el acento del sistema de diseño
+const BLANCO = [255, 255, 255];
 
 /**
  * La F de FORJA en geometría pura, en coordenadas del lienzo de 512:
@@ -46,10 +47,13 @@ function dentroDeRedondeado(px, py, x, y, ancho, alto, radio) {
 /**
  * Genera los píxeles RGBA del icono.
  * @param tam            lado en píxeles
- * @param escalaContenido 1 = a sangre; <1 deja zona segura (iconos maskable)
+ * @param escalaContenido 1 = a sangre; <1 deja zona segura (iconos maskable);
+ *                        >1 amplía el glifo (para el badge, que se ve diminuto)
  * @param radioRelativo  radio de la esquina del fondo, 0 = cuadrado
+ * @param fondo          color de fondo, o null para fondo transparente
+ * @param tinta          color de las barras de la F
  */
-function dibujar(tam, escalaContenido, radioRelativo) {
+function dibujar(tam, escalaContenido, radioRelativo, fondo = NEGRO, tinta = CIAN) {
   const SS = 4; // factor de supermuestreo
   const grande = tam * SS;
   const acumulado = new Float32Array(tam * tam * 4);
@@ -62,10 +66,10 @@ function dibujar(tam, escalaContenido, radioRelativo) {
     for (let x = 0; x < grande; x++) {
       let color = null;
 
-      // Fondo (cuadrado o con esquinas redondeadas).
+      // Fondo (cuadrado o con esquinas redondeadas). Puede ser transparente.
       const enFondo =
         radioFondo > 0 ? dentroDeRedondeado(x, y, 0, 0, grande, grande, radioFondo) : true;
-      if (enFondo) color = NEGRO;
+      if (enFondo) color = fondo;
 
       // Barras, en coordenadas del lienzo original.
       if (enFondo) {
@@ -73,7 +77,7 @@ function dibujar(tam, escalaContenido, radioRelativo) {
         const oy = (y - desplazamiento) / escala;
         for (const [bx, by, bw, bh, br] of BARRAS) {
           if (dentroDeRedondeado(ox, oy, bx, by, bw, bh, br)) {
-            color = CIAN;
+            color = tinta;
             break;
           }
         }
@@ -162,10 +166,16 @@ const iconos = [
   // Maskable: fondo a sangre y contenido al 72 % para que Android pueda
   // recortarlo en círculo, cuadrado o gota sin comerse el dibujo.
   { nombre: "icono-maskable-512.png", tam: 512, contenido: 0.72, radio: 0 },
+  // Badge de notificación: Android ignora el color y pinta solo la SILUETA
+  // (el canal alfa). Con el icono normal, que es un cuadrado opaco, la
+  // silueta es un cuadrado blanco; aquí va la F sola sobre transparente.
+  // La F queda centrada de fábrica (su caja va de x150-364, y110-402 en el
+  // lienzo de 512: centro 257,256) y se amplía porque el badge se ve diminuto.
+  { nombre: "badge-96.png", tam: 96, contenido: 1.5, radio: 0, fondo: null, tinta: BLANCO },
 ];
 
-for (const { nombre, tam, contenido, radio } of iconos) {
-  const datos = png(tam, tam, dibujar(tam, contenido, radio));
+for (const { nombre, tam, contenido, radio, fondo = NEGRO, tinta = CIAN } of iconos) {
+  const datos = png(tam, tam, dibujar(tam, contenido, radio, fondo, tinta));
   writeFileSync(join(SALIDA, nombre), datos);
   console.log(`${nombre} · ${tam}×${tam} · ${(datos.length / 1024).toFixed(1)} KB`);
 }

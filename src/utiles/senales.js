@@ -117,7 +117,10 @@ async function notificar(titulo, cuerpo, patron) {
       renotify: true, // sustituye a la anterior, pero volviendo a avisar
       vibrate: patron, // Android puede ignorarlo y usar su propio patrón
       icon: "iconos/icono-192.png",
-      badge: "iconos/icono-192.png",
+      // El badge es lo que se ve en la barra de estado: Android pinta solo su
+      // silueta, así que tiene que ser la F suelta sobre fondo transparente
+      // (el icono normal, opaco, saldría como un cuadrado blanco).
+      badge: "iconos/badge-96.png",
       lang: "es",
     });
     return true;
