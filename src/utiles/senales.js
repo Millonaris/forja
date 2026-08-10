@@ -115,6 +115,7 @@ async function notificar(titulo, cuerpo, patron) {
       body: cuerpo,
       tag: TAG_AVISO,
       renotify: true, // sustituye a la anterior, pero volviendo a avisar
+      silent: false, // que no la pedimos muda; el canal de Android decide
       vibrate: patron, // Android puede ignorarlo y usar su propio patrón
       icon: "iconos/icono-192.png",
       // El badge es lo que se ve en la barra de estado: Android pinta solo su

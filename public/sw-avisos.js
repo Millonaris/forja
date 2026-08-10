@@ -48,6 +48,9 @@ self.addEventListener("message", (evento) => {
               body: cuerpo,
               tag,
               renotify: true,
+              // Que suene y vibre lo decide Android por su canal de
+              // notificaciones; esto solo deja claro que NO la pedimos muda.
+              silent: false,
               vibrate: patron,
               icon: "iconos/icono-192.png",
               badge: "iconos/badge-96.png",
