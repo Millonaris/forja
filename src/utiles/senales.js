@@ -129,6 +129,47 @@ async function notificar(titulo, cuerpo, patron) {
   }
 }
 
+/*
+ * Despertador en el service worker. La página no puede avisar cuando está en
+ * segundo plano (Android la congela y su reloj se para), así que al empezar
+ * el descanso se le da cuerda a un despertador que vive en el service worker
+ * y dispara la notificación a su hora. Si al sonar la app está delante, el
+ * worker no notifica: la pantalla ya pita y vibra por su cuenta.
+ */
+
+let despertadorPuesto = false;
+
+/** Programa el aviso de fin de descanso dentro de `segundos`. */
+export async function programarAvisoDescanso(segundos) {
+  despertadorPuesto = false;
+  if (!activado.avisos || permisoAvisos() !== "granted") return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    reg.active?.postMessage({
+      tipo: "programar-aviso",
+      enMs: Math.max(0, segundos * 1000),
+      titulo: "Descanso terminado",
+      cuerpo: "Vuelve a la barra.",
+      patron: [0, 150, 90, 150, 90, 300],
+      tag: TAG_AVISO,
+    });
+    despertadorPuesto = true;
+  } catch {
+    /* sin service worker (vite dev): queda el aviso tardío al volver */
+  }
+}
+
+/** Cancela el despertador (descanso saltado, sesión terminada…). */
+export async function cancelarAvisoDescanso() {
+  despertadorPuesto = false;
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    reg?.active?.postMessage({ tipo: "cancelar-aviso" });
+  } catch {
+    /* no había nada programado */
+  }
+}
+
 /** Retira el aviso del cajón: al volver a la app ya no pinta nada. */
 export async function cerrarAvisos() {
   if (!avisosPosibles()) return;
@@ -185,13 +226,15 @@ export const senalDescansoFin = () => {
     vibrar(patron);
   };
 
-  // Con la app delante avisa la propia pantalla; oculta, tiene que hacerlo
-  // Android. Si el aviso del sistema no sale (sin permiso, sin service
-  // worker), al menos se intenta pitar: peor es quedarse sin nada.
+  // Con la app delante avisa la propia pantalla (y el despertador del worker,
+  // si lo había, verá la app visible y callará solo).
   if (!document.hidden) {
     enLaApp();
     return;
   }
+  // Oculta pero con el reloj aún corriendo (pasa en escritorio): si hay
+  // despertador puesto, él se encarga; si no, se intenta el aviso directo.
+  if (despertadorPuesto) return;
   notificar("Descanso terminado", "Vuelve a la barra.", patron).then((salio) => {
     if (!salio) enLaApp();
   });

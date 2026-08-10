@@ -30,7 +30,14 @@ import { useWakeLock } from "../ganchos/useWakeLock.js";
 import { hoyISO } from "../logica/fechas.js";
 import { entero, kgSerie, reloj, serieTexto } from "../logica/formato.js";
 import { bloquesDe, descansoDe, seriesPrevistas } from "../logica/sesionGym.js";
-import { prepararAudio, senalDescansoFin, senalGuardado, vibrar } from "../utiles/senales.js";
+import {
+  cancelarAvisoDescanso,
+  prepararAudio,
+  programarAvisoDescanso,
+  senalDescansoFin,
+  senalGuardado,
+  vibrar,
+} from "../utiles/senales.js";
 
 /** Clave estable de una fila (ejercicio + número de serie). */
 const clave = (exerciseId, serie) => `${exerciseId}#${serie}`;
@@ -166,6 +173,9 @@ export default function EntrenoVivo() {
   // tarjeta resetearía (y mataría) un descanso en marcha.
   const descanso = useCuentaAtras(120, alTerminarDescanso, false);
 
+  // Si sales del entreno con un descanso en marcha, su aviso ya no toca.
+  useEffect(() => () => cancelarAvisoDescanso(), []);
+
   /** Marca una serie: la guarda y arranca el descanso de ese ejercicio. */
   const marcar = async (ejercicio, serie) => {
     if (!sessionId) return;
@@ -202,6 +212,8 @@ export default function EntrenoVivo() {
     descanso.reiniciar(descansoDe(ejercicio));
     descanso.arrancar();
     setDescansando(true);
+    // El despertador del service worker avisa aunque Android congele la app.
+    programarAvisoDescanso(descansoDe(ejercicio));
   };
 
   /** Anota las repeticiones que te quedaban en la serie recién guardada. */
@@ -345,7 +357,11 @@ export default function EntrenoVivo() {
           style={{ borderTop: "1px solid var(--f-acento)", paddingBottom: "calc(12px + var(--f-safe-abajo))" }}
         >
           <button
-            onClick={() => descanso.saltar()}
+            onClick={() => {
+              // Saltas el descanso a mano: el despertador ya no pinta nada.
+              cancelarAvisoDescanso();
+              descanso.saltar();
+            }}
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", gap: 12 }}
           >
             <span style={{ textAlign: "left" }}>
