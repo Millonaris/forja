@@ -14,6 +14,9 @@ export const AJUSTES_POR_DEFECTO = {
   id: 1,
   // Por defecto el plan arranca el lunes de la semana en curso.
   startDate: lunesDe(hoyISO()),
+  // Semanas de diferencia entre el calendario y el plan de carrera. 0 = van
+  // a la par; -1 = vas una semana por detrás (p. ej. repetiste una semana).
+  desfaseCarrera: 0,
   maintenanceKcal: null, // se calcula solo con ≥10 días de datos
   targetKcal: null, // mantenimiento − déficit
   proteinTarget: 180, // gramos, fijo

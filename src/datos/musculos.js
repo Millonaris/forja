@@ -23,6 +23,7 @@ export const MUSCULOS = {
   isquios: "Isquiotibiales",
   gluteo: "Glúteo",
   gemelo: "Gemelo",
+  tibial: "Tibial anterior",
   lumbar: "Lumbar",
   core: "Core",
   antebrazo: "Antebrazo",
@@ -50,6 +51,17 @@ export const OBJETIVO_SERIES = {
     max: 10,
     mantener: true,
     nota: "Volumen moderado a propósito. El tema del pezón no se arregla con más press: eso son la ecografía y perder grasa.",
+  },
+  gemelo: {
+    min: 6,
+    max: 12,
+    nota: "Gemelo de pie + sóleo en cada día de pierna: fuerza protectora del plan de carrera, no hipertrofia.",
+  },
+  tibial: {
+    min: 2,
+    max: 6,
+    mantener: true,
+    nota: "Trabajo protector contra la periostitis: con las 2 series de cada día de pierna vale.",
   },
 };
 

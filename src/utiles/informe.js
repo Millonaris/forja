@@ -34,7 +34,8 @@ export async function generarInforme() {
   ]);
 
   const inicio = ajustes?.startDate ?? hoy;
-  const semana = semanaDelPlan(inicio, hoy);
+  const desfase = ajustes?.desfaseCarrera || 0;
+  const semana = semanaDelPlan(inicio, hoy) + desfase;
   const mapaSesiones = new Map(sesiones.map((s) => [s.id, s]));
 
   const l = [];
@@ -172,7 +173,7 @@ export async function generarInforme() {
   l.push("");
 
   // ---------- Contexto del día ----------
-  const plan = planDelDia(inicio, hoy);
+  const plan = planDelDia(inicio, hoy, desfase);
   if (plan) {
     const que = plan.gym
       ? `gimnasio (${plan.gym.sessionName})`

@@ -13,8 +13,8 @@ import Cabecera from "../componentes/Cabecera.jsx";
 import DialogoCarrera from "../componentes/DialogoCarrera.jsx";
 import { FASES, LARGAS, faseDeSemana } from "../datos/planCarrera.js";
 import { useAjustes, useCarreras } from "../ganchos/useDatos.js";
-import { construirCalendario, planDelDia, SEMANAS_PLAN } from "../logica/calendario.js";
-import { formatoDia, hoyISO, semanaDelPlan, sumarDias } from "../logica/fechas.js";
+import { construirCalendario, planDelDia, semanaCarreraDe, SEMANAS_PLAN } from "../logica/calendario.js";
+import { formatoDia, hoyISO, sumarDias } from "../logica/fechas.js";
 import { num, ritmo } from "../logica/formato.js";
 import { veredictosCarrera } from "../logica/veredictosCarrera.js";
 
@@ -26,13 +26,14 @@ export default function Carrera() {
 
   const hoy = hoyISO();
   const inicio = ajustes.startDate;
-  const semana = semanaDelPlan(inicio, hoy);
-  const plan = planDelDia(inicio, hoy);
+  const desfase = ajustes.desfaseCarrera || 0;
+  const semana = semanaCarreraDe(ajustes, hoy);
+  const plan = planDelDia(inicio, hoy, desfase);
   const hechaHoy = carreras.find((c) => c.date === hoy);
 
   // Si hoy no toca correr, se enseña la próxima sesión del plan.
-  const proxima = plan?.carrera ? { iso: hoy, carrera: plan.carrera } : buscarProxima(inicio, hoy);
-  const kmPorSemana = agruparKm(carreras, inicio);
+  const proxima = plan?.carrera ? { iso: hoy, carrera: plan.carrera } : buscarProxima(inicio, hoy, desfase);
+  const kmPorSemana = agruparKm(carreras, ajustes);
 
   // Los tres veredictos del motor de carrera: ritmo, volumen y base aeróbica.
   const veredictos = useMemo(() => veredictosCarrera(carreras, hoy), [carreras, hoy]);
@@ -41,11 +42,11 @@ export default function Carrera() {
   const corridasPorSemana = useMemo(() => {
     const m = new Map();
     for (const c of carreras) {
-      const s = c.weekNum ?? semanaDelPlan(inicio, c.date);
+      const s = c.weekNum ?? semanaCarreraDe(ajustes, c.date);
       m.set(s, (m.get(s) || 0) + 1);
     }
     return m;
-  }, [carreras, inicio]);
+  }, [carreras, ajustes]);
 
   return (
     <div className="f-pantalla">
@@ -79,7 +80,7 @@ export default function Carrera() {
 
             <div style={{ font: "400 13.5px/1.4 var(--f-ui)", color: "var(--f-texto2)" }}>
               {proxima.carrera.minutos ? `Total ${proxima.carrera.minutos} min` : `${num(proxima.carrera.km, 1)} km`} ·
-              {" "}ritmo objetivo 6:30-7:00 /km
+              {" "}suave: poder hablar frases enteras
             </div>
 
             {proxima.carrera.movida && (
@@ -292,7 +293,7 @@ export default function Carrera() {
       {dialogo && (
         <DialogoCarrera
           fecha={dialogo.fecha}
-          semana={semanaDelPlan(inicio, dialogo.fecha)}
+          semana={semanaCarreraDe(ajustes, dialogo.fecha)}
           plan={dialogo.plan}
           existente={dialogo.existente}
           onCerrar={() => setDialogo(null)}
@@ -345,8 +346,8 @@ function TarjetaVeredictoCarrera({ etiqueta, v }) {
 }
 
 /** Siguiente día con carrera prevista, mirando hasta 14 días adelante. */
-function buscarProxima(inicio, desde) {
-  const cal = construirCalendario(inicio);
+function buscarProxima(inicio, desde, desfase) {
+  const cal = construirCalendario(inicio, desfase);
   for (let i = 1; i <= 14; i++) {
     const iso = sumarDias(desde, i);
     const dia = cal.get(iso);
@@ -356,10 +357,10 @@ function buscarProxima(inicio, desde) {
 }
 
 /** Suma de km por semana del plan, para la gráfica de volumen. */
-function agruparKm(carreras, inicio) {
+function agruparKm(carreras, ajustes) {
   const porSemana = new Map();
   for (const c of carreras) {
-    const s = c.weekNum ?? semanaDelPlan(inicio, c.date);
+    const s = c.weekNum ?? semanaCarreraDe(ajustes, c.date);
     porSemana.set(s, (porSemana.get(s) || 0) + (c.km || 0));
   }
   return [...porSemana.entries()]

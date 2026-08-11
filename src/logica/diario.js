@@ -30,8 +30,8 @@ export const DOMINIOS = [
  *   planificados, hechos, completo, nota
  * }
  */
-export function estadoDelDia(fechaInicio, iso, registros) {
-  const plan = planDelDia(fechaInicio, iso);
+export function estadoDelDia(fechaInicio, iso, registros, desfase = 0) {
+  const plan = planDelDia(fechaInicio, iso, desfase);
   const override = registros.overrides.get(iso) || {};
 
   const sesionGym = registros.sesionesGym.get(iso) || null;

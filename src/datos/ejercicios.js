@@ -69,7 +69,10 @@ export const EJERCICIOS = [
   ej("pa2", "PIERNA A", 2, "Peso muerto rumano", "3×8-10", { series: 3, min: 8, max: 10, mus: ["isquios", "gluteo"], sec: ["lumbar"] }),
   ej("pa3", "PIERNA A", 3, "Abducción de cadera", "3×12-15", { series: 3, min: 12, max: 15, mus: ["gluteo"] }),
   ej("pa4", "PIERNA A", 4, "Curl femoral", "2×10-15", { series: 2, min: 10, max: 15, mus: ["isquios"] }),
-  ej("pa5", "PIERNA A", 5, "Gemelos", "3×10-20", { series: 3, min: 10, max: 20, mus: ["gemelo"] }),
+  ej("pa5", "PIERNA A", 5, "Gemelos de pie", "3×10-20", { series: 3, min: 10, max: 20, tecnica: "Rodilla recta: trabaja el gemelo.", mus: ["gemelo"] }),
+  // Fuerza protectora del plan de carrera: sóleo y tibial blindan la espinilla.
+  ej("pa9", "PIERNA A", 5.1, "Sóleo (gemelo sentado)", "3×12-15", { series: 3, min: 12, max: 15, ss: "C", estrella: true, tecnica: "Rodilla flexionada: así trabaja el sóleo, el músculo que absorbe el impacto de correr.", mus: ["gemelo"] }),
+  ej("pa10", "PIERNA A", 5.2, "Tibial anterior", "2×15-20", { series: 2, min: 15, max: 20, ss: "C", estrella: true, tecnica: "Talones en el suelo (o apoyado en la pared) y sube las puntas. Es el seguro contra la periostitis.", mus: ["tibial"] }),
   ej("pa6", "PIERNA A", 6, "Extensión lumbar 45°", "2×10-15", { series: 2, min: 10, max: 15, ss: "A", estrella: true, tecnica: "Para al quedar alineado: no pases de ahí.", mus: ["lumbar"], sec: ["gluteo", "isquios"] }),
   ej("pa7", "PIERNA A", 7, "Dead bug", "2×6-8/lado", { series: 2, min: 6, max: 8, ss: "A", tipo: "reps_lado", mus: ["core"] }),
   ej("pa8", "PIERNA A", 8, "Laterales ligeras (al final)", "2×15-20", { series: 2, min: 15, max: 20, mus: ["hombroLateral"], tecnica: "Cinco minutos al final: suman a las 12-16 series semanales de deltoides lateral.", ultima: "Última serie: parciales hasta quemar." }),
@@ -89,7 +92,10 @@ export const EJERCICIOS = [
   ej("pb2", "PIERNA B", 2, "Zancada búlgara torso inclinado ~30°", "3×8-12/pierna", { series: 3, min: 8, max: 12, tipo: "reps_lado", tecnica: "Torso inclinado unos 30°: así se lleva el trabajo el glúteo.", mus: ["gluteo", "cuadriceps"] }),
   ej("pb3", "PIERNA B", 3, "Prensa", "2×10-15", { series: 2, min: 10, max: 15, mus: ["cuadriceps"], sec: ["gluteo"] }),
   ej("pb4", "PIERNA B", 4, "Curl femoral", "2×10-15", { series: 2, min: 10, max: 15, mus: ["isquios"] }),
-  ej("pb5", "PIERNA B", 5, "Gemelos", "3×10-20", { series: 3, min: 10, max: 20, mus: ["gemelo"] }),
+  ej("pb5", "PIERNA B", 5, "Gemelos de pie", "3×10-20", { series: 3, min: 10, max: 20, tecnica: "Rodilla recta: trabaja el gemelo.", mus: ["gemelo"] }),
+  // Fuerza protectora del plan de carrera: sóleo y tibial blindan la espinilla.
+  ej("pb9", "PIERNA B", 5.1, "Sóleo (gemelo sentado)", "3×12-15", { series: 3, min: 12, max: 15, ss: "C", estrella: true, tecnica: "Rodilla flexionada: así trabaja el sóleo, el músculo que absorbe el impacto de correr.", mus: ["gemelo"] }),
+  ej("pb10", "PIERNA B", 5.2, "Tibial anterior", "2×15-20", { series: 2, min: 15, max: 20, ss: "C", estrella: true, tecnica: "Talones en el suelo (o apoyado en la pared) y sube las puntas. Es el seguro contra la periostitis.", mus: ["tibial"] }),
   ej("pb6", "PIERNA B", 6, "Plancha", "2×20-35 s", { series: 2, min: 20, max: 35, ss: "A", tipo: "tiempo", mus: ["core"] }),
   ej("pb7", "PIERNA B", 7, "Pallof press", "2×10-12/lado", { series: 2, min: 10, max: 12, ss: "A", tipo: "reps_lado", mus: ["core"] }),
   ej("pb8", "PIERNA B", 8, "Laterales ligeras (al final)", "2×15-20", { series: 2, min: 15, max: 20, mus: ["hombroLateral"], tecnica: "Cinco minutos al final: suman a las 12-16 series semanales de deltoides lateral.", ultima: "Última serie: parciales hasta quemar." }),

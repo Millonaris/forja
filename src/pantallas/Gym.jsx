@@ -22,7 +22,7 @@ export default function Gym() {
   const sesiones = useSesionesGym(12);
 
   const hoy = hoyISO();
-  const plan = planDelDia(ajustes.startDate, hoy);
+  const plan = planDelDia(ajustes.startDate, hoy, ajustes.desfaseCarrera || 0);
 
   // Si hoy no toca gym, se busca el próximo día que sí.
   const siguienteDia = plan?.gym ? null : buscarProximoGym(ajustes.startDate, hoy);

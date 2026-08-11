@@ -36,7 +36,7 @@ export default function Nutricion() {
   const [dialogo, setDialogo] = useState(false);
 
   const hoy = hoyISO();
-  const plan = planDelDia(ajustes.startDate, hoy);
+  const plan = planDelDia(ajustes.startDate, hoy, ajustes.desfaseCarrera || 0);
 
   const calculo = useMemo(() => calcularMantenimiento(registros), [registros]);
   const medias = useMemo(() => mediaMovil(registros, 7), [registros]);

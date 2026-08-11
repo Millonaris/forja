@@ -38,28 +38,32 @@ export default function Diario() {
   const [todas, setTodas] = useState(false);
 
   const inicio = ajustes.startDate;
+  const desfase = ajustes.desfaseCarrera || 0;
   const semanaActual = semanaDelPlan(inicio, hoy);
+  // Si el plan de carrera va por detrás del calendario, el diario dura más
+  // semanas: las que hagan falta para que el 20K siga dentro.
+  const totalSemanas = SEMANAS_PLAN + Math.max(0, -desfase);
 
   // Ventana por defecto: las 3 semanas anteriores, la actual y la siguiente.
   const semanasVisibles = useMemo(() => {
-    const todasLasSemanas = Array.from({ length: SEMANAS_PLAN }, (_, i) => i + 1);
+    const todasLasSemanas = Array.from({ length: totalSemanas }, (_, i) => i + 1);
     if (todas) return todasLasSemanas;
-    const desde = Math.max(1, Math.min(semanaActual - 3, SEMANAS_PLAN - 4));
+    const desde = Math.max(1, Math.min(semanaActual - 3, totalSemanas - 4));
     return todasLasSemanas.filter((s) => s >= desde && s <= desde + 4);
-  }, [todas, semanaActual]);
+  }, [todas, semanaActual, totalSemanas]);
 
   // Estado de los 182 días. Se recalcula solo cuando cambian los registros.
   const estados = useMemo(() => {
     if (!registros) return null;
-    const cal = construirCalendario(inicio);
+    const cal = construirCalendario(inicio, desfase);
     const mapa = new Map();
-    for (const iso of cal.keys()) mapa.set(iso, estadoDelDia(inicio, iso, registros));
+    for (const iso of cal.keys()) mapa.set(iso, estadoDelDia(inicio, iso, registros, desfase));
     return mapa;
-  }, [registros, inicio]);
+  }, [registros, inicio, desfase]);
 
   if (!estados) return <div className="f-pantalla" />;
 
-  const estadoElegido = estados.get(elegido) || estadoDelDia(inicio, elegido, registros);
+  const estadoElegido = estados.get(elegido) || estadoDelDia(inicio, elegido, registros, desfase);
 
   // Adherencia de la semana en curso y del plan completo hasta hoy.
   const deLaSemana = semanaDe(hoy)
@@ -144,7 +148,7 @@ export default function Diario() {
             style={{ minHeight: 40, marginTop: 14, fontSize: 13, color: "var(--f-texto2)" }}
             onClick={() => setTodas((v) => !v)}
           >
-            {todas ? "VER SOLO ESTAS SEMANAS" : `VER LAS ${SEMANAS_PLAN} SEMANAS`}
+            {todas ? "VER SOLO ESTAS SEMANAS" : `VER LAS ${totalSemanas} SEMANAS`}
           </button>
 
           <div style={{ display: "flex", gap: 14, marginTop: 12, flexWrap: "wrap", font: "500 9.5px/1 var(--f-mono)", color: "var(--f-texto3)" }}>

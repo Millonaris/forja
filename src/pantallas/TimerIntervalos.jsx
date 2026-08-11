@@ -21,7 +21,8 @@ import { INTERVALOS_F1, bloquesIntervalos } from "../datos/planCarrera.js";
 import { useAjustes } from "../ganchos/useDatos.js";
 import { useCuentaAtras } from "../ganchos/useTemporizador.js";
 import { useWakeLock } from "../ganchos/useWakeLock.js";
-import { hoyISO, semanaDelPlan } from "../logica/fechas.js";
+import { semanaCarreraDe } from "../logica/calendario.js";
+import { hoyISO } from "../logica/fechas.js";
 import { reloj } from "../logica/formato.js";
 import {
   prepararAudio,
@@ -45,9 +46,20 @@ export default function TimerIntervalos() {
   const navegar = useNavigate();
   const { ajustes } = useAjustes();
 
-  const semanaNum = Math.min(Math.max(Number(semana) || 1, 1), 8);
-  const bloques = useMemo(() => bloquesIntervalos(semanaNum), [semanaNum]);
-  const protocolo = INTERVALOS_F1[semanaNum];
+  // La clave viene en la URL: 1-7, o "8m"/"8s" para las dos sesiones de la semana 8.
+  const clave = INTERVALOS_F1[semana] ? semana : 1;
+  const semanaNum = Math.min(Math.max(parseInt(clave, 10) || 1, 1), 8);
+  const bloques = useMemo(() => bloquesIntervalos(clave), [clave]);
+  const protocolo = INTERVALOS_F1[clave];
+
+  // Todas las sesiones de la fase 1 en orden, para poder cambiar la de hoy
+  // a mano: si te ves fuerte haces la siguiente, si te ves flojo la anterior.
+  const CLAVES = Object.keys(INTERVALOS_F1);
+  const posicion = CLAVES.indexOf(String(clave));
+  const cambiarSesion = (salto) => {
+    const destino = CLAVES[posicion + salto];
+    if (destino) navegar(`/intervalos/${destino}`, { replace: true });
+  };
 
   const [indice, setIndice] = useState(0);
   const [arrancado, setArrancado] = useState(false);
@@ -130,6 +142,29 @@ export default function TimerIntervalos() {
             </div>
             <div style={{ font: "400 14px/1.5 var(--f-ui)", color: "var(--f-texto2)", marginTop: 10 }}>
               Con 5 min de calentamiento y 5 de enfriamiento andando. Total {minutosTotales} min.
+            </div>
+
+            {/* Cambiar la sesión de HOY a mano, sin tocar el plan. */}
+            <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+              <button
+                className="f-boton f-boton--fantasma f-boton--peq"
+                style={{ flex: 1, opacity: posicion > 0 ? 1 : 0.35 }}
+                disabled={posicion <= 0}
+                onClick={() => cambiarSesion(-1)}
+              >
+                ‹ MÁS SUAVE
+              </button>
+              <button
+                className="f-boton f-boton--fantasma f-boton--peq"
+                style={{ flex: 1, opacity: posicion < CLAVES.length - 1 ? 1 : 0.35 }}
+                disabled={posicion >= CLAVES.length - 1}
+                onClick={() => cambiarSesion(1)}
+              >
+                MÁS DURA ›
+              </button>
+            </div>
+            <div className="f-pretty" style={{ font: "400 12px/1.5 var(--f-ui)", color: "var(--f-texto3)", marginTop: 8 }}>
+              ¿Te ves fuerte o flojo hoy? Cambia solo el entreno de hoy: el plan no se mueve.
             </div>
           </div>
 
@@ -306,7 +341,7 @@ export default function TimerIntervalos() {
       {dialogo && (
         <DialogoCarrera
           fecha={hoyISO()}
-          semana={semanaDelPlan(ajustes.startDate, hoyISO())}
+          semana={semanaCarreraDe(ajustes, hoyISO())}
           plan={{
             tipo: "intervalos",
             // Estimación honesta a partir del tiempo corriendo, para no partir de cero.

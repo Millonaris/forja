@@ -15,8 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../datos/db.js";
 import { FASES } from "../datos/planCarrera.js";
 import { useAjustes, useCarreras, useCuerpo, usePostura } from "../ganchos/useDatos.js";
-import { planDelDia, SEMANAS_PLAN } from "../logica/calendario.js";
-import { formatoDiaMayus, haceCuanto, hoyISO, sumarDias, semanaDelPlan } from "../logica/fechas.js";
+import { planDelDia, semanaCarreraDe, SEMANAS_PLAN } from "../logica/calendario.js";
+import { formatoDiaMayus, haceCuanto, hoyISO, sumarDias } from "../logica/fechas.js";
 import { conSigno, entero, peso } from "../logica/formato.js";
 import { duracionEstimada, numeroBloques } from "../logica/sesionGym.js";
 import { ejerciciosDe } from "../datos/ejercicios.js";
@@ -44,10 +44,11 @@ export default function Hoy() {
   const hoy = hoyISO();
   const manana = sumarDias(hoy, 1);
   const inicio = ajustes.startDate;
-  const semana = semanaDelPlan(inicio, hoy);
+  const desfase = ajustes.desfaseCarrera || 0;
+  const semana = semanaCarreraDe(ajustes, hoy);
 
-  const plan = planDelDia(inicio, hoy);
-  const planManana = planDelDia(inicio, manana);
+  const plan = planDelDia(inicio, hoy, desfase);
+  const planManana = planDelDia(inicio, manana, desfase);
 
   const registrosCuerpo = useCuerpo(30);
   const carreras = useCarreras();

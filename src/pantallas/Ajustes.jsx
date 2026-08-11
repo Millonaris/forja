@@ -14,6 +14,7 @@ import { NOMBRES_SESION, ejerciciosDe } from "../datos/ejercicios.js";
 import { guardarAjustes } from "../datos/db.js";
 import { borrarRegistros } from "../datos/semilla.js";
 import { useAjustes } from "../ganchos/useDatos.js";
+import { FASES, INTERVALOS_F1, LARGAS } from "../datos/planCarrera.js";
 import { SEMANAS_PLAN, construirCalendario } from "../logica/calendario.js";
 import { formatoCorto, hoyISO, semanaDelPlan } from "../logica/fechas.js";
 import { entero } from "../logica/formato.js";
@@ -117,9 +118,13 @@ export default function Ajustes() {
     }
   };
 
-  const semana = semanaDelPlan(ajustes.startDate, hoyISO());
-  // El día del 20K es el sábado de la semana 26, no el último día del plan.
-  const diaDel20K = [...construirCalendario(ajustes.startDate).values()].find(
+  // Semana que marca el calendario y semana del plan de carrera: pueden ir
+  // separadas si aquí se ha elegido repetir, retroceder o adelantar.
+  const desfase = ajustes.desfaseCarrera || 0;
+  const semanaNatural = semanaDelPlan(ajustes.startDate, hoyISO());
+  const semanaPlan = Math.min(Math.max(semanaNatural + desfase, 1), SEMANAS_PLAN);
+  // El día del 20K es el domingo de la última semana del plan.
+  const diaDel20K = [...construirCalendario(ajustes.startDate, desfase).values()].find(
     (d) => d.carrera?.esCarreraObjetivo,
   )?.iso;
 
@@ -146,7 +151,16 @@ export default function Ajustes() {
             valor={ajustes.startDate}
             onCambio={(v) => v && cambiar({ startDate: v })}
           />
-          <FilaDato etiqueta="Semana actual" valor={`${semana} de ${SEMANAS_PLAN}`} acento />
+          <FilaSelectorSemana
+            valor={semanaPlan}
+            onCambio={(elegida) => cambiar({ desfaseCarrera: elegida - semanaNatural })}
+          />
+          {desfase !== 0 && (
+            <div style={{ padding: "0 15px 12px", font: "400 12px/1.5 var(--f-ui)", color: "var(--f-texto3)" }}>
+              El plan de correr va {Math.abs(desfase)} semana{Math.abs(desfase) === 1 ? "" : "s"}{" "}
+              {desfase < 0 ? "por detrás" : "por delante"} del calendario. El gimnasio no cambia.
+            </div>
+          )}
           <FilaDato etiqueta="Día del 20K" valor={diaDel20K ? formatoCorto(diaDel20K) : "—"} acento />
           <FilaDato etiqueta="Días de gimnasio" valor="L · X · V" />
           <FilaDato etiqueta="Rotación" valor="T-P-T-P continua" />
@@ -356,6 +370,55 @@ function Grupo({ titulo, children }) {
     <div>
       <div className="f-etiqueta" style={{ marginBottom: 9 }}>{titulo}</div>
       <div className="f-tarjeta">{children}</div>
+    </div>
+  );
+}
+
+/** Qué toca en cada semana del plan de carrera, para el selector. */
+function textoSemanaPlan(s) {
+  if (s <= 8) {
+    const texto = s === 8 ? "20-25′ y 30′ seguidos" : INTERVALOS_F1[s].texto;
+    return `Sem ${s} · ${texto}`;
+  }
+  const larga = LARGAS[s];
+  if (larga.carrera) return `Sem ${s} · la semana del 20K`;
+  return `Sem ${s} · larga ${larga.rango ?? larga.km} km${larga.descarga ? " · descarga" : ""}`;
+}
+
+/**
+ * Selector de la semana del plan de carrera, agrupado por fases. Elegir una
+ * semana recoloca SOLO el plan de correr: si repites una semana o cambias de
+ * fase, aquí se le dice a la app dónde estás de verdad.
+ */
+function FilaSelectorSemana({ valor, onCambio }) {
+  return (
+    <div className="f-fila" style={{ justifyContent: "space-between", padding: "13px 15px", gap: 12 }}>
+      <span style={{ font: "500 14.5px/1.2 var(--f-ui)", flex: "none" }}>Semana de carrera</span>
+      <select
+        value={valor}
+        onChange={(e) => onCambio(Number(e.target.value))}
+        aria-label="Semana del plan de carrera"
+        style={{
+          background: "var(--f-sup2)",
+          border: "1px solid var(--f-borde2)",
+          borderRadius: 9,
+          padding: "10px 11px",
+          font: "600 13px/1 var(--f-mono)",
+          color: "var(--f-acento)",
+          minHeight: 44,
+          maxWidth: "60%",
+        }}
+      >
+        {FASES.map((f) => (
+          <optgroup key={f.n} label={`${f.nombre} · SEMANAS ${f.desde}-${f.hasta}`}>
+            {Array.from({ length: f.hasta - f.desde + 1 }, (_, i) => f.desde + i).map((s) => (
+              <option key={s} value={s}>
+                {textoSemanaPlan(s)}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
     </div>
   );
 }
