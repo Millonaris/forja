@@ -3,7 +3,7 @@
  *
  * Junta, para cada día, qué toca: sesión de gimnasio (por rotación desde la
  * fecha de inicio), carrera (por las fechas REALES del plan del entrenador,
- * que viven en planCarrera.js), postura y dieta.
+ * que viven en planCarrera.js) y postura. De dieta nada: eso lo lleva Fitia.
  *
  * El gimnasio se ancla a la fecha de inicio de la app; la carrera se ancla a
  * sus propias fechas (14-ago-2026 → 20K el 13-feb-2027). `desfase` recoloca
@@ -47,8 +47,7 @@ const cache = new Map();
  *   iso, semana, semanaCarrera, fase, diaSemana,
  *   gym:     { sessionName, esPierna, aviso } | null,
  *   carrera: { tipo, etiqueta, detalle, km, minutos } | null,
- *   postura: bool,   conExtras: bool,
- *   dieta:   true,
+ *   postura: bool,   conExtras: bool,   vacaciones: bool,
  * }
  */
 export function construirCalendario(fechaInicio, desfase = 0) {
@@ -80,7 +79,7 @@ export function construirCalendario(fechaInicio, desfase = 0) {
     }
   }
 
-  // 2) Día a día: gym + carrera + postura + dieta.
+  // 2) Día a día: gym + carrera + postura.
   for (let semana = 1; semana <= totalSemanas; semana++) {
     for (let i = 0; i < 7; i++) {
       const iso = sumarDias(lunes1, (semana - 1) * 7 + i);
@@ -121,7 +120,6 @@ export function construirCalendario(fechaInicio, desfase = 0) {
         // La rutina postural se planifica de lunes a sábado (objetivo 5-6 días).
         postura: dow <= 6,
         conExtras: DIAS_EXTRAS.includes(dow),
-        dieta: true,
       });
     }
   }

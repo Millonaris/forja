@@ -17,10 +17,6 @@ export const AJUSTES_POR_DEFECTO = {
   // Semanas de diferencia entre el calendario y el plan de carrera. 0 = van
   // a la par; -1 = vas una semana por detrás (p. ej. repetiste una semana).
   desfaseCarrera: 0,
-  maintenanceKcal: null, // se calcula solo con ≥10 días de datos
-  targetKcal: null, // mantenimiento − déficit
-  proteinTarget: 180, // gramos, fijo
-  deficitKcal: 250, // dentro del rango acordado 200-300
   tema: "oscuro",
   // Color de acento de la interfaz. "cian" es el original.
   paleta: "cian",

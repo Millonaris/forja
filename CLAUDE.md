@@ -3,7 +3,8 @@
 ## Qué es esto
 
 App personal de entrenamiento de Jose (un solo usuario): gimnasio, plan de carrera
-0→20K en 26 semanas, postura y nutrición. PWA instalable, 100 % local: sin
+0→20K en 26 semanas, postura y peso diario. **De dieta, nada**: las kcal y macros
+las lleva en Fitia, fuera de esta app. PWA instalable, 100 % local: sin
 servidor, sin cuentas; todos los datos viven en el móvil (IndexedDB con Dexie).
 React + Vite. Se publica en GitHub Pages: https://millonaris.github.io/forja/
 

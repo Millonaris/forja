@@ -176,32 +176,6 @@ export default function Ajustes() {
           <FilaDato etiqueta="Plan de carrera" valor="0 → 20K · 3 fases" />
         </Grupo>
 
-        {/* ---- Nutrición ---- */}
-        <Grupo titulo="NUTRICIÓN">
-          <FilaDato
-            etiqueta="Mantenimiento fijado"
-            valor={ajustes.maintenanceKcal ? `${entero(ajustes.maintenanceKcal)} kcal` : "sin calcular"}
-          />
-          <FilaNumero
-            etiqueta="Déficit diario"
-            valor={ajustes.deficitKcal ?? 250}
-            sufijo="kcal"
-            paso={50}
-            min={0}
-            max={600}
-            onCambio={(v) => cambiar({ deficitKcal: v })}
-          />
-          <FilaNumero
-            etiqueta="Proteína objetivo"
-            valor={ajustes.proteinTarget ?? 180}
-            sufijo="g"
-            paso={5}
-            min={100}
-            max={260}
-            onCambio={(v) => cambiar({ proteinTarget: v })}
-          />
-        </Grupo>
-
         {/* ---- Apariencia y avisos ---- */}
         <Grupo titulo="APARIENCIA Y AVISOS">
           <div className="f-fila" style={{ justifyContent: "space-between" }}>
@@ -453,33 +427,6 @@ function FilaEditable({ etiqueta, valor, tipo, onCambio }) {
           minHeight: 44,
         }}
       />
-    </div>
-  );
-}
-
-function FilaNumero({ etiqueta, valor, sufijo, paso, min, max, onCambio }) {
-  return (
-    <div className="f-fila" style={{ justifyContent: "space-between", padding: "11px 15px" }}>
-      <span style={{ flex: 1, minWidth: 0, font: "500 14.5px/1.2 var(--f-ui)" }}>{etiqueta}</span>
-      <span style={{ display: "flex", alignItems: "center", gap: 10, flex: "none" }}>
-        <button
-          onClick={() => onCambio(Math.max(min, valor - paso))}
-          aria-label={`Bajar ${etiqueta}`}
-          style={{ width: 44, height: 44, borderRadius: 10, border: "1px solid var(--f-borde2)", font: "700 20px/1 var(--f-display)" }}
-        >
-          −
-        </button>
-        <span style={{ font: "600 14px/1 var(--f-mono)", color: "var(--f-acento)", minWidth: 62, textAlign: "center" }}>
-          {entero(valor)} {sufijo}
-        </span>
-        <button
-          onClick={() => onCambio(Math.min(max, valor + paso))}
-          aria-label={`Subir ${etiqueta}`}
-          style={{ width: 44, height: 44, borderRadius: 10, border: "1px solid var(--f-borde2)", font: "700 20px/1 var(--f-display)" }}
-        >
-          +
-        </button>
-      </span>
     </div>
   );
 }

@@ -1,16 +1,17 @@
 /*
- * FORJA · Apuntar peso y kcal.
+ * FORJA · Apuntar el peso del día.
  *
  * Es la acción más frecuente del día, así que se abre precargada con el último
  * peso conocido: en el caso normal (has variado 100 g) son dos toques y fuera.
  * Los ± mueven de 100 en 100 g para no tener que sacar el teclado casi nunca.
+ * Solo peso: la dieta la lleva Fitia, no esta app.
  */
 
 import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import { db } from "../datos/db.js";
-import { entero, peso as fmtPeso } from "../logica/formato.js";
+import { peso as fmtPeso } from "../logica/formato.js";
 import { formatoDia, hoyISO } from "../logica/fechas.js";
 import { senalGuardado } from "../utiles/senales.js";
 
@@ -33,7 +34,6 @@ export default function DialogoPeso({ fecha, onCerrar }) {
   );
 
   const [kg, setKg] = useState(null);
-  const [kcal, setKcal] = useState("");
   const [guardando, setGuardando] = useState(false);
 
   // Se inicializa una sola vez, cuando ya sabemos qué había en la base.
@@ -41,19 +41,13 @@ export default function DialogoPeso({ fecha, onCerrar }) {
   useEffect(() => {
     if (registro === undefined || ultimoPeso === undefined) return;
     setKg(registro?.kg ?? ultimoPeso ?? 96);
-    setKcal(registro?.kcal != null ? String(registro.kcal) : "");
   }, [registro, ultimoPeso]);
 
   const ajustar = (delta) => setKg((v) => Math.round(((v ?? 96) + delta) * 10) / 10);
 
   const guardar = async () => {
     setGuardando(true);
-    const kcalNum = kcal.trim() === "" ? null : Number(kcal.replace(",", "."));
-    await db.bodyLog.put({
-      date: fecha,
-      kg: kg ?? null,
-      kcal: Number.isFinite(kcalNum) ? Math.round(kcalNum) : null,
-    });
+    await db.bodyLog.put({ date: fecha, kg: kg ?? null });
     senalGuardado();
     onCerrar();
   };
@@ -63,7 +57,7 @@ export default function DialogoPeso({ fecha, onCerrar }) {
   return (
     <div
       role="dialog"
-      aria-label="Apuntar peso y calorías"
+      aria-label="Apuntar el peso"
       onClick={onCerrar}
       style={{
         position: "fixed",
@@ -124,23 +118,6 @@ export default function DialogoPeso({ fecha, onCerrar }) {
           >
             +
           </button>
-        </div>
-
-        <div>
-          <div className="f-etiqueta" style={{ marginBottom: 8 }}>CALORÍAS DEL DÍA</div>
-          <input
-            className="f-campo"
-            type="number"
-            inputMode="numeric"
-            placeholder="2 350"
-            value={kcal}
-            onChange={(e) => setKcal(e.target.value)}
-          />
-          {registro?.kcal != null && (
-            <div style={{ font: "400 12px/1.3 var(--f-ui)", color: "var(--f-texto3)", marginTop: 8 }}>
-              Ya tenías {entero(registro.kcal)} kcal apuntadas hoy.
-            </div>
-          )}
         </div>
 
         <button className="f-boton" onClick={guardar} disabled={guardando}>

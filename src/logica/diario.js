@@ -9,14 +9,13 @@
 
 import { planDelDia } from "./calendario.js";
 import { diaSemana, sumarDias } from "./fechas.js";
-import { entero, num } from "./formato.js";
+import { num } from "./formato.js";
 
-/** Los cuatro dominios que se puntúan cada día. */
+/** Los tres dominios que se puntúan cada día. La dieta va aparte, en Fitia. */
 export const DOMINIOS = [
   { clave: "gym", etiqueta: "Gimnasio" },
   { clave: "run", etiqueta: "Carrera" },
   { clave: "post", etiqueta: "Postura" },
-  { clave: "diet", etiqueta: "Dieta" },
 ];
 
 /**
@@ -26,7 +25,7 @@ export const DOMINIOS = [
  *                    todos indexados por fecha ISO.
  * @returns {
  *   iso, plan,
- *   checks: { gym: {planificado, hecho, origen, detalle}, run:…, post:…, diet:… },
+ *   checks: { gym: {planificado, hecho, origen, detalle}, run:…, post:… },
  *   planificados, hechos, completo, nota
  * }
  */
@@ -37,7 +36,6 @@ export function estadoDelDia(fechaInicio, iso, registros, desfase = 0) {
   const sesionGym = registros.sesionesGym.get(iso) || null;
   const carrera = registros.carreras.get(iso) || null;
   const postura = registros.postura.get(iso) || null;
-  const cuerpo = registros.cuerpo.get(iso) || null;
 
   // `auto` es lo que dicen los datos; `override` lo pisa si está definido.
   const resolver = (clave, planificado, auto, detalle) => {
@@ -71,7 +69,6 @@ export function estadoDelDia(fechaInicio, iso, registros, desfase = 0) {
       !!postura?.fullDone,
       postura ? `${postura.completedIds?.length || 0} ejercicios` : null,
     ),
-    diet: resolver("diet", true, cuerpo?.kcal != null, cuerpo?.kcal != null ? `${entero(cuerpo.kcal)} kcal` : null),
   };
 
   const planificados = DOMINIOS.filter((d) => checks[d.clave].planificado).length;

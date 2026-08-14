@@ -3,8 +3,7 @@
  *
  * El peso manda: el objetivo es pesarse CADA día, así que lo primero es el
  * peso de hoy en grande, luego la gráfica diaria y la tabla día a día (cada
- * fila se puede tocar para corregirla). La media de 7 días y las kcal tienen
- * su pantalla completa en "Peso y kcal"; la postura, la suya.
+ * fila se puede tocar para corregirla). De dieta, nada: eso lo lleva Fitia.
  */
 
 import { useMemo, useState } from "react";
@@ -17,8 +16,8 @@ import { useAjustes, useCuerpo as useRegistrosCuerpo, usePostura } from "../ganc
 import { idsPrincipales } from "../datos/rutinaPostural.js";
 import { rachaPostural } from "../logica/diario.js";
 import { formatoCorto, formatoDia, hoyISO, semanaDelPlan } from "../logica/fechas.js";
-import { conSigno, entero, num, peso as fmtPeso } from "../logica/formato.js";
-import { calcularMantenimiento, mediaMovil, objetivoKcal, tendenciaSemanal } from "../logica/nutricion.js";
+import { conSigno, num, peso as fmtPeso } from "../logica/formato.js";
+import { mediaMovil, tendenciaSemanal } from "../logica/peso.js";
 
 export default function Cuerpo() {
   const navegar = useNavigate();
@@ -34,7 +33,6 @@ export default function Cuerpo() {
 
   const medias = useMemo(() => mediaMovil(registros, 7), [registros]);
   const tendencia = useMemo(() => tendenciaSemanal(registros.slice(-21)), [registros]);
-  const calculo = useMemo(() => calcularMantenimiento(registros), [registros]);
 
   // Solo los días con peso apuntado, ordenados de antiguo a reciente.
   const pesajes = useMemo(() => registros.filter((r) => r.kg != null), [registros]);
@@ -42,8 +40,6 @@ export default function Cuerpo() {
   const ultimo = pesajes[pesajes.length - 1] ?? null;
 
   const mediaActual = medias.length ? medias[medias.length - 1].media : null;
-  const mantenimiento = calculo.fiable ? calculo.kcal : ajustes.maintenanceKcal;
-  const objetivo = objetivoKcal(mantenimiento, ajustes.deficitKcal ?? 250);
 
   const principales = idsPrincipales(semana);
   const posturaHoy = posturaPorDia.get(hoy);
@@ -184,11 +180,6 @@ export default function Cuerpo() {
                     {formatoDia(r.date)}
                     {r.date === hoy ? " · hoy" : ""}
                   </span>
-                  {r.kcal != null && (
-                    <span style={{ display: "block", font: "400 11.5px/1.2 var(--f-ui)", color: "var(--f-texto3)", marginTop: 4 }}>
-                      {entero(r.kcal)} kcal
-                    </span>
-                  )}
                 </span>
                 <span className="f-cifra" style={{ fontSize: 20, flex: "none" }}>
                   {fmtPeso(r.kg)} <span style={{ fontSize: 12, color: "var(--f-texto2)" }}>kg</span>
@@ -213,30 +204,6 @@ export default function Cuerpo() {
             </div>
           )}
         </div>
-
-        {/* ---- Kcal y tendencia (pantalla completa) ---- */}
-        <button
-          className="f-tarjeta"
-          style={{ padding: "14px 15px", textAlign: "left", width: "100%", borderRadius: 16 }}
-          onClick={() => navegar("/nutricion")}
-        >
-          <div className="f-fila-sb">
-            <span className="f-etiqueta">KCAL Y TENDENCIA</span>
-            <span style={{ color: "var(--f-texto3)", font: "600 16px/1 var(--f-ui)" }}>›</span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: 10,
-              font: "400 12.5px/1.3 var(--f-ui)",
-              color: "var(--f-texto2)",
-            }}
-          >
-            <span>{hoyRegistro?.kcal != null ? `Hoy ${entero(hoyRegistro.kcal)} kcal` : "Hoy sin kcal apuntadas"}</span>
-            <span style={{ color: "var(--f-acento)" }}>{objetivo ? `objetivo ${entero(objetivo)}` : "sin objetivo"}</span>
-          </div>
-        </button>
 
         {/* ---- Postura ---- */}
         <button

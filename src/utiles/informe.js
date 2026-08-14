@@ -18,7 +18,7 @@ import { SEMANAS_PLAN, planDelDia } from "../logica/calendario.js";
 import { formatoCorto, hoyISO } from "../logica/fechas.js";
 import { num } from "../logica/formato.js";
 import { interferenciaEnHistorial } from "../logica/interferencia.js";
-import { calcularMantenimiento, tendenciaSemanal } from "../logica/nutricion.js";
+import { tendenciaSemanal } from "../logica/peso.js";
 import { agruparPorSesion, semaforoGlobal, veredictoEjercicio } from "../logica/veredictos.js";
 import { veredictosCarrera } from "../logica/veredictosCarrera.js";
 import { estadoVolumen, seriesPorMusculo } from "../logica/volumen.js";
@@ -155,21 +155,16 @@ export async function generarInforme() {
   l.push("");
 
   // ---------- Cuerpo ----------
-  l.push("## Peso y nutrición");
+  // La dieta se lleva en Fitia, fuera de la app: aquí solo viaja el peso.
+  l.push("## Peso");
   if (!cuerpo.length) {
     l.push("Sin registros de peso.");
   } else {
-    const calculo = calcularMantenimiento(cuerpo, 28, hoy);
     const tendencia = tendenciaSemanal(cuerpo.slice(-21));
     const ultimo = [...cuerpo].sort((a, b) => b.date.localeCompare(a.date)).find((r) => r.kg != null);
     l.push(`- Peso actual: ${ultimo ? `${num(ultimo.kg, 1)} kg` : "sin dato"}.`);
     l.push(`- Tendencia: ${tendencia != null ? `${num(tendencia, 2)} kg/semana` : "sin datos suficientes"}.`);
-    l.push(
-      `- Mantenimiento real: ${
-        calculo.fiable ? `${calculo.kcal} kcal (calculado con ${calculo.dias} días)` : `sin calcular (${calculo.motivo})`
-      }.`,
-    );
-    l.push(`- Objetivo: mantenimiento −${ajustes?.deficitKcal ?? 250} kcal, proteína ${ajustes?.proteinTarget ?? 180} g.`);
+    l.push("- La dieta se lleva aparte (Fitia); no hay kcal en este informe.");
   }
   l.push("");
 

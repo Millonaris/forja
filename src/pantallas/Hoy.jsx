@@ -17,11 +17,11 @@ import { FASES } from "../datos/planCarrera.js";
 import { useAjustes, useCarreras, useCuerpo, usePostura } from "../ganchos/useDatos.js";
 import { planDelDia, semanaCarreraDe, SEMANAS_PLAN } from "../logica/calendario.js";
 import { formatoDiaMayus, haceCuanto, hoyISO, sumarDias } from "../logica/fechas.js";
-import { conSigno, entero, peso } from "../logica/formato.js";
+import { conSigno, peso } from "../logica/formato.js";
 import { duracionEstimada, numeroBloques } from "../logica/sesionGym.js";
 import { ejerciciosDe } from "../datos/ejercicios.js";
 import { idsPrincipales } from "../datos/rutinaPostural.js";
-import { mediaMovil } from "../logica/nutricion.js";
+import { mediaMovil } from "../logica/peso.js";
 import { avisoAntesDePierna } from "../logica/interferencia.js";
 import { copiaPendiente } from "../utiles/copiaSeguridad.js";
 import DialogoPeso from "../componentes/DialogoPeso.jsx";
@@ -201,7 +201,7 @@ export default function Hoy() {
               style={{ minHeight: 34, fontSize: 12, borderRadius: 10, color: "var(--f-texto2)" }}
               onClick={() => setDialogoPeso(true)}
             >
-              {cuerpoHoy?.kcal != null ? `${entero(cuerpoHoy.kcal)} KCAL` : "+ KCAL"}
+              {cuerpoHoy?.kg != null ? "CORREGIR" : "APUNTAR"}
             </button>
           </div>
         </div>
@@ -248,7 +248,7 @@ export default function Hoy() {
       {/* ---- Acciones principales, al alcance del pulgar ---- */}
       <div className="f-acciones">
         <button className="f-boton" onClick={() => setDialogoPeso(true)}>
-          APUNTAR PESO Y KCAL
+          APUNTAR PESO
         </button>
       </div>
 

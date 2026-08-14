@@ -39,7 +39,7 @@ export function useSeriesDeSesion(sessionId) {
   );
 }
 
-/** Registro de peso y kcal de los últimos N días. */
+/** Registro de peso de los últimos N días. */
 export function useCuerpo(dias = 120) {
   return useLiveQuery(async () => {
     const desde = sumarDias(hoyISO(), -dias);

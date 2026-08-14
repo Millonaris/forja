@@ -366,7 +366,7 @@ function diagnosticarEstancamiento(ejercicio, historial, planas, contexto = {}) 
       titular: `${planas} sesiones sin moverse`,
       detalle: `Llevas ${planas} sesiones planas. Anota el RIR unas cuantas series y la app podrá decirte si es fatiga o falta de intensidad.`,
       sugerencia:
-        "Mientras tanto: revisa descanso y comida — con 2 min entre series y el objetivo de kcal cubierto suele desbloquearse solo.",
+        "Mientras tanto: revisa descanso y comida — con 2 min entre series y comiendo como toca suele desbloquearse solo.",
       descarga: null,
     };
   }

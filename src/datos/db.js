@@ -38,7 +38,7 @@ db.version(1).stores({
   // Foto de perfil semanal, guardada como Blob comprimido.
   posturePhotos: "week, dateTaken",
 
-  // Peso y kcal del día.
+  // Peso del día. La dieta va aparte, en Fitia.
   bodyLog: "date",
 
   // Overrides manuales del diario + nota libre del día.
