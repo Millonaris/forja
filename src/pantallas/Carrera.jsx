@@ -2,30 +2,22 @@
  * FORJA · Carrera.
  *
  * La sesión de hoy manda; el plan de 26 semanas queda como contexto, resumido
- * en una rejilla que cabe entera en pantalla. Si la larga se ha movido por la
- * regla del viernes-pierna, se dice aquí y no hay que adivinarlo.
+ * en una rejilla que cabe entera en pantalla. Los entrenos se hacen con el
+ * reloj (Garmin): aquí solo se marca cada sesión como hecha.
  */
 
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Cabecera from "../componentes/Cabecera.jsx";
 import DialogoCarrera from "../componentes/DialogoCarrera.jsx";
-import { FASES, LARGAS, faseDeSemana } from "../datos/planCarrera.js";
+import { FASES, LARGAS, faseDeSemana, sesionesDeSemanaCarrera } from "../datos/planCarrera.js";
 import { useAjustes, useCarreras } from "../ganchos/useDatos.js";
-import {
-  construirCalendario,
-  planDelDia,
-  semanaCarreraDe,
-  sesionesDeSemanaCarrera,
-  SEMANAS_PLAN,
-} from "../logica/calendario.js";
+import { construirCalendario, planDelDia, semanaCarreraDe, SEMANAS_PLAN } from "../logica/calendario.js";
 import { formatoDia, hoyISO, sumarDias } from "../logica/fechas.js";
 import { num, ritmo } from "../logica/formato.js";
 import { veredictosCarrera } from "../logica/veredictosCarrera.js";
 
 export default function Carrera() {
-  const navegar = useNavigate();
   const { ajustes } = useAjustes();
   const carreras = useCarreras();
   const [dialogo, setDialogo] = useState(null);
@@ -91,22 +83,6 @@ export default function Carrera() {
               {" "}suave: poder hablar frases enteras
             </div>
 
-            {proxima.carrera.movida && (
-              <div
-                style={{
-                  marginTop: 12,
-                  font: "500 12px/1.4 var(--f-ui)",
-                  color: "var(--f-aviso)",
-                  background: "var(--f-sup2)",
-                  border: "1px solid var(--f-borde)",
-                  borderRadius: "var(--f-r-chip)",
-                  padding: "9px 11px",
-                }}
-              >
-                {proxima.carrera.motivoMovida}
-              </div>
-            )}
-
             {hechaHoy ? (
               <button
                 className="f-boton f-boton--fantasma"
@@ -115,22 +91,19 @@ export default function Carrera() {
               >
                 {num(hechaHoy.km, 1)} KM · {hechaHoy.minutes} MIN · EDITAR
               </button>
-            ) : proxima.carrera.tipo === "intervalos" ? (
-              <button
-                className="f-boton"
-                style={{ marginTop: 16 }}
-                onClick={() => navegar(`/intervalos/${proxima.carrera.semanaIntervalos}`)}
-              >
-                EMPEZAR INTERVALOS
-              </button>
             ) : (
-              <button
-                className="f-boton"
-                style={{ marginTop: 16 }}
-                onClick={() => setDialogo({ fecha: proxima.iso, plan: proxima.carrera })}
-              >
-                REGISTRAR CARRERA
-              </button>
+              <>
+                <button
+                  className="f-boton"
+                  style={{ marginTop: 16 }}
+                  onClick={() => setDialogo({ fecha: proxima.iso, plan: proxima.carrera })}
+                >
+                  MARCAR COMO HECHA
+                </button>
+                <div className="f-pretty" style={{ font: "400 12px/1.5 var(--f-ui)", color: "var(--f-texto3)", marginTop: 10 }}>
+                  El entreno lo lleva el reloj; aquí solo se apunta al terminar.
+                </div>
+              </>
             )}
           </div>
         ) : (
@@ -257,7 +230,9 @@ export default function Carrera() {
               const larga = LARGAS[s];
               const actual = s === semana;
               const hechas = corridasPorSemana.get(s) || 0;
-              const previstas = faseDeSemana(s) === 1 ? 2 : 3;
+              // F1: viernes y lunes. F2-3: dos cortas y la larga, salvo la
+              // semana 26, que solo tiene el rodaje del martes y el 20K.
+              const previstas = faseDeSemana(s) === 1 || s === SEMANAS_PLAN ? 2 : 3;
 
               // El color sale de lo que REALMENTE corriste, no de que la fecha
               // haya pasado: pintar de verde una semana en blanco sería mentir.
@@ -310,8 +285,7 @@ export default function Carrera() {
           semanaActual={semana}
           onElegir={(sesion) => {
             setSemanaElegida(null);
-            if (sesion.tipo === "intervalos") navegar(`/intervalos/${sesion.semanaIntervalos}`);
-            else setDialogo({ fecha: hoy, plan: sesion });
+            setDialogo({ fecha: hoy, plan: sesion });
           }}
           onCerrar={() => setSemanaElegida(null)}
         />
@@ -394,7 +368,7 @@ function SelectorSemana({ semanaElegida, semanaActual, onElegir, onCerrar }) {
               {s.detalle}
             </div>
             <div style={{ font: "400 12px/1.3 var(--f-ui)", color: "var(--f-texto3)" }}>
-              {s.tipo === "intervalos" ? `Total ${s.minutos} min · abre el temporizador` : "Se apunta al terminar, como siempre"}
+              {s.minutos ? `Total ${s.minutos} min · ` : ""}se apunta al terminar, con los datos del reloj
             </div>
           </button>
         ))}

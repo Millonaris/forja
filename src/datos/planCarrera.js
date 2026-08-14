@@ -1,63 +1,71 @@
 /*
- * FORJA · Plan de carrera 0 → 20K en 26 semanas — versión revisada por el
- * entrenador (agosto 2026).
+ * FORJA · Plan de carrera 0 → 20K — plan FINAL del entrenador (agosto 2026),
+ * anclado a fechas reales: empieza el viernes 14-ago-2026 y termina con el
+ * 20K el sábado 13-feb-2027.
  *
- * Fase 1 (sem 1-8):  2 días/semana (martes y sábado). Intervalos corre/camina.
- *                    La semana 8 tiene dos sesiones DISTINTAS: martes 20-25′
- *                    seguidos y sábado 30′ seguidos.
- * Fase 2 (sem 9-16): 3 días/semana. Martes 30′, jueves 30-35′ y una tirada
- *                    larga que crece de 5 a 10 km, con descargas en 12 y 16.
- * Fase 3 (sem 17-26): 3 días/semana. Martes 40-45′, jueves 45-50′ y larga
- *                    hasta 16 km (larga máxima, sem 23-24). Las semanas 25-26
- *                    son taper: se descansa PARA la carrera. Domingo 26: 20K.
+ * Fase 1 (S1-S8):   2 días/semana, VIERNES y LUNES. Intervalos corre/camina.
+ *                   La "semana" del plan va de viernes a jueves.
+ * Fase 2 (S9-S16):  3 días/semana, MARTES y JUEVES (cortas) + SÁBADO (larga
+ *                   de 5 a 10 km). Descargas en S12 y S16. La semana va de
+ *                   martes a lunes, y entre fases hay unos días de transición
+ *                   (6-12 oct) sin carreras: no es un hueco, es a propósito.
+ * Fase 3 (S17-S26): igual; larga hasta 18 km (S25). Descargas S20 y S24.
+ *                   S26: solo un rodaje suave el martes y el 20K el sábado.
  *
- * Todo se corre SUAVE: poder hablar frases enteras. El crono no importa en
- * ninguna semana de este ciclo. Nada de series ni cuestas (única excepción:
- * 2-3 aceleraciones de 15″ el jueves de la semana 26).
+ * Todo se corre SUAVE (Z2: poder hablar sin ahogarse, tramos de correr
+ * ≤125 ppm). Los entrenos los hace con su reloj Garmin — la app no lleva
+ * temporizador: enseña qué toca y deja marcar cada sesión como hecha.
  *
- * Todas las sesiones llevan 5' de calentamiento andando y 5' de enfriamiento
- * andando; no se cuentan como "corre".
+ * Si una semana pesa, se repite y TODO se desplaza 7 días: eso es lo que
+ * mueve el `desfase` (elegido en Ajustes → "Semana de carrera").
  */
 
-const MIN = 60; // segundos por minuto, para que los bloques se lean solos
+import { diasEntre, sumarDias } from "../logica/fechas.js";
+
+export const SEMANAS_PLAN = 26;
+
+/** Anclas reales del plan. Si el plan entero se mueve, se mueve con `desfase`. */
+export const INICIO_F1 = "2026-08-14"; // viernes · primera sesión de S1
+export const INICIO_F2 = "2026-10-13"; // martes · primera corta de S9
+export const DIA_20K = "2027-02-13"; // sábado · el objetivo
 
 /**
- * Protocolo de intervalos de cada sesión de la fase 1.
- * repeticiones × (segundos corriendo + segundos caminando)
- *
- * Las claves 1-7 valen para las dos sesiones de la semana; la semana 8 se
- * divide en "8m" (martes, 20-25′ seguidos) y "8s" (sábado, 30′ seguidos).
+ * Protocolo de intervalos de la fase 1, en minutos.
+ * reps × (corre + camina); la semana 8 es correr seguido.
+ * Los nombres coinciden con los entrenos cargados en su Garmin ("S3 - 5x 3c 2a").
  */
 export const INTERVALOS_F1 = {
-  1: { reps: 8, corre: 1 * MIN, camina: 2 * MIN, texto: "8×(1′ corre + 2′ camina)" },
-  2: { reps: 7, corre: 2 * MIN, camina: 2 * MIN, texto: "7×(2′ corre + 2′ camina)" },
-  3: { reps: 6, corre: 3 * MIN, camina: 2 * MIN, texto: "6×(3′ corre + 2′ camina)" },
-  4: { reps: 5, corre: 4 * MIN, camina: 2 * MIN, texto: "5×(4′ corre + 2′ camina)" },
-  5: { reps: 4, corre: 6 * MIN, camina: 2 * MIN, texto: "4×(6′ corre + 2′ camina)" },
-  6: { reps: 3, corre: 8 * MIN, camina: 2 * MIN, texto: "3×(8′ corre + 2′ camina)" },
-  7: { reps: 2, corre: 12 * MIN, camina: 3 * MIN, texto: "2×(12′ corre + 3′ camina)" },
-  "8m": { reps: 1, corre: 25 * MIN, camina: 0, texto: "20-25′ seguidos" },
-  "8s": { reps: 1, corre: 30 * MIN, camina: 0, texto: "30′ seguidos" },
+  1: { reps: 8, corre: 1, camina: 2, texto: "8×(1′ corre + 2′ camina)" },
+  2: { reps: 6, corre: 2, camina: 2, texto: "6×(2′ corre + 2′ camina)" },
+  3: { reps: 5, corre: 3, camina: 2, texto: "5×(3′ corre + 2′ camina)" },
+  4: { reps: 4, corre: 5, camina: 2, texto: "4×(5′ corre + 2′ camina)" },
+  5: { reps: 3, corre: 8, camina: 3, texto: "3×(8′ corre + 3′ camina)" },
+  6: { reps: 2, corre: 10, camina: 3, texto: "2×(10′ corre + 3′ camina)" },
+  7: { reps: 2, corre: 15, camina: 3, texto: "2×(15′ corre + 3′ camina)" },
+  8: { reps: 1, corre: 30, camina: 0, texto: "30′ seguidos" },
+};
+
+export const CALENTAMIENTO = 5; // min andando, antes y después, SIEMPRE
+export const ENFRIAMIENTO = 5; // (el enfriamiento no se salta)
+
+/** Minutos totales de una sesión de intervalos, con calentamiento y enfriamiento. */
+export function minutosIntervalos(semana) {
+  const p = INTERVALOS_F1[semana] ?? INTERVALOS_F1[1];
+  return CALENTAMIENTO + p.reps * p.corre + (p.reps - 1) * p.camina + ENFRIAMIENTO;
+}
+
+/**
+ * Minutos de las cortas (martes y jueves, iguales) por semana del plan.
+ * En las descargas (12, 16, 20, 24) bajan a 30′ a propósito.
+ */
+export const CORTAS = {
+  9: 30, 10: 30, 11: 35, 12: 30, 13: 35, 14: 35, 15: 35, 16: 30,
+  17: 35, 18: 40, 19: 40, 20: 30, 21: 40, 22: 40, 23: 40, 24: 30, 25: 40, 26: 30,
 };
 
 /**
- * Clave de INTERVALOS_F1 que toca según la semana y el día (2 = martes).
- * Es lo que viaja en la URL del temporizador.
- */
-export function claveIntervalos(semana, dow) {
-  const s = Math.min(Math.max(semana, 1), 8);
-  if (s < 8) return s;
-  return dow === 2 ? "8m" : "8s";
-}
-
-export const CALENTAMIENTO = 5 * MIN;
-export const ENFRIAMIENTO = 5 * MIN;
-
-/**
- * Tirada larga por semana en fases 2 y 3, en km.
- * `descarga: true` marca las semanas en las que la larga BAJA a propósito
- * para asimilar carga; no es un fallo del plan. `rango` es el texto que se
- * enseña cuando el entrenador dio una horquilla en vez de un número.
+ * Tirada larga del sábado por semana, en km. `descarga: true` marca las
+ * semanas en las que la larga BAJA a propósito para asimilar carga.
  */
 export const LARGAS = {
   // Fase 2
@@ -68,18 +76,18 @@ export const LARGAS = {
   13: { km: 8 },
   14: { km: 9 },
   15: { km: 10, nota: "mitad del objetivo" },
-  16: { km: 7, rango: "6-7", descarga: true },
+  16: { km: 6, descarga: true },
   // Fase 3
   17: { km: 11 },
   18: { km: 12 },
   19: { km: 13 },
-  20: { km: 9, descarga: true },
+  20: { km: 8, descarga: true },
   21: { km: 14 },
   22: { km: 15 },
-  23: { km: 16, nota: "larga máxima: de aquí no se pasa" },
-  24: { km: 16, nota: "última larga grande" },
-  25: { km: 11, rango: "10-12", descarga: true, nota: "taper: descansar es entrenar" },
-  26: { km: 20, carrera: true }, // el día del 20K, en domingo
+  23: { km: 16 },
+  24: { km: 10, descarga: true },
+  25: { km: 18, nota: "la larga máxima: de aquí no se pasa" },
+  26: { km: 20, carrera: true }, // el 20K, sábado 13-feb-2027
 };
 
 /** Fase (1, 2 o 3) a la que pertenece una semana del plan. */
@@ -96,43 +104,92 @@ export const FASES = [
   { n: 3, nombre: "F3 20K", desde: 17, hasta: 26 },
 ];
 
-/**
- * Duración objetivo de las carreras cortas según la semana y el día.
- * El entrenador diferencia martes (2) y jueves (4): el jueves es algo más largo.
- */
-export function minutosCorta(semana, dow = 4) {
-  const fase = faseDeSemana(semana);
-  const esMartes = dow === 2;
-  if (fase === 2) {
-    return esMartes
-      ? { min: 30, max: 30, texto: "30 min suaves" }
-      : { min: 30, max: 35, texto: "30-35 min suaves" };
-  }
-  return esMartes
-    ? { min: 40, max: 45, texto: "40-45 min suaves" }
-    : { min: 45, max: 50, texto: "45-50 min suaves" };
+/* ---------- Las sesiones, día a día ---------- */
+
+function sesionIntervalos(semana) {
+  return {
+    tipo: "intervalos",
+    etiqueta: "INTERVALOS",
+    detalle: INTERVALOS_F1[semana].texto,
+    minutos: minutosIntervalos(semana),
+    km: null,
+  };
 }
 
-/**
- * Construye la lista de bloques del temporizador para una sesión de intervalos.
- * `clave` es una clave de INTERVALOS_F1 (1-7, "8m" o "8s").
- * Devuelve [{ tipo, segundos, etiqueta }] con calentamiento y enfriamiento incluidos.
- */
-export function bloquesIntervalos(clave) {
-  const p = INTERVALOS_F1[clave] ?? INTERVALOS_F1[1];
-  const bloques = [{ tipo: "calienta", segundos: CALENTAMIENTO, etiqueta: "CALIENTA" }];
-  for (let i = 0; i < p.reps; i++) {
-    bloques.push({ tipo: "corre", segundos: p.corre, etiqueta: "CORRE", ronda: i + 1, rondas: p.reps });
-    // La última repetición encadena directamente con el enfriamiento.
-    if (p.camina > 0 && i < p.reps - 1) {
-      bloques.push({ tipo: "camina", segundos: p.camina, etiqueta: "CAMINA", ronda: i + 1, rondas: p.reps });
+function sesionCorta(semana) {
+  const esTaper = semana === SEMANAS_PLAN;
+  return {
+    tipo: "corta",
+    etiqueta: esTaper ? "TAPER" : "CARRERA CORTA",
+    detalle: esTaper ? "30 min muy suaves" : `${CORTAS[semana]} min suaves`,
+    minutos: CORTAS[semana],
+    km: null,
+  };
+}
+
+function sesionLarga(semana) {
+  const larga = LARGAS[semana];
+  return {
+    tipo: "larga",
+    etiqueta: larga.carrera ? "DÍA DEL 20K" : "TIRADA LARGA",
+    detalle: larga.carrera
+      ? "20 km · el objetivo de las 26 semanas. Sal MÁS lento de lo que te pida el cuerpo."
+      : larga.descarga
+        ? `${larga.km} km · semana de descarga`
+        : `${larga.km} km a ritmo muy suave${larga.nota ? ` · ${larga.nota}` : ""}`,
+    km: larga.km,
+    minutos: null,
+    esCarreraObjetivo: !!larga.carrera,
+    descarga: !!larga.descarga,
+  };
+}
+
+/** Mapa fecha ISO → sesión, con las fechas REALES que dio el entrenador. */
+const SESIONES = (() => {
+  const m = new Map();
+  for (let s = 1; s <= 8; s++) {
+    const viernes = sumarDias(INICIO_F1, (s - 1) * 7);
+    m.set(viernes, { semana: s, ...sesionIntervalos(s) });
+    m.set(sumarDias(viernes, 3), { semana: s, ...sesionIntervalos(s) }); // el lunes siguiente
+  }
+  for (let s = 9; s <= SEMANAS_PLAN; s++) {
+    const martes = sumarDias(INICIO_F2, (s - 9) * 7);
+    m.set(martes, { semana: s, ...sesionCorta(s) });
+    // La semana 26 solo tiene el rodaje del martes y el 20K: nada de jueves.
+    if (s < SEMANAS_PLAN) {
+      m.set(sumarDias(martes, 2), { semana: s, ...sesionCorta(s) });
+      m.set(sumarDias(martes, 4), { semana: s, ...sesionLarga(s) });
+    } else {
+      m.set(DIA_20K, { semana: s, ...sesionLarga(s) });
     }
   }
-  bloques.push({ tipo: "enfria", segundos: ENFRIAMIENTO, etiqueta: "ENFRÍA" });
-  return bloques;
+  return m;
+})();
+
+/**
+ * Qué carrera toca en una fecha, o null si ese día no se corre.
+ * `desfase` en semanas: -1 = el plan va una semana por detrás (se repitió una).
+ */
+export function sesionCarreraDelDia(iso, desfase = 0) {
+  return SESIONES.get(desfase ? sumarDias(iso, 7 * desfase) : iso) ?? null;
 }
 
-/** Minutos totales de una sesión de intervalos (con calentamiento y enfriamiento). */
-export function minutosIntervalos(clave) {
-  return Math.round(bloquesIntervalos(clave).reduce((t, b) => t + b.segundos, 0) / 60);
+/**
+ * Semana del plan (puede salir <1 antes de empezar o >26 tras el 20K).
+ * Fase 1 cuenta de viernes a jueves; fases 2-3, de martes a lunes.
+ */
+export function semanaCarreraPorFecha(iso, desfase = 0) {
+  const efectivo = desfase ? sumarDias(iso, 7 * desfase) : iso;
+  if (efectivo < INICIO_F2) return Math.min(8, Math.floor(diasEntre(INICIO_F1, efectivo) / 7) + 1);
+  return Math.min(SEMANAS_PLAN + 1, Math.floor(diasEntre(INICIO_F2, efectivo) / 7) + 9);
+}
+
+/**
+ * Las sesiones distintas de una semana, para el selector manual de la
+ * pantalla Carrera (hacer hoy una sesión de otra semana u otra fase).
+ * En F1 las dos sesiones son iguales: se enseña una sola.
+ */
+export function sesionesDeSemanaCarrera(semana) {
+  const s = Math.min(Math.max(semana, 1), SEMANAS_PLAN);
+  return s <= 8 ? [sesionIntervalos(s)] : [sesionCorta(s), sesionLarga(s)];
 }

@@ -14,9 +14,9 @@ import { NOMBRES_SESION, ejerciciosDe } from "../datos/ejercicios.js";
 import { guardarAjustes } from "../datos/db.js";
 import { borrarRegistros } from "../datos/semilla.js";
 import { useAjustes } from "../ganchos/useDatos.js";
-import { FASES, INTERVALOS_F1, LARGAS } from "../datos/planCarrera.js";
+import { FASES, INTERVALOS_F1, LARGAS, semanaCarreraPorFecha } from "../datos/planCarrera.js";
 import { SEMANAS_PLAN, construirCalendario } from "../logica/calendario.js";
-import { formatoCorto, hoyISO, semanaDelPlan } from "../logica/fechas.js";
+import { formatoCorto, hoyISO } from "../logica/fechas.js";
 import { entero } from "../logica/formato.js";
 import { estadoAlmacenamiento } from "../utiles/almacenamiento.js";
 import { exportarJSON, formatearTamano, importarJSON, tamanoCopia } from "../utiles/copiaSeguridad.js";
@@ -118,12 +118,13 @@ export default function Ajustes() {
     }
   };
 
-  // Semana que marca el calendario y semana del plan de carrera: pueden ir
+  // Semana que marcan las fechas del entrenador y semana elegida: pueden ir
   // separadas si aquí se ha elegido repetir, retroceder o adelantar.
   const desfase = ajustes.desfaseCarrera || 0;
-  const semanaNatural = semanaDelPlan(ajustes.startDate, hoyISO());
+  const semanaNatural = semanaCarreraPorFecha(hoyISO());
   const semanaPlan = Math.min(Math.max(semanaNatural + desfase, 1), SEMANAS_PLAN);
-  // El día del 20K es el domingo de la última semana del plan.
+  // El día del 20K: el sábado de la última semana del plan (13-feb-2027 si
+  // no se ha repetido ninguna semana).
   const diaDel20K = [...construirCalendario(ajustes.startDate, desfase).values()].find(
     (d) => d.carrera?.esCarreraObjetivo,
   )?.iso;
@@ -376,13 +377,10 @@ function Grupo({ titulo, children }) {
 
 /** Qué toca en cada semana del plan de carrera, para el selector. */
 function textoSemanaPlan(s) {
-  if (s <= 8) {
-    const texto = s === 8 ? "20-25′ y 30′ seguidos" : INTERVALOS_F1[s].texto;
-    return `Sem ${s} · ${texto}`;
-  }
+  if (s <= 8) return `Sem ${s} · ${INTERVALOS_F1[s].texto}`;
   const larga = LARGAS[s];
   if (larga.carrera) return `Sem ${s} · la semana del 20K`;
-  return `Sem ${s} · larga ${larga.rango ?? larga.km} km${larga.descarga ? " · descarga" : ""}`;
+  return `Sem ${s} · larga ${larga.km} km${larga.descarga ? " · descarga" : ""}`;
 }
 
 /**

@@ -29,27 +29,31 @@ cosas en lenguaje de usuario, sin jerga: qué verá en pantalla y qué cambia pa
 ## Mapa del código
 
 - `src/datos/` — catálogos y semilla: ejercicios del gym, músculos,
-  **planCarrera.js** (el plan 0→20K), base de datos.
+  **planCarrera.js** (el plan 0→20K con sus fechas reales), base de datos.
 - `src/logica/` — motores puros sin interfaz: **calendario.js** (qué toca cada
-  día: gym + carrera + postura; aquí vive la regla viernes-pierna → larga el
-  domingo, y el desfase de semanas), diario, veredictos, volumen.
+  día: gym por rotación desde la fecha de inicio + carrera por las fechas del
+  plan + postura), diario, veredictos, volumen.
 - `src/pantallas/` — una por pestaña: Hoy, Gym, Carrera, Cuerpo, Diario,
-  más Ajustes, TimerIntervalos, EntrenoVivo…
+  más Ajustes, EntrenoVivo…
 - `docs/plan-carrera.md` — el plan de carrera del entrenador, palabra por
   palabra. Es la fuente de verdad del plan; el código lo implementa.
 
 ## El plan de carrera (resumen operativo)
 
-- 26 semanas, 3 fases. Todo se corre suave («poder hablar frases enteras»).
-- Fase 1 (sem 1-8): intervalos corre/camina, martes y sábado. La semana 8
-  tiene dos sesiones distintas (claves `8m` y `8s` en `INTERVALOS_F1`).
-- Fases 2-3: cortas martes y jueves + tirada larga. Regla crítica: viernes
-  torso → larga el sábado; viernes pierna → larga el **domingo**. Larga máxima
-  16 km; semanas 25-26 son taper; el 20K es el domingo de la semana 26.
+- Plan FINAL con fechas reales: empieza el vie 14-ago-2026, 20K el sáb
+  13-feb-2027. Todo en Z2 («hablar sin ahogarse», correr ≤125 ppm).
+- Fase 1 (S1-S8): intervalos corre/camina, VIERNES y LUNES (la semana del
+  plan va de viernes a jueves). Fases 2-3 (S9-S26): cortas martes y jueves +
+  larga el sábado (semana de martes a lunes). Entre fases, transición sin
+  carreras (6-12 oct). Descargas S12, S16, S20 y S24; larga máxima 18 km
+  (S25); la S26 solo tiene un rodaje suave el martes y el 20K.
+- **Los entrenos los hace con su reloj Garmin** (llevan los mismos nombres:
+  `S3 - 5x 3c 2a`): la app NO tiene temporizador de carrera, solo se marcan
+  las sesiones como hechas (DialogoCarrera precargado con lo del plan).
 - El usuario puede recolocar el plan («Semana de carrera» en Ajustes →
-  `desfaseCarrera` en ajustes, solo mueve la carrera, nunca el gym) y cambiar
-  la sesión de intervalos de un día concreto (botones MÁS SUAVE / MÁS DURA en
-  el temporizador).
+  `desfaseCarrera`: repetir una semana desplaza TODO el plan de correr 7 días,
+  nunca el gym) y hacer un día cualquiera la sesión de otra semana tocando la
+  rejilla de la pantalla Carrera.
 
 ## Comandos
 

@@ -130,15 +130,7 @@ export default function Hoy() {
             onVerResumen={() => sesionHoy && navegar(`/resumen/${sesionHoy.id}`)}
           />
         ) : plan?.carrera ? (
-          <HeroeCarrera
-            plan={plan}
-            hecha={!!carreraHoy}
-            onEmpezar={() =>
-              plan.carrera.tipo === "intervalos"
-                ? navegar(`/intervalos/${plan.carrera.semanaIntervalos}`)
-                : navegar("/carrera")
-            }
-          />
+          <HeroeCarrera plan={plan} hecha={!!carreraHoy} onEmpezar={() => navegar("/carrera")} />
         ) : (
           <HeroeDescanso semana={semana} />
         )}
@@ -415,14 +407,8 @@ function HeroeCarrera({ plan, hecha, onEmpezar }) {
         {c.minutos ? `Total ${c.minutos} min` : `${String(c.km).replace(".", ",")} km`} · ritmo cómodo, que puedas hablar
       </div>
 
-      {c.movida && (
-        <div style={{ marginTop: 12, font: "500 12px/1.4 var(--f-ui)", color: "var(--f-aviso)" }}>
-          {c.motivoMovida}
-        </div>
-      )}
-
       <button className="f-boton" style={{ marginTop: 16 }} onClick={onEmpezar} disabled={hecha}>
-        {hecha ? "YA REGISTRADA" : c.tipo === "intervalos" ? "EMPEZAR INTERVALOS" : "REGISTRAR CARRERA"}
+        {hecha ? "YA REGISTRADA" : "MARCAR COMO HECHA"}
       </button>
     </div>
   );

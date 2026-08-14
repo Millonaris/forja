@@ -1,36 +1,31 @@
 /*
  * FORJA · Motor de calendario.
  *
- * Construye, para cada uno de los 182 días del plan (26 semanas), qué toca:
- * sesión de gimnasio (por rotación), carrera (por fase), postura y dieta.
+ * Junta, para cada día, qué toca: sesión de gimnasio (por rotación desde la
+ * fecha de inicio), carrera (por las fechas REALES del plan del entrenador,
+ * que viven en planCarrera.js), postura y dieta.
  *
- * Aquí vive la REGLA CRÍTICA: la tirada larga nunca va justo detrás de un día
- * de pierna. Viernes TORSO → larga el sábado; viernes PIERNA → larga el
- * domingo. Las cortas del martes y el jueves no se mueven nunca.
- * El 20K de la semana 26 es siempre en domingo, digan lo que digan los viernes.
+ * El gimnasio se ancla a la fecha de inicio de la app; la carrera se ancla a
+ * sus propias fechas (14-ago-2026 → 20K el 13-feb-2027). `desfase` recoloca
+ * SOLO el plan de carrera en semanas enteras: repetir una semana = todo el
+ * plan de correr se desplaza 7 días. El gimnasio no se mueve.
  *
- * El calendario se calcula una sola vez por fecha de inicio y se memoiza:
- * la pantalla de Diario pinta 26 semanas sin recalcular nada.
- *
- * `desfase` recoloca SOLO el plan de carrera: si repites una semana o saltas
- * de fase, en Ajustes eliges la semana que toca y aquí se aplica la
- * diferencia. El gimnasio, la postura y la dieta no se mueven — un desfase
- * negativo (repetir) solo alarga el calendario para que el 20K siga dentro.
+ * El calendario se calcula una sola vez por (inicio, desfase) y se memoiza:
+ * la pantalla de Diario pinta meses enteros sin recalcular nada.
  */
 
 import { NOMBRES_SESION, esSesionPierna } from "../datos/ejercicios.js";
 import {
-  claveIntervalos,
+  DIA_20K,
   faseDeSemana,
-  LARGAS,
-  INTERVALOS_F1,
-  minutosCorta,
-  minutosIntervalos,
+  SEMANAS_PLAN,
+  semanaCarreraPorFecha,
+  sesionCarreraDelDia,
 } from "../datos/planCarrera.js";
 import { DIAS_EXTRAS } from "../datos/rutinaPostural.js";
-import { diaSemana, lunesDe, semanaDelPlan, sumarDias } from "./fechas.js";
+import { diaSemana, diasEntre, lunesDe, sumarDias } from "./fechas.js";
 
-export const SEMANAS_PLAN = 26;
+export { SEMANAS_PLAN };
 
 /** Días de gimnasio: lunes, miércoles y viernes. */
 const DIAS_GYM = [1, 3, 5];
@@ -38,12 +33,12 @@ const DIAS_GYM = [1, 3, 5];
 const cache = new Map();
 
 /**
- * Devuelve el calendario completo del plan: Map<"YYYY-MM-DD", planDelDía>.
+ * Devuelve el calendario completo: Map<"YYYY-MM-DD", planDelDía>.
  *
  * planDelDía = {
- *   iso, semana, fase, diaSemana,
+ *   iso, semana, semanaCarrera, fase, diaSemana,
  *   gym:     { sessionName, esPierna, aviso } | null,
- *   carrera: { tipo, etiqueta, detalle, km, minutos, semanaIntervalos, movida } | null,
+ *   carrera: { tipo, etiqueta, detalle, km, minutos } | null,
  *   postura: bool,   conExtras: bool,
  *   dieta:   true,
  * }
@@ -53,14 +48,17 @@ export function construirCalendario(fechaInicio, desfase = 0) {
   if (cache.has(claveCache)) return cache.get(claveCache);
 
   const lunes1 = lunesDe(fechaInicio);
+
+  // El calendario tiene que llegar SIEMPRE hasta el día del 20K (que con
+  // desfase negativo se retrasa), aunque la fecha de inicio de la app sea
+  // anterior al arranque del plan de carrera.
+  const fecha20K = sumarDias(DIA_20K, -7 * desfase);
+  const totalSemanas = Math.max(SEMANAS_PLAN, Math.ceil((diasEntre(lunes1, fecha20K) + 1) / 7));
+
   const dias = new Map();
 
-  // Con desfase negativo (repetir semanas) el plan de carrera termina más
-  // tarde: el calendario se alarga para que el 20K no se caiga del mapa.
-  const totalSemanas = SEMANAS_PLAN + Math.max(0, -desfase);
-
-  // 1) Gimnasio: se recorren TODOS los días de gym del plan en orden y se les
-  //    va asignando la rotación T-P-T-P. Por eso la misma sesión no cae siempre
+  // 1) Gimnasio: se recorren TODOS los días de gym en orden y se les va
+  //    asignando la rotación T-P-T-P. Por eso la misma sesión no cae siempre
   //    en el mismo día de la semana.
   let indiceRotacion = 0;
   const gymPorDia = new Map();
@@ -73,26 +71,18 @@ export function construirCalendario(fechaInicio, desfase = 0) {
     }
   }
 
-  // 2) Día a día: se junta gym + carrera + postura + dieta.
+  // 2) Día a día: gym + carrera + postura + dieta.
   for (let semana = 1; semana <= totalSemanas; semana++) {
-    // La semana DEL PLAN DE CARRERA puede no coincidir con la del calendario:
-    // el desfase elegido en Ajustes las separa.
-    const semanaCarrera = semana + desfase;
-    const enPlanCarrera = semanaCarrera >= 1 && semanaCarrera <= SEMANAS_PLAN;
-    const fase = faseDeSemana(Math.min(Math.max(semanaCarrera, 1), SEMANAS_PLAN));
-
-    // ¿El viernes de esta semana es de pierna? De eso depende dónde va la larga:
-    // viernes torso → larga el sábado; viernes pierna → larga el domingo.
-    const isoViernes = sumarDias(lunes1, (semana - 1) * 7 + 4);
-    const viernesEsPierna = esSesionPierna(gymPorDia.get(isoViernes) || "");
-    const largaAlDomingo = viernesEsPierna && fase >= 2 && semanaCarrera < SEMANAS_PLAN;
-
     for (let i = 0; i < 7; i++) {
       const iso = sumarDias(lunes1, (semana - 1) * 7 + i);
       const dow = i + 1; // 1 = lunes … 7 = domingo
 
       const sessionName = gymPorDia.get(iso) || null;
       const esPierna = sessionName ? esSesionPierna(sessionName) : false;
+
+      const semanaCarrera = semanaCarreraPorFecha(iso, desfase);
+      const enPlanCarrera = semanaCarrera >= 1 && semanaCarrera <= SEMANAS_PLAN;
+      const fase = faseDeSemana(Math.min(Math.max(semanaCarrera, 1), SEMANAS_PLAN));
 
       dias.set(iso, {
         iso,
@@ -105,18 +95,19 @@ export function construirCalendario(fechaInicio, desfase = 0) {
               sessionName,
               esPierna,
               // Recordatorio de activación antes de cada día de pierna, y en
-              // las semanas de taper (25-26) la orden del entrenador: la
-              // pierna se baja a la mitad para llegar fresco al 20K.
+              // las semanas finales la orden del entrenador: la pierna se
+              // baja para llegar fresco al 20K. Además, regla fija del plan:
+              // pierna intensa nunca la víspera de correr.
               aviso: esPierna
                 ? enPlanCarrera && semanaCarrera >= 25
                   ? "Semana de taper: pierna a MITAD de peso y volumen. Nada nuevo."
-                  : "Antes de empezar: bisagra de cadera 2×8."
+                  : sesionCarreraDelDia(sumarDias(iso, 1), desfase)
+                    ? "Mañana se corre: pierna sin llegar al fallo, nada de récords."
+                    : "Antes de empezar: bisagra de cadera 2×8."
                 : null,
             }
           : null,
-        carrera: enPlanCarrera
-          ? planCarreraDelDia({ semana: semanaCarrera, fase, dow, largaAlDomingo })
-          : null,
+        carrera: sesionCarreraDelDia(iso, desfase),
         // La rutina postural se planifica de lunes a sábado (objetivo 5-6 días).
         postura: dow <= 6,
         conExtras: DIAS_EXTRAS.includes(dow),
@@ -129,98 +120,6 @@ export function construirCalendario(fechaInicio, desfase = 0) {
   return dias;
 }
 
-/** Qué carrera toca ese día concreto, o null si ese día no se corre. */
-function planCarreraDelDia({ semana, fase, dow, largaAlDomingo }) {
-  // ---- Fase 1: martes y sábado, intervalos corre/camina ----
-  if (fase === 1) {
-    if (dow !== 2 && dow !== 6) return null;
-    const clave = claveIntervalos(semana, dow);
-    const p = INTERVALOS_F1[clave];
-    return {
-      tipo: "intervalos",
-      etiqueta: "INTERVALOS",
-      detalle: p.texto,
-      minutos: minutosIntervalos(clave),
-      semanaIntervalos: clave,
-      km: null,
-      movida: false,
-    };
-  }
-
-  // ---- Fases 2 y 3: martes y jueves cortas, larga el sábado o el domingo ----
-  if (dow !== 2 && dow !== 4 && dow !== 6 && dow !== 7) return null;
-
-  const larga = LARGAS[semana];
-  // El 20K es en domingo sí o sí; el resto de largas siguen la regla del viernes.
-  const diaDeLarga = semana === SEMANAS_PLAN || largaAlDomingo ? 7 : 6;
-
-  if (dow === diaDeLarga && larga) {
-    return {
-      tipo: "larga",
-      etiqueta: larga.carrera ? "DÍA DEL 20K" : "TIRADA LARGA",
-      detalle: larga.carrera
-        ? "20 km · el objetivo de las 26 semanas. Sal MÁS lento de lo que te pida el cuerpo."
-        : larga.descarga
-          ? `${larga.rango ?? formateaKm(larga.km)} km · semana de descarga`
-          : `${larga.rango ?? formateaKm(larga.km)} km a ritmo muy suave${larga.nota ? ` · ${larga.nota}` : ""}`,
-      km: larga.km,
-      minutos: null,
-      esCarreraObjetivo: !!larga.carrera,
-      descarga: !!larga.descarga,
-      // Se marca cuándo y por qué se ha movido, para explicarlo en pantalla.
-      movida: largaAlDomingo && !larga.carrera,
-      motivoMovida: largaAlDomingo && !larga.carrera ? "Al domingo: el viernes toca pierna." : null,
-    };
-  }
-
-  // Las cortas solo caen en martes y jueves; el otro día del finde no se corre.
-  if (dow !== 2 && dow !== 4) return null;
-
-  // Semana 26: los días previos al 20K son taper, no entrenos normales.
-  if (semana === SEMANAS_PLAN) {
-    if (dow === 2) return { tipo: "corta", etiqueta: "TAPER", detalle: "25-30 min muy suaves", minutos: 30, km: null, movida: false };
-    if (dow === 4) return { tipo: "corta", etiqueta: "TAPER", detalle: "20 min flojos + 2-3 aceleraciones de 15″", minutos: 20, km: null, movida: false };
-  }
-
-  // Semana 25: taper 1 — el volumen baja al 60-70 %, también en las cortas.
-  if (semana === SEMANAS_PLAN - 1) {
-    if (dow === 2) return { tipo: "corta", etiqueta: "TAPER", detalle: "30 min suaves", minutos: 30, km: null, movida: false };
-    if (dow === 4) return { tipo: "corta", etiqueta: "TAPER", detalle: "30-35 min suaves", minutos: 30, minutosMax: 35, km: null, movida: false };
-  }
-
-  const corta = minutosCorta(semana, dow);
-  return {
-    tipo: "corta",
-    etiqueta: "CARRERA CORTA",
-    detalle: corta.texto,
-    minutos: corta.min,
-    minutosMax: corta.max,
-    km: null,
-    movida: false,
-  };
-}
-
-// 15.5 km → "15,5" · 12 km → "12"
-const formateaKm = (km) => (Number.isInteger(km) ? String(km) : String(km).replace(".", ","));
-
-/**
- * Las sesiones distintas de una semana del plan, para el selector manual de
- * la pantalla Carrera: elegir a mano una sesión de otra semana (u otra fase)
- * sin mover el plan. Se listan sin la regla del viernes: al elegir a dedo da
- * igual qué día de la semana la hagas.
- */
-export function sesionesDeSemanaCarrera(semana) {
-  const s = Math.min(Math.max(semana, 1), SEMANAS_PLAN);
-  const fase = faseDeSemana(s);
-  const sesiones = [];
-  for (const dow of [2, 4, 6, 7]) {
-    const p = planCarreraDelDia({ semana: s, fase, dow, largaAlDomingo: false });
-    // En las semanas 1-7 las dos sesiones son iguales: se enseña una sola.
-    if (p && !sesiones.some((x) => x.tipo === p.tipo && x.detalle === p.detalle)) sesiones.push(p);
-  }
-  return sesiones;
-}
-
 /** Plan de un día suelto. Devuelve null si la fecha cae fuera del calendario. */
 export function planDelDia(fechaInicio, iso, desfase = 0) {
   return construirCalendario(fechaInicio, desfase).get(iso) || null;
@@ -231,7 +130,7 @@ export function planDelDia(fechaInicio, iso, desfase = 0) {
  * en Ajustes ya aplicado. Puede salir <1 o >26 si la fecha cae fuera del plan.
  */
 export function semanaCarreraDe(ajustes, iso) {
-  return semanaDelPlan(ajustes.startDate, iso) + (ajustes.desfaseCarrera || 0);
+  return semanaCarreraPorFecha(iso, ajustes.desfaseCarrera || 0);
 }
 
 /**

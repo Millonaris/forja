@@ -2,7 +2,7 @@
  * FORJA · Raíz de la aplicación.
  *
  * Decide el tema, configura las señales según los ajustes y monta las rutas.
- * Las pantallas a pantalla completa (entreno en vivo y timer de carrera) no
+ * Las pantallas a pantalla completa (entreno en vivo y rutina de postura) no
  * llevan barra de navegación: mientras entrenas no se sale de ahí sin querer.
  */
 
@@ -19,7 +19,6 @@ import EntrenoVivo from "./pantallas/EntrenoVivo.jsx";
 import ResumenSesion from "./pantallas/ResumenSesion.jsx";
 import Progresion from "./pantallas/Progresion.jsx";
 import Carrera from "./pantallas/Carrera.jsx";
-import TimerIntervalos from "./pantallas/TimerIntervalos.jsx";
 import Cuerpo from "./pantallas/Cuerpo.jsx";
 import Nutricion from "./pantallas/Nutricion.jsx";
 import Postura from "./pantallas/Postura.jsx";
@@ -28,7 +27,7 @@ import Ajustes from "./pantallas/Ajustes.jsx";
 import Revision from "./pantallas/Revision.jsx";
 
 /** Rutas en las que la barra inferior estorba. */
-const SIN_NAV = ["/entreno", "/intervalos", "/postura/rutina"];
+const SIN_NAV = ["/entreno", "/postura/rutina"];
 
 export default function App() {
   const { ajustes } = useAjustes();
@@ -73,7 +72,6 @@ export default function App() {
           <Route path="/resumen/:sessionId" element={<ResumenSesion />} />
           <Route path="/progresion" element={<Progresion />} />
           <Route path="/carrera" element={<Carrera />} />
-          <Route path="/intervalos/:semana" element={<TimerIntervalos />} />
           <Route path="/cuerpo" element={<Cuerpo />} />
           <Route path="/nutricion" element={<Nutricion />} />
           <Route path="/postura" element={<Postura />} />

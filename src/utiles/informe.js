@@ -13,8 +13,9 @@
 import { db } from "../datos/db.js";
 import { EJERCICIOS } from "../datos/ejercicios.js";
 import { OBJETIVO_SERIES, RANGO_SERIES, nombreMusculo } from "../datos/musculos.js";
+import { semanaCarreraPorFecha } from "../datos/planCarrera.js";
 import { SEMANAS_PLAN, planDelDia } from "../logica/calendario.js";
-import { formatoCorto, hoyISO, semanaDelPlan } from "../logica/fechas.js";
+import { formatoCorto, hoyISO } from "../logica/fechas.js";
 import { num } from "../logica/formato.js";
 import { interferenciaEnHistorial } from "../logica/interferencia.js";
 import { calcularMantenimiento, tendenciaSemanal } from "../logica/nutricion.js";
@@ -35,7 +36,7 @@ export async function generarInforme() {
 
   const inicio = ajustes?.startDate ?? hoy;
   const desfase = ajustes?.desfaseCarrera || 0;
-  const semana = semanaDelPlan(inicio, hoy) + desfase;
+  const semana = semanaCarreraPorFecha(hoy, desfase);
   const mapaSesiones = new Map(sesiones.map((s) => [s.id, s]));
 
   const l = [];

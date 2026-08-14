@@ -40,9 +40,10 @@ export default function Diario() {
   const inicio = ajustes.startDate;
   const desfase = ajustes.desfaseCarrera || 0;
   const semanaActual = semanaDelPlan(inicio, hoy);
-  // Si el plan de carrera va por detrás del calendario, el diario dura más
-  // semanas: las que hagan falta para que el 20K siga dentro.
-  const totalSemanas = SEMANAS_PLAN + Math.max(0, -desfase);
+  // El calendario ya se alarga solo hasta cubrir el día del 20K (las fechas
+  // del plan de carrera van aparte del inicio de la app): el diario enseña
+  // exactamente las semanas que el calendario tenga.
+  const totalSemanas = construirCalendario(inicio, desfase).size / 7;
 
   // Ventana por defecto: las 3 semanas anteriores, la actual y la siguiente.
   const semanasVisibles = useMemo(() => {
