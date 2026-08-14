@@ -30,6 +30,14 @@ export { SEMANAS_PLAN };
 /** Días de gimnasio: lunes, miércoles y viernes. */
 const DIAS_GYM = [1, 3, 5];
 
+/**
+ * Vacaciones de agosto 2026 (Jarandilla), SIN gimnasio hasta el 27 incluido:
+ * lo dijo el entrenador. Esos días no se planifica sesión ni avanza la
+ * rotación T-P-T-P: la primera sesión cae el viernes 28 y la rotación sigue
+ * desde donde se quedó. En su lugar tocan caminatas Z2 y gomas.
+ */
+const VACACIONES_HASTA = "2026-08-27";
+
 const cache = new Map();
 
 /**
@@ -65,6 +73,7 @@ export function construirCalendario(fechaInicio, desfase = 0) {
   for (let semana = 1; semana <= totalSemanas; semana++) {
     for (const dow of DIAS_GYM) {
       const iso = sumarDias(lunes1, (semana - 1) * 7 + (dow - 1));
+      if (iso <= VACACIONES_HASTA) continue; // vacaciones: ni sesión ni rotación
       const sessionName = NOMBRES_SESION[indiceRotacion % NOMBRES_SESION.length];
       indiceRotacion++;
       gymPorDia.set(iso, sessionName);
@@ -108,6 +117,7 @@ export function construirCalendario(fechaInicio, desfase = 0) {
             }
           : null,
         carrera: sesionCarreraDelDia(iso, desfase),
+        vacaciones: iso <= VACACIONES_HASTA,
         // La rutina postural se planifica de lunes a sábado (objetivo 5-6 días).
         postura: dow <= 6,
         conExtras: DIAS_EXTRAS.includes(dow),

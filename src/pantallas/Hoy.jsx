@@ -132,7 +132,7 @@ export default function Hoy() {
         ) : plan?.carrera ? (
           <HeroeCarrera plan={plan} hecha={!!carreraHoy} onEmpezar={() => navegar("/carrera")} />
         ) : (
-          <HeroeDescanso semana={semana} />
+          <HeroeDescanso semana={semana} vacaciones={plan?.vacaciones} />
         )}
 
         {/* ---- Estados de una palabra ---- */}
@@ -414,7 +414,21 @@ function HeroeCarrera({ plan, hecha, onEmpezar }) {
   );
 }
 
-function HeroeDescanso({ semana }) {
+function HeroeDescanso({ semana, vacaciones }) {
+  if (vacaciones) {
+    return (
+      <div className="f-tarjeta" style={{ padding: 22, borderStyle: "dashed" }}>
+        <div className="f-etiqueta">HOY · VACACIONES</div>
+        <div className="f-cifra" style={{ fontSize: 40, textTransform: "uppercase", margin: "12px 0 6px" }}>
+          Sin gym hasta el 27
+        </div>
+        <div className="f-pretty" style={{ font: "400 13.5px/1.5 var(--f-ui)", color: "var(--f-texto2)" }}>
+          Lo que pide el entrenador estos días: caminata Z2 de 30-45′ (con cuestas si te apetece) y gomas 2-3 días
+          por semana. Y al menos un día a la semana, nada de nada.
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="f-tarjeta" style={{ padding: 22, borderStyle: "dashed" }}>
       <div className="f-etiqueta">HOY · DESCANSO</div>
