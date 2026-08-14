@@ -11,7 +11,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 
 import { db } from "../datos/db.js";
 import { entero, peso as fmtPeso } from "../logica/formato.js";
-import { formatoDia } from "../logica/fechas.js";
+import { formatoDia, hoyISO } from "../logica/fechas.js";
 import { senalGuardado } from "../utiles/senales.js";
 
 export default function DialogoPeso({ fecha, onCerrar }) {
@@ -37,13 +37,14 @@ export default function DialogoPeso({ fecha, onCerrar }) {
   const [guardando, setGuardando] = useState(false);
 
   // Se inicializa una sola vez, cuando ya sabemos qué había en la base.
+  // El primer día de todos arranca en 96, el punto de partida de Jose.
   useEffect(() => {
     if (registro === undefined || ultimoPeso === undefined) return;
-    setKg(registro?.kg ?? ultimoPeso ?? 90);
+    setKg(registro?.kg ?? ultimoPeso ?? 96);
     setKcal(registro?.kcal != null ? String(registro.kcal) : "");
   }, [registro, ultimoPeso]);
 
-  const ajustar = (delta) => setKg((v) => Math.round(((v ?? 90) + delta) * 10) / 10);
+  const ajustar = (delta) => setKg((v) => Math.round(((v ?? 96) + delta) * 10) / 10);
 
   const guardar = async () => {
     setGuardando(true);
@@ -89,7 +90,7 @@ export default function DialogoPeso({ fecha, onCerrar }) {
       >
         <div className="f-fila-sb">
           <div>
-            <div className="f-etiqueta">PESO DE HOY</div>
+            <div className="f-etiqueta">{fecha === hoyISO() ? "PESO DE HOY" : "CORREGIR PESO"}</div>
             <div style={{ font: "400 12px/1.3 var(--f-ui)", color: "var(--f-texto3)", marginTop: 5 }}>
               {formatoDia(fecha)}
             </div>
