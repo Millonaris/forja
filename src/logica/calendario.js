@@ -203,6 +203,24 @@ function planCarreraDelDia({ semana, fase, dow, largaAlDomingo }) {
 // 15.5 km → "15,5" · 12 km → "12"
 const formateaKm = (km) => (Number.isInteger(km) ? String(km) : String(km).replace(".", ","));
 
+/**
+ * Las sesiones distintas de una semana del plan, para el selector manual de
+ * la pantalla Carrera: elegir a mano una sesión de otra semana (u otra fase)
+ * sin mover el plan. Se listan sin la regla del viernes: al elegir a dedo da
+ * igual qué día de la semana la hagas.
+ */
+export function sesionesDeSemanaCarrera(semana) {
+  const s = Math.min(Math.max(semana, 1), SEMANAS_PLAN);
+  const fase = faseDeSemana(s);
+  const sesiones = [];
+  for (const dow of [2, 4, 6, 7]) {
+    const p = planCarreraDelDia({ semana: s, fase, dow, largaAlDomingo: false });
+    // En las semanas 1-7 las dos sesiones son iguales: se enseña una sola.
+    if (p && !sesiones.some((x) => x.tipo === p.tipo && x.detalle === p.detalle)) sesiones.push(p);
+  }
+  return sesiones;
+}
+
 /** Plan de un día suelto. Devuelve null si la fecha cae fuera del calendario. */
 export function planDelDia(fechaInicio, iso, desfase = 0) {
   return construirCalendario(fechaInicio, desfase).get(iso) || null;

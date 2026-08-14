@@ -5,15 +5,7 @@
       "name": "forja",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 5173,
-      "autoPort": true
-    },
-    {
-      "name": "forja-pwa",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview"],
-      "port": 4173,
-      "autoPort": true
+      "port": 5173
     }
   ]
 }

@@ -112,6 +112,34 @@ Las cortas se alargan para que la larga no pase del ~50% de la semana:
 
 ---
 
+## Los extras sin impacto (caminata y piscina)
+
+El plan completo del entrenador tiene 4 bloques: gym (sagrado), carrera (sin
+adelantar semanas), y dos extras negociables para ganar motor aeróbico sin
+castigar huesos ni tendones:
+
+- **Caminata rápida:** 30-45', los días que quieras (vale a diario). Zona 2.
+- **Piscina:** nadar con goma de cintura, 20-30', 1-2 días/semana. Impacto cero.
+
+Reglas de los extras:
+
+1. **Prioridad:** si una semana no llega el tiempo o la energía, lo primero que
+   se cae son los extras. El gym y las carreras no se tocan.
+2. **Siempre suaves** (poder hablar/cantar). Si un extra te deja cansado para
+   la carrera del día siguiente, era demasiado.
+3. **Nada de extras intensos el día antes de la tirada larga.**
+4. Los extras sin impacto sí pueden ser diarios; correr dos días seguidos, nunca.
+
+## Qué esperar (para no desanimarse ni acelerarse)
+
+- Semanas 1-3: fácil de pulmón y raro de piernas. Normal, no acelerar.
+- Semanas 3-4: primer cambio real — mismo esfuerzo, menos ahogo.
+- Mes 2-3: el cambio grande; correr 30' seguidos parecerá normal.
+- Cada kg que baje de 96 = ~1 % más de resistencia gratis.
+- Dormir 7-8 h es donde se construye el motor de verdad.
+
+---
+
 ## Chuleta rápida
 
 - **Suave = hablar frases enteras.** Siempre.

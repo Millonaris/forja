@@ -13,7 +13,13 @@ import Cabecera from "../componentes/Cabecera.jsx";
 import DialogoCarrera from "../componentes/DialogoCarrera.jsx";
 import { FASES, LARGAS, faseDeSemana } from "../datos/planCarrera.js";
 import { useAjustes, useCarreras } from "../ganchos/useDatos.js";
-import { construirCalendario, planDelDia, semanaCarreraDe, SEMANAS_PLAN } from "../logica/calendario.js";
+import {
+  construirCalendario,
+  planDelDia,
+  semanaCarreraDe,
+  sesionesDeSemanaCarrera,
+  SEMANAS_PLAN,
+} from "../logica/calendario.js";
 import { formatoDia, hoyISO, sumarDias } from "../logica/fechas.js";
 import { num, ritmo } from "../logica/formato.js";
 import { veredictosCarrera } from "../logica/veredictosCarrera.js";
@@ -23,6 +29,8 @@ export default function Carrera() {
   const { ajustes } = useAjustes();
   const carreras = useCarreras();
   const [dialogo, setDialogo] = useState(null);
+  // Semana abierta en el selector manual: hacer HOY una sesión de otra semana.
+  const [semanaElegida, setSemanaElegida] = useState(null);
 
   const hoy = hoyISO();
   const inicio = ajustes.startDate;
@@ -266,11 +274,14 @@ export default function Carrera() {
                   ? "por venir"
                   : `${hechas} de ${previstas} carreras`;
               return (
-                <span
+                <button
                   key={s}
+                  onClick={() => setSemanaElegida(s)}
+                  aria-label={`Ver las sesiones de la semana ${s}`}
                   title={`Semana ${s} · fase ${faseDeSemana(s)} · ${estado}${larga ? ` · larga ${num(larga.km, 1)} km` : ""}`}
                   style={{
                     height: 16,
+                    padding: 0,
                     borderRadius: 3,
                     background: fondo,
                     opacity: s > semana ? 0.55 : 1,
@@ -279,6 +290,9 @@ export default function Carrera() {
                 />
               );
             })}
+          </div>
+          <div className="f-pretty" style={{ font: "400 12px/1.5 var(--f-ui)", color: "var(--f-texto3)", marginTop: 10 }}>
+            Toca una semana para ver sus sesiones y hacer hoy la que quieras, aunque sea de otra fase.
           </div>
           <div style={{ display: "flex", gap: 14, marginTop: 12, flexWrap: "wrap", font: "500 9.5px/1 var(--f-mono)", color: "var(--f-texto3)" }}>
             {FASES.map((f) => (
@@ -290,6 +304,19 @@ export default function Carrera() {
         </div>
       </div>
 
+      {semanaElegida && (
+        <SelectorSemana
+          semanaElegida={semanaElegida}
+          semanaActual={semana}
+          onElegir={(sesion) => {
+            setSemanaElegida(null);
+            if (sesion.tipo === "intervalos") navegar(`/intervalos/${sesion.semanaIntervalos}`);
+            else setDialogo({ fecha: hoy, plan: sesion });
+          }}
+          onCerrar={() => setSemanaElegida(null)}
+        />
+      )}
+
       {dialogo && (
         <DialogoCarrera
           fecha={dialogo.fecha}
@@ -299,6 +326,96 @@ export default function Carrera() {
           onCerrar={() => setDialogo(null)}
         />
       )}
+    </div>
+  );
+}
+
+/**
+ * Hoja con las sesiones de una semana del plan, la que sea: sirve para hacer
+ * HOY una sesión de otra semana u otra fase sin mover el plan. Los intervalos
+ * arrancan el temporizador; cortas y largas se registran a mano como siempre.
+ */
+function SelectorSemana({ semanaElegida, semanaActual, onElegir, onCerrar }) {
+  const sesiones = sesionesDeSemanaCarrera(semanaElegida);
+  const fase = faseDeSemana(semanaElegida);
+  const esFutura = semanaElegida > semanaActual;
+
+  return (
+    <div
+      role="dialog"
+      aria-label={`Sesiones de la semana ${semanaElegida}`}
+      onClick={onCerrar}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 50,
+        background: "rgba(0,0,0,.72)",
+        display: "flex",
+        alignItems: "flex-end",
+        animation: "f-entra .15s ease-out",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "100%",
+          background: "var(--f-sup)",
+          borderTop: "1px solid var(--f-borde)",
+          borderRadius: "22px 22px 0 0",
+          padding: "20px 18px calc(20px + var(--f-safe-abajo))",
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+        }}
+      >
+        <div className="f-fila-sb">
+          <div>
+            <div className="f-etiqueta">SEMANA {semanaElegida} · FASE {fase}</div>
+            <div style={{ font: "400 12px/1.3 var(--f-ui)", color: "var(--f-texto3)", marginTop: 5 }}>
+              {semanaElegida === semanaActual
+                ? "Es tu semana actual."
+                : "Solo cambia lo de hoy: el plan no se mueve."}
+            </div>
+          </div>
+          <button onClick={onCerrar} style={{ font: "500 12px/1 var(--f-mono)", color: "var(--f-texto3)", padding: 10, margin: -10 }}>
+            CERRAR
+          </button>
+        </div>
+
+        {sesiones.map((s) => (
+          <button
+            key={`${s.tipo}-${s.detalle}`}
+            className="f-tarjeta"
+            onClick={() => onElegir(s)}
+            style={{ padding: "14px 15px", borderRadius: 16, textAlign: "left", display: "block", width: "100%" }}
+          >
+            <div className="f-etiqueta" style={{ color: "var(--f-acento)" }}>{s.etiqueta}</div>
+            <div className="f-cifra" style={{ fontSize: 21, lineHeight: 1.15, textTransform: "uppercase", margin: "7px 0 5px" }}>
+              {s.detalle}
+            </div>
+            <div style={{ font: "400 12px/1.3 var(--f-ui)", color: "var(--f-texto3)" }}>
+              {s.tipo === "intervalos" ? `Total ${s.minutos} min · abre el temporizador` : "Se apunta al terminar, como siempre"}
+            </div>
+          </button>
+        ))}
+
+        {esFutura && (
+          <div
+            className="f-pretty"
+            style={{
+              font: "500 12px/1.5 var(--f-ui)",
+              color: "var(--f-aviso)",
+              background: "var(--f-sup2)",
+              border: "1px solid var(--f-borde)",
+              borderRadius: "var(--f-r-chip)",
+              padding: "9px 11px",
+            }}
+          >
+            Ojo: esto es de más adelante. El entrenador pide no adelantar semanas — los huesos y tendones van meses por
+            detrás del corazón. Para un día suelto vale, como costumbre no.
+          </div>
+        )}
+      </div>
     </div>
   );
 }
