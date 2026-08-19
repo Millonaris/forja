@@ -230,9 +230,9 @@ export default function Carrera() {
               const larga = LARGAS[s];
               const actual = s === semana;
               const hechas = corridasPorSemana.get(s) || 0;
-              // F1: viernes y lunes. F2-3: dos cortas y la larga, salvo la
-              // semana 26, que solo tiene el rodaje del martes y el 20K.
-              const previstas = faseDeSemana(s) === 1 || s === SEMANAS_PLAN ? 2 : 3;
+              // S1 fueron 2 sesiones (vie+lun); desde S2 son 3 (M-J-S), salvo
+              // la semana 26, que solo tiene el rodaje del martes y el 20K.
+              const previstas = s === 1 || s === SEMANAS_PLAN ? 2 : 3;
 
               // El color sale de lo que REALMENTE corriste, no de que la fecha
               // haya pasado: pintar de verde una semana en blanco sería mentir.

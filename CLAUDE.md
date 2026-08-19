@@ -39,14 +39,20 @@ cosas en lenguaje de usuario, sin jerga: qué verá en pantalla y qué cambia pa
 - `docs/plan-carrera.md` — el plan de carrera del entrenador, palabra por
   palabra. Es la fuente de verdad del plan; el código lo implementa.
 
-## El plan de carrera (resumen operativo)
+## El plan de entrenamiento (resumen operativo)
 
-- Plan FINAL con fechas reales: empieza el vie 14-ago-2026, 20K el sáb
-  13-feb-2027. Todo en Z2 («hablar sin ahogarse», correr ≤125 ppm).
-- Fase 1 (S1-S8): intervalos corre/camina, VIERNES y LUNES (la semana del
-  plan va de viernes a jueves). Fases 2-3 (S9-S26): cortas martes y jueves +
-  larga el sábado (semana de martes a lunes). Entre fases, transición sin
-  carreras (6-12 oct). Descargas S12, S16, S20 y S24; larga máxima 18 km
+- **Gym (ver docs/plan-gym-postura.md):** bloque de especialización de 12
+  semanas — deltoide lateral + dorsal + espalda alta; pecho en mantenimiento.
+  Todo en máquina/polea, sin superseries; grandes RIR 1-2 y descanso 2-3 min,
+  aislados con última serie RIR 0-1 y descanso 90-120 s. Sóleo y tibial se
+  quedan en los días de pierna (protección de la carrera) y el core va al
+  final de esos días. Rutina postural nueva de 5 ejercicios, sin extras.
+- Carrera con fechas reales: empieza el vie 14-ago-2026, 20K el sáb
+  13-feb-2027. Todo suave (RPE 3-4/10, «corro pero no sufro»).
+- Fase 1 (S1-S8): CaCo. La S1 fueron 2 sesiones (vie 14 y lun 17 ago); desde
+  la S2, TRES por semana: martes, jueves y sábado. Fases 2-3 (S9-S26):
+  cortas martes y jueves + larga el sábado. Entre fases, transición sin
+  carreras (4-12 oct). Descargas S12, S16, S20 y S24; larga máxima 18 km
   (S25); la S26 solo tiene un rodaje suave el martes y el 20K.
 - **Los entrenos los hace con su reloj Garmin** (llevan los mismos nombres:
   `S3 - 5x 3c 2a`): la app NO tiene temporizador de carrera, solo se marcan

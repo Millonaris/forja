@@ -3,12 +3,13 @@
  * anclado a fechas reales: empieza el viernes 14-ago-2026 y termina con el
  * 20K el sábado 13-feb-2027.
  *
- * Fase 1 (S1-S8):   2 días/semana, VIERNES y LUNES. Intervalos corre/camina.
- *                   La "semana" del plan va de viernes a jueves.
+ * Fase 1 (S1-S8):   intervalos corre/camina (CaCo). La S1 fueron 2 sesiones
+ *                   (vie 14 y lun 17 ago); desde la S2 el entrenador subió a
+ *                   3 CaCo/semana: MARTES, JUEVES y SÁBADO, misma progresión.
  * Fase 2 (S9-S16):  3 días/semana, MARTES y JUEVES (cortas) + SÁBADO (larga
- *                   de 5 a 10 km). Descargas en S12 y S16. La semana va de
- *                   martes a lunes, y entre fases hay unos días de transición
- *                   (6-12 oct) sin carreras: no es un hueco, es a propósito.
+ *                   de 5 a 10 km). Descargas en S12 y S16. Entre fases hay
+ *                   unos días de transición (4-12 oct) sin carreras: no es un
+ *                   hueco, es a propósito.
  * Fase 3 (S17-S26): igual; larga hasta 18 km (S25). Descargas S20 y S24.
  *                   S26: solo un rodaje suave el martes y el 20K el sábado.
  *
@@ -26,6 +27,7 @@ export const SEMANAS_PLAN = 26;
 
 /** Anclas reales del plan. Si el plan entero se mueve, se mueve con `desfase`. */
 export const INICIO_F1 = "2026-08-14"; // viernes · primera sesión de S1
+export const INICIO_MJS = "2026-08-18"; // martes de S2 · desde aquí se corre M-J-S
 export const INICIO_F2 = "2026-10-13"; // martes · primera corta de S9
 export const DIA_20K = "2027-02-13"; // sábado · el objetivo
 
@@ -147,10 +149,15 @@ function sesionLarga(semana) {
 /** Mapa fecha ISO → sesión, con las fechas REALES que dio el entrenador. */
 const SESIONES = (() => {
   const m = new Map();
-  for (let s = 1; s <= 8; s++) {
-    const viernes = sumarDias(INICIO_F1, (s - 1) * 7);
-    m.set(viernes, { semana: s, ...sesionIntervalos(s) });
-    m.set(sumarDias(viernes, 3), { semana: s, ...sesionIntervalos(s) }); // el lunes siguiente
+  // S1 fue la excepción: viernes 14 y lunes 17 de agosto, ya hechas.
+  m.set(INICIO_F1, { semana: 1, ...sesionIntervalos(1) });
+  m.set(sumarDias(INICIO_F1, 3), { semana: 1, ...sesionIntervalos(1) });
+  // S2-S8: tres CaCo por semana, martes + jueves + sábado.
+  for (let s = 2; s <= 8; s++) {
+    const martes = sumarDias(INICIO_MJS, (s - 2) * 7);
+    for (const salto of [0, 2, 4]) {
+      m.set(sumarDias(martes, salto), { semana: s, ...sesionIntervalos(s) });
+    }
   }
   for (let s = 9; s <= SEMANAS_PLAN; s++) {
     const martes = sumarDias(INICIO_F2, (s - 9) * 7);
@@ -176,11 +183,12 @@ export function sesionCarreraDelDia(iso, desfase = 0) {
 
 /**
  * Semana del plan (puede salir <1 antes de empezar o >26 tras el 20K).
- * Fase 1 cuenta de viernes a jueves; fases 2-3, de martes a lunes.
+ * S1 va del 14 al 17 de agosto; desde la S2 las semanas van de martes a lunes.
  */
 export function semanaCarreraPorFecha(iso, desfase = 0) {
   const efectivo = desfase ? sumarDias(iso, 7 * desfase) : iso;
-  if (efectivo < INICIO_F2) return Math.min(8, Math.floor(diasEntre(INICIO_F1, efectivo) / 7) + 1);
+  if (efectivo < INICIO_MJS) return Math.min(1, Math.floor(diasEntre(INICIO_F1, efectivo) / 7) + 1);
+  if (efectivo < INICIO_F2) return Math.min(8, Math.floor(diasEntre(INICIO_MJS, efectivo) / 7) + 2);
   return Math.min(SEMANAS_PLAN + 1, Math.floor(diasEntre(INICIO_F2, efectivo) / 7) + 9);
 }
 

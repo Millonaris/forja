@@ -24,24 +24,29 @@ FORJA no lleva temporizador: enseña qué toca y las sesiones se marcan como hec
 
 ---
 
-## FASE 1 — correr LUNES y VIERNES (S1-S8) · intervalos corre/camina
+## FASE 1 — CaCo 3 días/semana (S1-S8) · intervalos corre/camina
+
+La S1 fueron 2 sesiones (viernes y lunes). En la revisión del 19-ago el
+entrenador subió a **3 CaCo por semana: MARTES, JUEVES y SÁBADO**, con la
+misma progresión (RPE 3-4/10: "estoy corriendo, pero no voy sufriendo").
 
 | Sem | Sesión (c = min corriendo, a = andando) | Fechas |
 |-----|------------------------------------------|--------|
-| S1 | 8× (1c + 2a) | ✅ vie 14 ago · lun 17 ago |
-| S2 | 6× (2c + 2a) | vie 21 · lun 24 ago |
-| S3 | 5× (3c + 2a) | vie 28 · lun 31 ago |
-| S4 | 4× (5c + 2a) | vie 4 · lun 7 sep |
-| S5 | 3× (8c + 3a) | vie 11 · lun 14 sep |
-| S6 | 2× (10c + 3a) | vie 18 · lun 21 sep |
-| S7 | 2× (15c + 3a) | vie 25 · lun 28 sep |
-| S8 | 30′ seguidos | vie 2 · lun 5 oct |
+| S1 | 8× (1c + 2a) | ✅ vie 14 · lun 17 ago (hecha) |
+| S2 | 6× (2c + 2a) | mar 18 · jue 20 · sáb 22 ago |
+| S3 | 5× (3c + 2a) | 25 · 27 · 29 ago |
+| S4 | 4× (5c + 2a) | 1 · 3 · 5 sep |
+| S5 | 3× (8c + 3a) | 8 · 10 · 12 sep |
+| S6 | 2× (10c + 3a) | 15 · 17 · 19 sep |
+| S7 | 2× (15c + 3a) | 22 · 24 · 26 sep |
+| S8 | 30′ seguidos | 29 sep · 1 · 3 oct |
 
-Vacaciones sin gym hasta el 27-ago: caminata Z2 30′ (o más) con cuestas los días
-que se quiera, gomas 2-3 días/sem, y mínimo 1 día a la semana sin nada. Nada de
-tercera carrera — se hablará en S3-S4 si llega sin molestias.
+Vacaciones sin gym hasta el 27-ago: caminata Z2 30′ (o más) con cuestas los
+días que se quiera, gomas 2-3 días/sem, y mínimo 1 día a la semana sin nada.
 
-Del 6 al 12 de octubre no hay carreras: transición entre fases, a propósito.
+Del 4 al 12 de octubre no hay carreras: transición entre fases, a propósito.
+Cuando las carreras pasen de 45-60 min se revisará la carga conjunta; si algo
+tiene que ceder, cede el cardio antes que la hipertrofia.
 
 ## FASE 2 — 3 días: MARTES y JUEVES (corta Z2) + SÁBADO (larga) · S9-S16
 

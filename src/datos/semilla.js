@@ -40,6 +40,12 @@ export const AJUSTES_POR_DEFECTO = {
 export async function sembrar() {
   await db.exercises.bulkPut(EJERCICIOS);
 
+  // Retira los ejercicios de planes anteriores que ya no están en el catálogo:
+  // si se quedaran en la base, aparecerían mezclados con los del plan vigente.
+  const idsVigentes = new Set(EJERCICIOS.map((e) => e.id));
+  const sobrantes = (await db.exercises.toArray()).filter((e) => !idsVigentes.has(e.id));
+  if (sobrantes.length) await db.exercises.bulkDelete(sobrantes.map((e) => e.id));
+
   const ajustes = await db.settings.get(1);
   if (!ajustes) {
     await db.settings.put(AJUSTES_POR_DEFECTO);

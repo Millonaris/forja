@@ -57,16 +57,20 @@ export function duracionEstimada(sessionName) {
       segundos += rondas * (ejecucion + REGLAS_GYM.descansoSuperserie);
     } else {
       const ej = bloque.ejercicios[0];
-      segundos += (ej.series || 0) * (SEG_POR_SERIE + REGLAS_GYM.descansoGrande);
+      segundos += (ej.series || 0) * (SEG_POR_SERIE + descansoDe(ej));
     }
   }
 
   return Math.round(segundos / 60 / 5) * 5;
 }
 
-/** Descanso que toca tras una serie de este ejercicio, en segundos. */
+/**
+ * Descanso que toca tras una serie de este ejercicio, en segundos.
+ * Grandes 2-3 min, aislados 90-120 s: sin prisa entre series.
+ */
 export function descansoDe(ejercicio) {
-  return ejercicio.superset ? REGLAS_GYM.descansoSuperserie : REGLAS_GYM.descansoGrande;
+  if (ejercicio.superset) return REGLAS_GYM.descansoSuperserie;
+  return ejercicio.aislado ? REGLAS_GYM.descansoAislado : REGLAS_GYM.descansoGrande;
 }
 
 /**

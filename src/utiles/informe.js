@@ -44,9 +44,11 @@ export async function generarInforme() {
   l.push("");
   l.push(`Fecha: ${formatoCorto(hoy)} · Semana ${Math.min(semana, SEMANAS_PLAN)} de ${SEMANAS_PLAN} del plan.`);
   l.push(
-    "Plan: híbrido. Gimnasio 3 días (L-X-V) en rotación Torso A / Pierna A / Torso B / Pierna B, " +
-      "doble progresión y 1-2 RIR (fallo total solo en la última serie de laterales y curls). " +
-      "Carrera 0→20K en 26 semanas. Objetivo: hipertrofia + capacidad aeróbica.",
+    "Plan: híbrido con bloque de especialización de 12 semanas en deltoide lateral + dorsal + espalda alta " +
+      "(el resto, proporcionado; pecho en mantenimiento). Gimnasio 3 días (L-X-V) en rotación " +
+      "Torso A / Pierna A / Torso B / Pierna B, todo en máquina/polea, doble progresión; " +
+      "grandes a RIR 1-2 y aislados con última serie a RIR 0-1. " +
+      "Carrera 0→20K con 3 CaCo suaves por semana. Objetivo: cambiar la silueta + capacidad aeróbica.",
   );
   l.push("");
 
@@ -57,7 +59,7 @@ export async function generarInforme() {
     l.push(`- ${nombreMusculo(musculo)}: objetivo ${o.min}-${o.max} series/semana. ${o.nota}`);
   }
   l.push(
-    "- Ratio tirón/empuje: no se cuenta. Lo que no se salta nunca son remos, face pull y hombro posterior.",
+    "- Ratio tirón/empuje: no se cuenta. Lo que no se salta nunca: laterales, pullover, reverse pec deck, sóleo y tibial.",
   );
   l.push("");
 

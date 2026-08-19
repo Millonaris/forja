@@ -477,7 +477,7 @@ function TablaEjercicio({
             }}
           >
             {ejercicio.name}
-            {/* ⭐ del plan: remos, face pull y hombro posterior no se saltan */}
+            {/* ⭐ del plan: laterales, pullover, hombro posterior, sóleo y tibial */}
             {ejercicio.prioritario && <span style={{ color: "var(--f-aviso)" }}> ★</span>}
           </span>
         </div>

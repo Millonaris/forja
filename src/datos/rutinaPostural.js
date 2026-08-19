@@ -1,12 +1,17 @@
 /*
- * FORJA · Rutina postural diaria.
+ * FORJA · Rutina postural diaria — versión definitiva del entrenador (ago-2026).
  *
- * Orden fijo: se hace de arriba abajo. Cada ejercicio tiene su temporizador
- * (los de tiempo cuentan atrás; los de repeticiones marcan el ritmo de pausa).
+ * Todos los días, 8-10 minutos, en orden de arriba abajo. Cada ejercicio tiene
+ * su temporizador (los de tiempo cuentan atrás; los de repeticiones marcan el
+ * ritmo de pausa). Ya no hay extras de martes/viernes: el trabajo de espalda
+ * alta vive ahora en el gimnasio (reverse pec deck, remos) y el core va al
+ * final de los días de pierna.
  *
- * "Día completo" = todos los ejercicios del BLOQUE PRINCIPAL aplicables ese día.
- * El de pelvis solo cuenta las 4 primeras semanas; a partir de ahí desaparece
- * del bloque y el día completo pasa a ser 6 ejercicios en vez de 7.
+ * "Día completo" = todos los ejercicios del bloque aplicables ese día. El de
+ * pelvis solo cuenta las 4 primeras semanas; después desaparece del bloque.
+ *
+ * Además de la rutina: mini-reset 3-5 veces al día, 10-20 segundos —
+ * rodillas suaves, costillas sobre pelvis, cuello largo. Sin apretar nada.
  */
 
 /**
@@ -18,127 +23,80 @@ export const RUTINA_POSTURAL = [
   {
     id: "p1",
     orden: 1,
-    nombre: "Control de pelvis (retroversión)",
+    nombre: "Basculación pélvica tumbado",
     dosis: "1×8",
     series: 1,
     reps: 8,
     tipo: "reps",
-    soloHastaSemana: 4, // solo las 4 primeras semanas
+    soloHastaSemana: 4, // solo las 4 primeras semanas; después ya controlas la posición
     nota: "Tumbado, pega la lumbar al suelo sin empujar con los pies.",
   },
   {
-    id: "p2",
-    orden: 2,
-    nombre: "Postura contra pared",
-    dosis: "5×20 s",
-    series: 5,
-    segundos: 20,
-    tipo: "tiempo",
-    nota: "Talones, glúteo, dorsal y nuca en la pared. Barbilla metida.",
-  },
-  {
     id: "p3",
-    orden: 3,
-    nombre: "Extensión torácica con toalla",
-    dosis: "2×8 · pausa 3 s",
-    series: 2,
+    orden: 2,
+    nombre: "Extensión torácica sobre foam roller",
+    dosis: "1×8 · pausa 2 s",
+    series: 1,
     reps: 8,
-    pausa: 3,
+    pausa: 2,
     tipo: "reps",
-    nota: "Toalla enrollada bajo las escápulas. Abre pecho, no lumbar.",
+    nota: "Movimiento de espalda alta. No arquees la lumbar.",
   },
   {
     id: "p4",
-    orden: 4,
-    nombre: "Chin tuck tumbado",
-    dosis: "2×8-10 · 5 s",
+    orden: 3,
+    nombre: "Chin tuck",
+    dosis: "2×8 · 5 s",
     series: 2,
-    reps: 9,
+    reps: 8,
     pausa: 5,
     tipo: "reps",
-    nota: "Doble mentón sin levantar la cabeza del suelo.",
+    nota: "Cabeza hacia atrás, no barbilla hacia abajo.",
   },
   {
-    id: "p5",
-    orden: 5,
-    nombre: "Cobra prona",
-    dosis: "3×20-30 s",
-    series: 3,
-    segundos: 25,
-    tipo: "tiempo",
-    // La cobra progresa con las semanas: es el ejercicio que más gana con el tiempo.
-    progresion: [
-      { desdeSemana: 1, segundos: 25, dosis: "3×20-30 s" },
-      { desdeSemana: 5, segundos: 30, dosis: "3×25-30 s" },
-      { desdeSemana: 9, segundos: 40, dosis: "3×40 s" },
-    ],
-    nota: "Boca abajo, pulgares al techo, despega pecho sin tirar del cuello.",
-  },
-  {
-    id: "p6",
-    orden: 6,
-    nombre: "Floor angels",
+    id: "p8",
+    orden: 4,
+    nombre: "Wall slide",
     dosis: "2×8-10",
     series: 2,
     reps: 9,
     tipo: "reps",
-    nota: "Brazos pegados al suelo todo el recorrido. Si despegan, menos rango.",
+    nota: "Costillas controladas, cuello largo. No hace falta pegar las manos del todo a la pared.",
   },
   {
-    id: "p7",
-    orden: 7,
-    nombre: "Couch stretch",
-    dosis: "45 s/lado",
+    id: "p5",
+    orden: 5,
+    nombre: "Cobra baja",
+    dosis: "2×20-30 s",
     series: 2,
-    segundos: 45,
+    segundos: 25,
     tipo: "tiempo",
-    porLado: true,
-    nota: "Glúteo apretado para no arquear la lumbar.",
+    nota: "El pecho sube MUY poco, mirada al suelo. Nada de hiperextender la lumbar.",
+  },
+  {
+    id: "p2",
+    orden: 6,
+    nombre: "Colocación de pie",
+    dosis: "3×20 s",
+    series: 3,
+    segundos: 20,
+    tipo: "tiempo",
+    nota: "Rodillas suaves → costillas sobre pelvis → cuello largo. Practicar la posición, no forzarla.",
   },
 ];
 
-/** Extras: 2 días por semana, después del bloque principal. */
-export const EXTRAS_POSTURALES = [
-  {
-    id: "x1",
-    orden: 8,
-    nombre: "Y-W-T",
-    dosis: "1-2 rondas · 10 s/letra",
-    series: 3,
-    segundos: 10,
-    tipo: "tiempo",
-    extra: true,
-    nota: "Boca abajo. Una ronda son las tres letras seguidas.",
-  },
-  {
-    id: "x2",
-    orden: 9,
-    nombre: "Apertura en banco con botellas",
-    dosis: "2-3 min",
-    series: 1,
-    segundos: 150,
-    tipo: "tiempo",
-    extra: true,
-    nota: "Tumbado en el banco, brazos en cruz, peso ligero. Respira largo.",
-  },
-];
+/** Ya no hay extras de martes/viernes: la espalda alta se trabaja en el gym. */
+export const EXTRAS_POSTURALES = [];
 
 /** Días de la semana (ISO: 1 = lunes) en los que tocan los extras. */
-export const DIAS_EXTRAS = [2, 5]; // martes y viernes
+export const DIAS_EXTRAS = [];
 
 /**
  * Rutina aplicable a una semana concreta del plan.
- * Aplica la caducidad del ejercicio de pelvis y la progresión de la cobra.
+ * Aplica la caducidad del ejercicio de pelvis.
  */
 export function rutinaDeSemana(semana, conExtras = false) {
-  const principal = RUTINA_POSTURAL.filter(
-    (e) => !e.soloHastaSemana || semana <= e.soloHastaSemana,
-  ).map((e) => {
-    if (!e.progresion) return e;
-    // Se coge el último tramo de progresión cuya semana de inicio ya hemos pasado.
-    const tramo = [...e.progresion].reverse().find((p) => semana >= p.desdeSemana);
-    return { ...e, segundos: tramo.segundos, dosis: tramo.dosis };
-  });
+  const principal = RUTINA_POSTURAL.filter((e) => !e.soloHastaSemana || semana <= e.soloHastaSemana);
   return conExtras ? [...principal, ...EXTRAS_POSTURALES] : principal;
 }
 
@@ -160,14 +118,14 @@ export const TEST_PARED = {
       etiqueta: "Sale fácil",
       color: "ok",
       lectura: "Postura de partida buena. La rutina pasa a ser mantenimiento.",
-      accion: "Mantén los 7 ejercicios y sube la cobra a 40 s.",
+      accion: "Mantén la rutina diaria y los mini-resets. No hace falta más.",
     },
     {
       id: "hard",
       etiqueta: "Cuesta mantenerlo",
       color: "aviso",
       lectura: "Llegas, pero tirando de compensación: te cansas antes de 20 s.",
-      accion: "Insiste en pared y cobra. Añade los extras un día más por semana.",
+      accion: "Insiste en cobra baja y colocación de pie, y suma mini-resets durante el día.",
     },
     {
       id: "none",

@@ -78,7 +78,7 @@ export default function ResumenSesion() {
 
   const consejo = construirConsejo({ sesion, ejercicios, todasSesiones, todosSets, comparacion, anterior });
 
-  // Los ⭐ del plan (remos, face pull, hombro posterior, lumbar, farmer carry)
+  // Los ⭐ del plan (laterales, pullover, hombro posterior, sóleo, tibial)
   // sostienen la salud del hombro y la espalda: saltárselos no es lo mismo que
   // saltarse un accesorio, así que se dice en voz alta.
   const hechosIds = new Set(seriesHoy.map((s) => s.exerciseId));

@@ -42,20 +42,35 @@ export const RANGO_SERIES = { min: 10, max: 20 };
  */
 export const OBJETIVO_SERIES = {
   hombroLateral: {
-    min: 12,
-    max: 16,
-    nota: "Es el punto que más quieres empujar: por eso las laterales van en las cuatro sesiones.",
+    min: 9,
+    max: 14,
+    nota: "Especialización nº1 (anchura): laterales en las cuatro sesiones, ≈10,5 series directas de media más lo indirecto de los presses.",
+  },
+  dorsal: {
+    min: 8,
+    max: 12,
+    nota: "Especialización nº2 (la V): jalones + pullover + lo que aportan los remos, ≈10 series efectivas.",
+  },
+  hombroPosterior: {
+    min: 4,
+    max: 8,
+    nota: "Hombro 3D y postura: reverse pec deck en los dos torsos más lo que cae de los remos.",
   },
   pecho: {
-    min: 4,
-    max: 10,
+    min: 5,
+    max: 8,
     mantener: true,
-    nota: "Volumen moderado a propósito. El tema del pezón no se arregla con más press: eso son la ecografía y perder grasa.",
+    nota: "Mantenimiento a propósito: la recuperación extra va a hombro y espalda. El tema del pezón no se arregla con más press.",
+  },
+  cuadriceps: {
+    min: 7,
+    max: 12,
+    nota: "Suficiente para crecer sin destrozar las piernas ahora que estás empezando a correr.",
   },
   gemelo: {
     min: 6,
     max: 12,
-    nota: "Gemelo de pie + sóleo en cada día de pierna: fuerza protectora del plan de carrera, no hipertrofia.",
+    nota: "Gemelos + sóleo en cada día de pierna: fuerza protectora del plan de carrera, no hipertrofia.",
   },
   tibial: {
     min: 2,
