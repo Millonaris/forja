@@ -1,18 +1,19 @@
 /*
  * FORJA · Barra de navegación inferior.
  *
- * Cinco destinos fijos, siempre abajo y siempre en el mismo orden: en modo
- * una mano el pulgar llega a los cinco sin recolocar el móvil.
+ * Seis destinos fijos, siempre abajo y siempre en el mismo orden: en modo
+ * una mano el pulgar llega a todos sin recolocar el móvil.
  */
 
 import { NavLink } from "react-router-dom";
-import { IconoCarrera, IconoCuerpo, IconoDiario, IconoGym, IconoHoy } from "./Iconos.jsx";
+import { IconoCarrera, IconoCuerpo, IconoDiario, IconoDieta, IconoGym, IconoHoy } from "./Iconos.jsx";
 
 const DESTINOS = [
   { a: "/", etiqueta: "HOY", Icono: IconoHoy, exacto: true },
   { a: "/gym", etiqueta: "GYM", Icono: IconoGym },
   { a: "/carrera", etiqueta: "CARRERA", Icono: IconoCarrera },
   { a: "/cuerpo", etiqueta: "CUERPO", Icono: IconoCuerpo },
+  { a: "/dieta", etiqueta: "DIETA", Icono: IconoDieta },
   { a: "/diario", etiqueta: "DIARIO", Icono: IconoDiario },
 ];
 
@@ -38,7 +39,8 @@ export default function NavInferior() {
           to={a}
           end={exacto}
           style={({ isActive }) => ({
-            width: 66,
+            flex: "1 1 0",
+            minWidth: 0,
             minHeight: 48,
             display: "flex",
             flexDirection: "column",

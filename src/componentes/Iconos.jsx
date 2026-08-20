@@ -59,6 +59,26 @@ export function IconoCuerpo() {
   return <span style={{ ...base, width: 22, height: 22, border: "2px solid currentColor", borderRadius: 6 }} />;
 }
 
+/** DIETA · un plato visto desde arriba. */
+export function IconoDieta() {
+  return (
+    <span
+      style={{
+        ...base,
+        width: 22,
+        height: 22,
+        border: "2px solid currentColor",
+        borderRadius: "50%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <span style={{ display: "block", width: 8, height: 8, border: "2px solid currentColor", borderRadius: "50%" }} />
+    </span>
+  );
+}
+
 /** DIARIO · círculo discontinuo: los días que se van rellenando. */
 export function IconoDiario() {
   return <span style={{ ...base, width: 22, height: 22, border: "2px dashed currentColor", borderRadius: "50%" }} />;
