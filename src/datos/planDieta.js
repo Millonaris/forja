@@ -92,25 +92,25 @@ export function proximoHitoDieta(iso) {
 }
 
 /**
- * Día a día del mini-cut, tal cual lo dio el entrenador (supercontexto §20 y
- * §23). Los dos días visuales llevan el gym cambiado a propósito: el viernes
- * 4-sep toca Torso B (y no la Pierna A de la rotación) para llegar congestionado.
+ * Kcal día a día del mini-cut — SOLO comida: las notas de alimentación que
+ * dio el entrenador para días concretos (vísperas y días visuales). Los
+ * entrenos de cada día ya los enseñan las pestañas Hoy, Gym y Carrera.
  */
-export const CALENDARIO_MINICUT = [
-  { fecha: "2026-08-24", texto: "Torso A Light · cintura y foto: punto de partida" },
-  { fecha: "2026-08-25", texto: "CaCo (la fase que toque)" },
-  { fecha: "2026-08-26", texto: "Pierna A Light" },
-  { fecha: "2026-08-27", texto: "CaCo fácil" },
-  { fecha: "2026-08-28", texto: "Torso B Light · cena normal, sin atracón (mañana es día visual)" },
-  { fecha: "2026-08-29", texto: "DÍA VISUAL · opcional: mini-pump de torso 10-15 min, sin fallo" },
-  { fecha: "2026-08-30", texto: "CaCo fácil" },
-  { fecha: "2026-08-31", texto: "Pierna B Light" },
-  { fecha: "2026-09-01", texto: "CaCo · empieza la semana 2 (1 850 kcal)" },
-  { fecha: "2026-09-02", texto: "Torso A Light" },
-  { fecha: "2026-09-03", texto: "CaCo MUY fácil (mañana es el día visual grande)" },
-  { fecha: "2026-09-04", texto: "DÍA VISUAL · Torso B Light unas horas antes · hidratos antes de entrenar" },
-  { fecha: "2026-09-05", texto: "Descanso" },
-  { fecha: "2026-09-06", texto: "CaCo" },
-  { fecha: "2026-09-07", texto: "Pierna A Light" },
-  { fecha: "2026-09-08", texto: "CaCo fácil · fin del mini-cut" },
+export const KCAL_DIA_A_DIA = [
+  { fecha: "2026-08-24", kcal: "1 700" },
+  { fecha: "2026-08-25", kcal: "1 700" },
+  { fecha: "2026-08-26", kcal: "1 700" },
+  { fecha: "2026-08-27", kcal: "1 700" },
+  { fecha: "2026-08-28", kcal: "1 700", nota: "Cena normal, sin atracón: mañana es día visual" },
+  { fecha: "2026-08-29", kcal: "1 700", nota: "Día visual: comida normal del plan, nada raro ni deshidratación" },
+  { fecha: "2026-08-30", kcal: "1 700" },
+  { fecha: "2026-08-31", kcal: "1 700" },
+  { fecha: "2026-09-01", kcal: "1 850", nota: "Empieza la semana 2: sube de 1 700 a 1 850" },
+  { fecha: "2026-09-02", kcal: "1 850" },
+  { fecha: "2026-09-03", kcal: "1 850", nota: "Sin cena exagerada y evita lo que te hinche: mañana es el día visual grande" },
+  { fecha: "2026-09-04", kcal: "1 850-1 900", nota: "Día visual: parte de los hidratos antes del entreno de la tarde" },
+  { fecha: "2026-09-05", kcal: "1 850" },
+  { fecha: "2026-09-06", kcal: "1 850" },
+  { fecha: "2026-09-07", kcal: "1 850" },
+  { fecha: "2026-09-08", kcal: "1 850", nota: "Último día del mini-cut: desde mañana, ~2 400 de mantenimiento" },
 ];

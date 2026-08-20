@@ -8,12 +8,7 @@
  */
 
 import Cabecera from "../componentes/Cabecera.jsx";
-import {
-  CALENDARIO_MINICUT,
-  FASES_DIETA,
-  HITOS_DIETA,
-  faseDietaDe,
-} from "../datos/planDieta.js";
+import { FASES_DIETA, HITOS_DIETA, KCAL_DIA_A_DIA, faseDietaDe } from "../datos/planDieta.js";
 import { formatoCorto, formatoDia, hoyISO } from "../logica/fechas.js";
 
 export default function Dieta() {
@@ -59,13 +54,22 @@ export default function Dieta() {
             </>
           )}
 
-          {/* Reparto por comidas de la fase (o del mini-cut que viene). */}
-          <div className="f-tarjeta" style={{ padding: "12px 14px", borderRadius: 14, marginTop: 12, background: "var(--f-sup2)" }}>
-            <div className="f-etiqueta" style={{ marginBottom: 7 }}>REPARTO POR COMIDAS</div>
-            <div className="f-pretty" style={{ font: "400 13px/1.5 var(--f-ui)", color: "var(--f-texto2)" }}>
-              {(fase ?? FASES_DIETA[0]).comidas}. Sin obsesionarse con el gramo: lo que manda es clavar
-              aproximadamente las calorías y la proteína del día.
+        </div>
+
+        {/* ---- Las comidas del día ---- */}
+        <div className="f-tarjeta" style={{ padding: "14px 15px", borderRadius: 16 }}>
+          <div className="f-etiqueta" style={{ marginBottom: 10 }}>LAS COMIDAS DEL DÍA</div>
+          {["COMIDA 1", "COMIDA 2", "COMIDA 3", "COMIDA 4"].map((nombre) => (
+            <div key={nombre} className="f-fila-sb" style={{ padding: "7px 0", borderBottom: "1px solid var(--f-borde-sutil)" }}>
+              <span style={{ font: "500 13px/1.2 var(--f-ui)" }}>{nombre}</span>
+              <span style={{ font: "700 13px/1 var(--f-mono)", color: "var(--f-acento)" }}>45-50 g proteína</span>
             </div>
+          ))}
+          <div className="f-pretty" style={{ font: "400 12.5px/1.6 var(--f-ui)", color: "var(--f-texto2)", marginTop: 10 }}>
+            Los <strong>hidratos</strong>, concentrados antes y/o después del gym. Las <strong>grasas</strong>,
+            repartidas donde caigan cómodas. Si un día haces 3 comidas, sube la proteína a ~60-65 g por comida.
+            Sin obsesionarse con el gramo: lo que manda es clavar aproximadamente las calorías y la proteína
+            del día.
           </div>
         </div>
 
@@ -98,42 +102,41 @@ export default function Dieta() {
           })}
         </div>
 
-        {/* ---- Día a día del mini-cut (desaparece cuando termine) ---- */}
+        {/* ---- Kcal día a día del mini-cut (desaparece cuando termine) ---- */}
         {enMinicut && (
           <div className="f-tarjeta" style={{ padding: "14px 4px 8px", borderRadius: 16 }}>
-            <div className="f-etiqueta" style={{ padding: "0 13px 10px" }}>MINI-CUT · DÍA A DÍA</div>
-            {CALENDARIO_MINICUT.map((d) => {
+            <div className="f-etiqueta" style={{ padding: "0 13px 10px" }}>MINI-CUT · KCAL DÍA A DÍA</div>
+            {KCAL_DIA_A_DIA.map((d) => {
               const esHoy = d.fecha === hoy;
               const pasado = d.fecha < hoy;
-              const visual = d.texto.startsWith("DÍA VISUAL");
               return (
                 <div
                   key={d.fecha}
                   style={{
-                    display: "flex",
-                    gap: 10,
                     padding: "8px 13px",
                     borderTop: "1px solid var(--f-borde-sutil)",
                     opacity: pasado ? 0.45 : 1,
                     background: esHoy ? "color-mix(in srgb, var(--f-acento) 8%, transparent)" : undefined,
                   }}
                 >
-                  <span
-                    style={{
-                      flex: "none",
-                      width: 74,
-                      font: "600 11px/1.6 var(--f-mono)",
-                      color: esHoy ? "var(--f-acento)" : visual ? "var(--f-aviso)" : "var(--f-texto3)",
-                    }}
-                  >
-                    {formatoDia(d.fecha).toUpperCase()}
-                  </span>
-                  <span
-                    className="f-pretty"
-                    style={{ font: "400 12.5px/1.45 var(--f-ui)", color: visual ? "var(--f-aviso)" : "var(--f-texto2)" }}
-                  >
-                    {d.texto}
-                  </span>
+                  <div className="f-fila-sb">
+                    <span
+                      style={{
+                        font: "600 11px/1.4 var(--f-mono)",
+                        color: esHoy ? "var(--f-acento)" : "var(--f-texto3)",
+                      }}
+                    >
+                      {formatoDia(d.fecha).toUpperCase()}
+                    </span>
+                    <span className="f-cifra" style={{ fontSize: 16 }}>
+                      {d.kcal} <span style={{ fontSize: 10, color: "var(--f-texto3)" }}>KCAL</span>
+                    </span>
+                  </div>
+                  {d.nota && (
+                    <div className="f-pretty" style={{ font: "400 12px/1.45 var(--f-ui)", color: "var(--f-aviso)", marginTop: 3 }}>
+                      {d.nota}
+                    </div>
+                  )}
                 </div>
               );
             })}
