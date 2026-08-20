@@ -15,6 +15,7 @@ import { guardarAjustes } from "../datos/db.js";
 import { borrarRegistros } from "../datos/semilla.js";
 import { useAjustes } from "../ganchos/useDatos.js";
 import { FASES, INTERVALOS_F1, LARGAS, semanaCarreraPorFecha } from "../datos/planCarrera.js";
+import { EXTRAS_POSTURALES, RUTINA_POSTURAL } from "../datos/rutinaPostural.js";
 import { SEMANAS_PLAN, construirCalendario } from "../logica/calendario.js";
 import { formatoCorto, hoyISO } from "../logica/fechas.js";
 import { entero } from "../logica/formato.js";
@@ -172,7 +173,10 @@ export default function Ajustes() {
           {NOMBRES_SESION.map((n) => (
             <FilaDato key={n} etiqueta={n} valor={`${ejerciciosDe(n).length} ejercicios`} />
           ))}
-          <FilaDato etiqueta="Rutina de postura" valor="7 + 2 extras" />
+          <FilaDato
+            etiqueta="Rutina de postura"
+            valor={`${RUTINA_POSTURAL.length} + ${EXTRAS_POSTURALES.length} extras`}
+          />
           <FilaDato etiqueta="Plan de carrera" valor="0 → 20K · 3 fases" />
         </Grupo>
 
