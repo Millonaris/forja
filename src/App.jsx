@@ -20,6 +20,7 @@ import ResumenSesion from "./pantallas/ResumenSesion.jsx";
 import Progresion from "./pantallas/Progresion.jsx";
 import Carrera from "./pantallas/Carrera.jsx";
 import Cuerpo from "./pantallas/Cuerpo.jsx";
+import Dieta from "./pantallas/Dieta.jsx";
 import Postura from "./pantallas/Postura.jsx";
 import Diario from "./pantallas/Diario.jsx";
 import Ajustes from "./pantallas/Ajustes.jsx";
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="/progresion" element={<Progresion />} />
           <Route path="/carrera" element={<Carrera />} />
           <Route path="/cuerpo" element={<Cuerpo />} />
+          <Route path="/dieta" element={<Dieta />} />
           <Route path="/postura" element={<Postura />} />
           <Route path="/postura/rutina" element={<Postura modo="rutina" />} />
           <Route path="/diario" element={<Diario />} />

@@ -209,13 +209,17 @@ export default function Cuerpo() {
           )}
         </div>
 
-        {/* ---- Dieta: el objetivo de la fase; se registra en Fitia ---- */}
-        <div className="f-tarjeta" style={{ padding: "14px 15px", borderRadius: 16 }}>
+        {/* ---- Dieta: el objetivo de la fase; el plan entero, en su pantalla ---- */}
+        <button
+          className="f-tarjeta"
+          style={{ padding: "14px 15px", borderRadius: 16, width: "100%", textAlign: "left" }}
+          onClick={() => navegar("/dieta")}
+        >
           <div className="f-fila-sb">
             <span className="f-etiqueta">
               DIETA · {faseDieta ? faseDieta.nombre : "EMPIEZA EL LUNES 24"}
             </span>
-            <span style={{ font: "500 10px/1 var(--f-mono)", color: "var(--f-texto3)" }}>EN FITIA</span>
+            <span style={{ color: "var(--f-texto3)", font: "600 16px/1 var(--f-ui)" }}>›</span>
           </div>
 
           {faseDieta ? (
@@ -257,10 +261,9 @@ export default function Cuerpo() {
             </div>
           )}
           <div style={{ font: "400 11.5px/1.4 var(--f-ui)", color: "var(--f-texto3)", marginTop: 8 }}>
-            Creatina 5 g a diario · agua y sal normales · el progreso se juzga con la media de 7 días, la cintura y
-            las fotos, nunca con un día suelto.
+            Toca para ver el plan entero: fases, macros por comida y el día a día del mini-cut.
           </div>
-        </div>
+        </button>
 
         {/* ---- Postura ---- */}
         <button

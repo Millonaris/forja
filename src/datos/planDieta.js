@@ -24,6 +24,8 @@ export const FASES_DIETA = [
     nombre: "MINI-CUT · SEMANA 1",
     kcal: "1 700",
     macros: { proteina: "190-200 g", grasa: "50-60 g", carbos: "~100 g" },
+    ejemplo: "195 P · 55 G · ~105 C ≈ 1 695 kcal",
+    comidas: "4 comidas · 45-50 g de proteína cada una · los hidratos, antes y/o después del gym",
     nota: "Corto y agresivo para quitar el exceso de vacaciones. Carbohidratos alrededor del gym. Si el rendimiento cae mucho, el hambre no se controla o duermes peor: sube ya a 1 800-1 900.",
   },
   {
@@ -32,6 +34,8 @@ export const FASES_DIETA = [
     nombre: "MINI-CUT · SEMANA 2",
     kcal: "1 800-1 900",
     macros: { proteina: "190-200 g", grasa: "55-65 g", carbos: "~125-150 g" },
+    ejemplo: "195 P · 60 G · ~120-145 C",
+    comidas: "4 comidas · 45-50 g de proteína cada una · la subida de kcal va a hidratos alrededor del gym",
     nota: "Punto de partida razonable: 1 850. Se afloja el déficit y la subida va a carbohidratos, para rendir en el gym. El viernes 4 (día visual), parte de los hidratos antes de entrenar.",
   },
   {
@@ -40,6 +44,8 @@ export const FASES_DIETA = [
     nombre: "MANTENIMIENTO · COMPROBACIÓN",
     kcal: "~2 400",
     macros: { proteina: "180-190 g", grasa: "65-75 g", carbos: "~255 g" },
+    ejemplo: "185 P · 70 G · ~255-260 C ≈ 2 400 kcal",
+    comidas: "3-4 comidas · ~45-50 g de proteína cada una · hidratos repartidos, con parte alrededor del entreno",
     nota: "Semana para comprobar el mantenimiento real con la media de 7 días: si el peso aguanta estable, 2 400 es tu número; si sigue bajando, tu gasto es mayor.",
   },
   {
@@ -48,6 +54,8 @@ export const FASES_DIETA = [
     nombre: "VOLUMEN LIMPIO",
     kcal: "2 500-2 550",
     macros: { proteina: "180-190 g", grasa: "65-75 g", carbos: "~280-295 g" },
+    ejemplo: "185 P · 70 G · ~280-295 C",
+    comidas: "3-4 comidas · ~45-50 g de proteína cada una · las kcal extra sobre mantenimiento, a hidratos",
     nota: "Superávit mínimo (+100-150 kcal): ganar +100-200 g/semana como mucho. Peso estable 2-3 sem pero el gym progresa → no tocar. Nada progresa → +100 kcal. Subes >300 g/sem y crece la cintura → −100 kcal. Cuando la carrera se alargue, estas kcal pueden pasar a ser mantenimiento: se ajusta con los datos.",
   },
 ];
@@ -82,3 +90,27 @@ export const HITOS_DIETA = [
 export function proximoHitoDieta(iso) {
   return HITOS_DIETA.find((h) => h.fecha >= iso) ?? null;
 }
+
+/**
+ * Día a día del mini-cut, tal cual lo dio el entrenador (supercontexto §20 y
+ * §23). Los dos días visuales llevan el gym cambiado a propósito: el viernes
+ * 4-sep toca Torso B (y no la Pierna A de la rotación) para llegar congestionado.
+ */
+export const CALENDARIO_MINICUT = [
+  { fecha: "2026-08-24", texto: "Torso A Light · cintura y foto: punto de partida" },
+  { fecha: "2026-08-25", texto: "CaCo (la fase que toque)" },
+  { fecha: "2026-08-26", texto: "Pierna A Light" },
+  { fecha: "2026-08-27", texto: "CaCo fácil" },
+  { fecha: "2026-08-28", texto: "Torso B Light · cena normal, sin atracón (mañana es día visual)" },
+  { fecha: "2026-08-29", texto: "DÍA VISUAL · opcional: mini-pump de torso 10-15 min, sin fallo" },
+  { fecha: "2026-08-30", texto: "CaCo fácil" },
+  { fecha: "2026-08-31", texto: "Pierna B Light" },
+  { fecha: "2026-09-01", texto: "CaCo · empieza la semana 2 (1 850 kcal)" },
+  { fecha: "2026-09-02", texto: "Torso A Light" },
+  { fecha: "2026-09-03", texto: "CaCo MUY fácil (mañana es el día visual grande)" },
+  { fecha: "2026-09-04", texto: "DÍA VISUAL · Torso B Light unas horas antes · hidratos antes de entrenar" },
+  { fecha: "2026-09-05", texto: "Descanso" },
+  { fecha: "2026-09-06", texto: "CaCo" },
+  { fecha: "2026-09-07", texto: "Pierna A Light" },
+  { fecha: "2026-09-08", texto: "CaCo fácil · fin del mini-cut" },
+];

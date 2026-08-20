@@ -79,6 +79,14 @@ export function construirCalendario(fechaInicio, desfase = 0) {
     }
   }
 
+  // Cambio fijo del supercontexto: el viernes 4-sep es día visual y se
+  // adelanta el Torso B (llega congestionado); la Pierna A pasa al lunes 7.
+  // La rotación no se altera: solo se intercambian esos dos días.
+  if (gymPorDia.get("2026-09-04") === "PIERNA A" && gymPorDia.get("2026-09-07") === "TORSO B") {
+    gymPorDia.set("2026-09-04", "TORSO B");
+    gymPorDia.set("2026-09-07", "PIERNA A");
+  }
+
   // 2) Día a día: gym + carrera + postura.
   for (let semana = 1; semana <= totalSemanas; semana++) {
     for (let i = 0; i < 7; i++) {
