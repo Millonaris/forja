@@ -1,4 +1,15 @@
-# Gimnasio y postura — plan del entrenador (revisión 19-ago-2026)
+# Gimnasio y postura — plan del entrenador (revisión 19/20-ago-2026)
+
+> El documento maestro con TODO el contexto (nutrición incluida) es
+> [supercontexto-2026-08.md](supercontexto-2026-08.md). Este archivo es el
+> resumen operativo del gym y la postura.
+
+**Vuelta al gym: lunes 24-ago, a la vez que el mini-cut.** Del 24-ago al
+8-sep las sesiones se hacen en **versión Light** (la app baja las series
+sola): RIR 2 la primera semana (2-3 si las sensaciones son malas), RIR 1-2
+la segunda; nada de fallo, drop sets ni récords. El sábado 29-ago y el
+viernes 4-sep son días visuales: como mucho un mini-pump de torso sin fallo
+(el 4-sep, entrenar el Torso B unas horas antes del momento importante).
 
 **Objetivo: cambiar la silueta, no solo "ser grande".** Bloque de
 especialización de 12 semanas: **1) deltoide lateral · 2) dorsal ·
@@ -95,9 +106,16 @@ prioritario sin inflar los torsos.
 
 Primeras 4 semanas, antes de todo: **basculación pélvica tumbado 1×8**.
 
+Extras 3 días/semana (L-X-V en la app): **pectoral en marco de puerta**
+30 s/lado, y **flexor de cadera** 30 s/lado solo si hay tirantez real.
+
 **Mini-reset durante el día:** 3-5 veces, 10-20 s — rodillas suaves,
 costillas sobre pelvis, cuello largo. Nada de meter barriga a muerte,
 apretar el culo ni sacar pecho militar.
+
+Pendiente recomendado por el entrenador: 1-2 sesiones presenciales con un
+fisioterapeuta para valorar la postura de verdad (nada de esto es un
+diagnóstico).
 
 ## Comida (se lleva en Fitia, no en la app)
 

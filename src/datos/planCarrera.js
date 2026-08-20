@@ -152,10 +152,13 @@ const SESIONES = (() => {
   // S1 fue la excepción: viernes 14 y lunes 17 de agosto, ya hechas.
   m.set(INICIO_F1, { semana: 1, ...sesionIntervalos(1) });
   m.set(sumarDias(INICIO_F1, 3), { semana: 1, ...sesionIntervalos(1) });
-  // S2-S8: tres CaCo por semana, martes + jueves + sábado.
+  // S2-S8: tres CaCo por semana, martes + jueves + sábado. Excepción del
+  // supercontexto: en las dos semanas del mini-cut (S3 y S4) la tercera
+  // sesión pasa al DOMINGO, porque el sáb 29 es día visual (mini-pump como
+  // mucho) y el sáb 5 es descanso antes de la Pierna A del lunes.
   for (let s = 2; s <= 8; s++) {
     const martes = sumarDias(INICIO_MJS, (s - 2) * 7);
-    for (const salto of [0, 2, 4]) {
+    for (const salto of [0, 2, s === 3 || s === 4 ? 5 : 4]) {
       m.set(sumarDias(martes, salto), { semana: s, ...sesionIntervalos(s) });
     }
   }

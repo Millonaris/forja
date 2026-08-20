@@ -43,12 +43,17 @@ cosas en lenguaje de usuario, sin jerga: qué verá en pantalla y qué cambia pa
 
 ## El plan de entrenamiento (resumen operativo)
 
+- **Documento maestro: docs/supercontexto-2026-08.md** (todo el contexto de
+  entrenamiento, nutrición y postura que dio el entrenador el 20-ago).
 - **Gym (ver docs/plan-gym-postura.md):** bloque de especialización de 12
   semanas — deltoide lateral + dorsal + espalda alta; pecho en mantenimiento.
   Todo en máquina/polea, sin superseries; grandes RIR 1-2 y descanso 2-3 min,
   aislados con última serie RIR 0-1 y descanso 90-120 s. Sóleo y tibial se
   quedan en los días de pierna (protección de la carrera) y el core va al
-  final de esos días. Rutina postural nueva de 5 ejercicios, sin extras.
+  final de esos días. Vuelta de vacaciones el LUNES 24-ago; durante el
+  mini-cut (24-ago a 8-sep) el motor de sesión usa las series Light
+  (`seriesLight` + `enMiniCut`). Rutina postural de 5 ejercicios + 2
+  estiramientos extra (L-X-V).
 - Carrera con fechas reales: empieza el vie 14-ago-2026, 20K el sáb
   13-feb-2027. Todo suave (RPE 3-4/10, «corro pero no sufro»).
 - Fase 1 (S1-S8): CaCo. La S1 fueron 2 sesiones (vie 14 y lun 17 ago); desde

@@ -85,11 +85,36 @@ export const RUTINA_POSTURAL = [
   },
 ];
 
-/** Ya no hay extras de martes/viernes: la espalda alta se trabaja en el gym. */
-export const EXTRAS_POSTURALES = [];
+/** Estiramientos complementarios: 3 días/semana, después del bloque diario. */
+export const EXTRAS_POSTURALES = [
+  {
+    id: "x3",
+    orden: 8,
+    nombre: "Pectoral en marco de puerta",
+    dosis: "30 s/lado",
+    series: 2,
+    segundos: 30,
+    tipo: "tiempo",
+    porLado: true,
+    extra: true,
+    nota: "Antebrazo en el marco, da un paso y abre el pecho. Sin dolor.",
+  },
+  {
+    id: "x4",
+    orden: 9,
+    nombre: "Flexor de cadera (opcional)",
+    dosis: "30 s/lado",
+    series: 2,
+    segundos: 30,
+    tipo: "tiempo",
+    porLado: true,
+    extra: true,
+    nota: "Solo si notas tirantez real: no es obligatorio. Glúteo apretado, sin arquear la lumbar.",
+  },
+];
 
 /** Días de la semana (ISO: 1 = lunes) en los que tocan los extras. */
-export const DIAS_EXTRAS = [];
+export const DIAS_EXTRAS = [1, 3, 5]; // los días de gym, para que sea fácil recordarlo
 
 /**
  * Rutina aplicable a una semana concreta del plan.

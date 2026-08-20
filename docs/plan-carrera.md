@@ -34,15 +34,16 @@ misma progresión (RPE 3-4/10: "estoy corriendo, pero no voy sufriendo").
 |-----|------------------------------------------|--------|
 | S1 | 8× (1c + 2a) | ✅ vie 14 · lun 17 ago (hecha) |
 | S2 | 6× (2c + 2a) | mar 18 · jue 20 · sáb 22 ago |
-| S3 | 5× (3c + 2a) | 25 · 27 · 29 ago |
-| S4 | 4× (5c + 2a) | 1 · 3 · 5 sep |
+| S3 | 5× (3c + 2a) | mar 25 · jue 27 · **dom 30** (el sáb 29 es día visual) |
+| S4 | 4× (5c + 2a) | mar 1 · jue 3 (MUY fácil) · **dom 6** (el sáb 5, descanso) |
 | S5 | 3× (8c + 3a) | 8 · 10 · 12 sep |
 | S6 | 2× (10c + 3a) | 15 · 17 · 19 sep |
 | S7 | 2× (15c + 3a) | 22 · 24 · 26 sep |
 | S8 | 30′ seguidos | 29 sep · 1 · 3 oct |
 
-Vacaciones sin gym hasta el 27-ago: caminata Z2 30′ (o más) con cuestas los
-días que se quiera, gomas 2-3 días/sem, y mínimo 1 día a la semana sin nada.
+Vacaciones sin gym hasta el 23-ago (la vuelta es el lunes 24, en versión
+Light y con mini-cut): hasta entonces, caminata Z2 30′ los días que se
+quiera y mínimo 1 día a la semana sin nada.
 
 Del 4 al 12 de octubre no hay carreras: transición entre fases, a propósito.
 Cuando las carreras pasen de 45-60 min se revisará la carga conjunta; si algo

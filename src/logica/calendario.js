@@ -31,12 +31,12 @@ export { SEMANAS_PLAN };
 const DIAS_GYM = [1, 3, 5];
 
 /**
- * Vacaciones de agosto 2026 (Jarandilla), SIN gimnasio hasta el 27 incluido:
- * lo dijo el entrenador. Esos días no se planifica sesión ni avanza la
- * rotación T-P-T-P: la primera sesión cae el viernes 28 y la rotación sigue
- * desde donde se quedó. En su lugar tocan caminatas Z2 y gomas.
+ * Vacaciones de agosto 2026 (Jarandilla), sin gimnasio. Según el supercontexto
+ * del entrenador (20-ago), la vuelta es el LUNES 24 con Torso A en versión
+ * Light, arrancando a la vez que el mini-cut. Los días de vacaciones no se
+ * planifica sesión ni avanza la rotación T-P-T-P. En su lugar: caminatas Z2.
  */
-const VACACIONES_HASTA = "2026-08-27";
+const VACACIONES_HASTA = "2026-08-23";
 
 const cache = new Map();
 
@@ -106,9 +106,11 @@ export function construirCalendario(fechaInicio, desfase = 0) {
               // manda sobre todo; luego el taper del 20K; luego los de pierna
               // (regla fija: pierna intensa nunca la víspera de correr).
               aviso:
-                iso >= "2026-08-28" && iso <= "2026-09-04"
-                  ? "Vuelta + déficit: RIR 2, nada de fallo y un 15-20 % menos de volumen. Recuperar rendimiento, no batir récords."
-                  : esPierna
+                iso >= "2026-08-24" && iso <= "2026-08-31"
+                  ? "Mini-cut sem 1, versión Light: RIR 2 (2-3 si las sensaciones son malas), nada de fallo ni récords."
+                  : iso >= "2026-09-01" && iso <= "2026-09-08"
+                    ? "Mini-cut sem 2, versión Light: RIR 1-2, sin fallo. El día 4, entrena unas horas antes del momento visual."
+                    : esPierna
                     ? enPlanCarrera && semanaCarrera >= 25
                       ? "Semana de taper: pierna a MITAD de peso y volumen. Nada nuevo."
                       : sesionCarreraDelDia(sumarDias(iso, 1), desfase)

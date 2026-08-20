@@ -32,7 +32,7 @@ export const FASES_DIETA = [
     nombre: "MINI-CUT · SEMANA 2",
     kcal: "1 800-1 900",
     macros: { proteina: "190-200 g", grasa: "55-65 g", carbos: "~125-150 g" },
-    nota: "Se afloja un poco el déficit y la subida va a carbohidratos, para rendir en el gym.",
+    nota: "Punto de partida razonable: 1 850. Se afloja el déficit y la subida va a carbohidratos, para rendir en el gym. El viernes 4 (día visual), parte de los hidratos antes de entrenar.",
   },
   {
     desde: "2026-09-09",
@@ -55,6 +55,15 @@ export const FASES_DIETA = [
 /** Fase de dieta que toca en una fecha, o null antes del plan (vacaciones). */
 export function faseDietaDe(iso) {
   return FASES_DIETA.find((f) => iso >= f.desde && (!f.hasta || iso <= f.hasta)) ?? null;
+}
+
+/**
+ * ¿La fecha cae dentro del mini-cut (24-ago a 8-sep)? Durante ese tramo el
+ * gimnasio se hace en versión Light: menos series en varios ejercicios, RIR 2
+ * y nada de fallo — recuperar rendimiento con 1 700-1 900 kcal, no récords.
+ */
+export function enMiniCut(iso) {
+  return iso >= "2026-08-24" && iso <= "2026-09-08";
 }
 
 /**

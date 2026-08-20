@@ -420,11 +420,11 @@ function HeroeDescanso({ semana, vacaciones }) {
       <div className="f-tarjeta" style={{ padding: 22, borderStyle: "dashed" }}>
         <div className="f-etiqueta">HOY · VACACIONES</div>
         <div className="f-cifra" style={{ fontSize: 40, textTransform: "uppercase", margin: "12px 0 6px" }}>
-          Sin gym hasta el 27
+          Vuelta el lunes 24
         </div>
         <div className="f-pretty" style={{ font: "400 13.5px/1.5 var(--f-ui)", color: "var(--f-texto2)" }}>
-          Lo que pide el entrenador estos días: caminata Z2 de 30-45′ (con cuestas si te apetece) y gomas 2-3 días
-          por semana. Y al menos un día a la semana, nada de nada.
+          Últimos días de vacaciones: caminata Z2 de 30-45′ si te apetece, y poco más. El lunes 24 empiezan a la
+          vez el gym (Torso A en versión Light) y el mini-cut.
         </div>
       </div>
     );

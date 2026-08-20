@@ -7,11 +7,21 @@
  */
 
 import { REGLAS_GYM, ejerciciosDe } from "../datos/ejercicios.js";
+import { enMiniCut } from "../datos/planDieta.js";
+import { hoyISO } from "./fechas.js";
 
 /** Segundos que se tarda en ejecutar una serie (sin contar el descanso). */
 const SEG_POR_SERIE = 40;
 /** Calentamiento general antes de empezar. */
 const MIN_CALENTAMIENTO = 8;
+
+/**
+ * Series que tocan HOY de un ejercicio: durante el mini-cut (24-ago a 8-sep)
+ * se usa la versión Light del entrenador; fuera de él, las series completas.
+ */
+export function seriesDe(ejercicio, iso = hoyISO()) {
+  return (enMiniCut(iso) ? ejercicio.seriesLight : ejercicio.series) || 0;
+}
 
 /**
  * Agrupa los ejercicios de una sesión en bloques.
@@ -40,24 +50,24 @@ export function bloquesDe(sessionName) {
 /** Número de bloques de la sesión: lo que se enseña como "N ejercicios". */
 export const numeroBloques = (sessionName) => bloquesDe(sessionName).length;
 
-/** Total de series de trabajo previstas en la sesión. */
-export function seriesPrevistas(sessionName) {
-  return ejerciciosDe(sessionName).reduce((t, e) => t + (e.series || 0), 0);
+/** Total de series de trabajo previstas en la sesión (Light en mini-cut). */
+export function seriesPrevistas(sessionName, iso = hoyISO()) {
+  return ejerciciosDe(sessionName).reduce((t, e) => t + seriesDe(e, iso), 0);
 }
 
 /** Duración estimada en minutos, redondeada a 5. */
-export function duracionEstimada(sessionName) {
+export function duracionEstimada(sessionName, iso = hoyISO()) {
   let segundos = MIN_CALENTAMIENTO * 60;
 
   for (const bloque of bloquesDe(sessionName)) {
     if (bloque.superserie) {
       // En superserie se alternan los ejercicios y solo se descansa al cerrar la ronda.
-      const rondas = Math.max(...bloque.ejercicios.map((e) => e.series || 0));
+      const rondas = Math.max(...bloque.ejercicios.map((e) => seriesDe(e, iso)));
       const ejecucion = bloque.ejercicios.length * SEG_POR_SERIE;
       segundos += rondas * (ejecucion + REGLAS_GYM.descansoSuperserie);
     } else {
       const ej = bloque.ejercicios[0];
-      segundos += (ej.series || 0) * (SEG_POR_SERIE + descansoDe(ej));
+      segundos += seriesDe(ej, iso) * (SEG_POR_SERIE + descansoDe(ej));
     }
   }
 
@@ -78,19 +88,19 @@ export function descansoDe(ejercicio) {
  * de un ejercicio concreto. En las superseries los pasos se intercalan
  * (A1, B1, A2, B2…) que es como se hace de verdad.
  */
-export function pasosDe(sessionName) {
+export function pasosDe(sessionName, iso = hoyISO()) {
   const pasos = [];
 
   for (const bloque of bloquesDe(sessionName)) {
     if (bloque.superserie) {
-      const rondas = Math.max(...bloque.ejercicios.map((e) => e.series || 0));
+      const rondas = Math.max(...bloque.ejercicios.map((e) => seriesDe(e, iso)));
       for (let ronda = 1; ronda <= rondas; ronda++) {
         for (const ej of bloque.ejercicios) {
-          if (ronda <= (ej.series || 0)) {
+          if (ronda <= seriesDe(ej, iso)) {
             pasos.push({
               ejercicio: ej,
               serie: ronda,
-              totalSeries: ej.series,
+              totalSeries: seriesDe(ej, iso),
               bloque: bloque.id,
               superserie: bloque.superserie,
               // Solo se descansa al terminar el último ejercicio de la ronda.
@@ -101,11 +111,11 @@ export function pasosDe(sessionName) {
       }
     } else {
       const ej = bloque.ejercicios[0];
-      for (let serie = 1; serie <= (ej.series || 0); serie++) {
+      for (let serie = 1; serie <= seriesDe(ej, iso); serie++) {
         pasos.push({
           ejercicio: ej,
           serie,
-          totalSeries: ej.series,
+          totalSeries: seriesDe(ej, iso),
           bloque: bloque.id,
           superserie: null,
           descansa: true,
