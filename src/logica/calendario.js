@@ -102,17 +102,19 @@ export function construirCalendario(fechaInicio, desfase = 0) {
           ? {
               sessionName,
               esPierna,
-              // Recordatorio de activación antes de cada día de pierna, y en
-              // las semanas finales la orden del entrenador: la pierna se
-              // baja para llegar fresco al 20K. Además, regla fija del plan:
-              // pierna intensa nunca la víspera de correr.
-              aviso: esPierna
-                ? enPlanCarrera && semanaCarrera >= 25
-                  ? "Semana de taper: pierna a MITAD de peso y volumen. Nada nuevo."
-                  : sesionCarreraDelDia(sumarDias(iso, 1), desfase)
-                    ? "Mañana se corre: pierna sin llegar al fallo, nada de récords."
-                    : "Antes de empezar: bisagra de cadera 2×8."
-                : null,
+              // Prioridad de avisos: la primera semana de vuelta (con mini-cut)
+              // manda sobre todo; luego el taper del 20K; luego los de pierna
+              // (regla fija: pierna intensa nunca la víspera de correr).
+              aviso:
+                iso >= "2026-08-28" && iso <= "2026-09-04"
+                  ? "Vuelta + déficit: RIR 2, nada de fallo y un 15-20 % menos de volumen. Recuperar rendimiento, no batir récords."
+                  : esPierna
+                    ? enPlanCarrera && semanaCarrera >= 25
+                      ? "Semana de taper: pierna a MITAD de peso y volumen. Nada nuevo."
+                      : sesionCarreraDelDia(sumarDias(iso, 1), desfase)
+                        ? "Mañana se corre: pierna sin llegar al fallo, nada de récords."
+                        : "Antes de empezar: bisagra de cadera 2×8."
+                    : null,
             }
           : null,
         carrera: sesionCarreraDelDia(iso, desfase),

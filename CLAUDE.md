@@ -3,8 +3,10 @@
 ## Qué es esto
 
 App personal de entrenamiento de Jose (un solo usuario): gimnasio, plan de carrera
-0→20K en 26 semanas, postura y peso diario. **De dieta, nada**: las kcal y macros
-las lleva en Fitia, fuera de esta app. PWA instalable, 100 % local: sin
+0→20K en 26 semanas, postura y peso diario. La dieta se REGISTRA en Fitia, fuera
+de la app; aquí solo se enseña el plan por fases (tarjeta DIETA en Cuerpo, datos
+en planDieta.js, plan completo en docs/plan-dieta.md): mini-cut 24-ago→8-sep,
+mantenimiento ~2 400 kcal, volumen limpio desde el 16-sep. PWA instalable, 100 % local: sin
 servidor, sin cuentas; todos los datos viven en el móvil (IndexedDB con Dexie).
 React + Vite. Se publica en GitHub Pages: https://millonaris.github.io/forja/
 

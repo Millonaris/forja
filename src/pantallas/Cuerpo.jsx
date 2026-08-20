@@ -15,6 +15,7 @@ import Grafica from "../componentes/Grafica.jsx";
 import { useAjustes, useCuerpo as useRegistrosCuerpo, usePostura } from "../ganchos/useDatos.js";
 import { idsPrincipales } from "../datos/rutinaPostural.js";
 import { rachaPostural } from "../logica/diario.js";
+import { faseDietaDe, proximoHitoDieta } from "../datos/planDieta.js";
 import { formatoCorto, formatoDia, hoyISO, semanaDelPlan } from "../logica/fechas.js";
 import { conSigno, num, peso as fmtPeso } from "../logica/formato.js";
 import { mediaMovil, tendenciaSemanal } from "../logica/peso.js";
@@ -40,6 +41,9 @@ export default function Cuerpo() {
   const ultimo = pesajes[pesajes.length - 1] ?? null;
 
   const mediaActual = medias.length ? medias[medias.length - 1].media : null;
+
+  const faseDieta = faseDietaDe(hoy);
+  const hitoDieta = proximoHitoDieta(hoy);
 
   const principales = idsPrincipales(semana);
   const posturaHoy = posturaPorDia.get(hoy);
@@ -203,6 +207,59 @@ export default function Cuerpo() {
               Toca un día para corregir su peso.
             </div>
           )}
+        </div>
+
+        {/* ---- Dieta: el objetivo de la fase; se registra en Fitia ---- */}
+        <div className="f-tarjeta" style={{ padding: "14px 15px", borderRadius: 16 }}>
+          <div className="f-fila-sb">
+            <span className="f-etiqueta">
+              DIETA · {faseDieta ? faseDieta.nombre : "EMPIEZA EL LUNES 24"}
+            </span>
+            <span style={{ font: "500 10px/1 var(--f-mono)", color: "var(--f-texto3)" }}>EN FITIA</span>
+          </div>
+
+          {faseDieta ? (
+            <>
+              <div style={{ display: "flex", alignItems: "flex-end", gap: 14, marginTop: 12 }}>
+                <div>
+                  <div className="f-cifra f-acento" style={{ fontSize: 34 }}>
+                    {faseDieta.kcal}
+                    <span style={{ fontSize: 14, color: "var(--f-texto2)" }}> kcal/día</span>
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                {[
+                  ["PROTEÍNA", faseDieta.macros.proteina],
+                  ["GRASA", faseDieta.macros.grasa],
+                  ["CARBOS", faseDieta.macros.carbos],
+                ].map(([etiqueta, valor]) => (
+                  <div key={etiqueta} className="f-tarjeta" style={{ flex: 1, minWidth: 0, padding: "9px 8px", borderRadius: 12, textAlign: "center", background: "var(--f-sup2)" }}>
+                    <div className="f-etiqueta" style={{ letterSpacing: ".1em" }}>{etiqueta}</div>
+                    <div style={{ font: "700 13px/1.2 var(--f-mono)", marginTop: 5 }}>{valor}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="f-pretty" style={{ font: "400 12px/1.5 var(--f-ui)", color: "var(--f-texto2)", marginTop: 12 }}>
+                {faseDieta.nota}
+              </div>
+            </>
+          ) : (
+            <div className="f-pretty" style={{ font: "400 13px/1.5 var(--f-ui)", color: "var(--f-texto2)", marginTop: 10 }}>
+              Mini-cut del 24-ago al 8-sep (1 700 → 1 800-1 900 kcal), semana de mantenimiento (~2 400) y
+              desde el 16-sep volumen limpio con superávit mínimo. Hasta entonces, comer normal.
+            </div>
+          )}
+
+          {hitoDieta && (
+            <div style={{ font: "500 12px/1.4 var(--f-ui)", color: "var(--f-aviso)", marginTop: 10 }}>
+              {formatoDia(hitoDieta.fecha)} · {hitoDieta.texto}
+            </div>
+          )}
+          <div style={{ font: "400 11.5px/1.4 var(--f-ui)", color: "var(--f-texto3)", marginTop: 8 }}>
+            Creatina 5 g a diario · agua y sal normales · el progreso se juzga con la media de 7 días, la cintura y
+            las fotos, nunca con un día suelto.
+          </div>
         </div>
 
         {/* ---- Postura ---- */}

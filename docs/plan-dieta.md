@@ -1,0 +1,64 @@
+# Dieta por fases — plan del entrenador (ago-2026)
+
+**El registro diario (comidas, kcal, macros) se lleva en Fitia.** La app solo
+enseña la fase vigente, su objetivo y los hitos de medidas (tarjeta DIETA en
+la pestaña Cuerpo).
+
+Contexto: ~96 kg tras 2 semanas de vacaciones (+2 kg de báscula, no todo
+grasa). Hipótesis de mantenimiento: ~2 400 kcal — **pendiente de comprobar
+con datos reales** en la semana del 9-sep.
+
+## Fases
+
+| Fase | Fechas | Kcal | Proteína | Grasa | Carbos |
+|------|--------|------|----------|-------|--------|
+| Mini-cut sem 1 | 24-31 ago | **1 700** | 190-200 g | 50-60 g | ~100 g |
+| Mini-cut sem 2 | 1-8 sep | **1 800-1 900** | 190-200 g | 55-65 g | ~125-150 g |
+| Mantenimiento (comprobación) | 9-15 sep | **~2 400** | 180-190 g | 65-75 g | ~255 g |
+| Volumen limpio | desde 16 sep | **2 500-2 550** | 180-190 g | 65-75 g | ~280-295 g |
+
+## Reglas fijas
+
+- 3-4 comidas al día, proteína repartida (~40-55 g por comida); buena parte
+  de los carbohidratos alrededor del gym.
+- Creatina **5 g diarios siempre** (no se quita para pesar menos). Agua y sal
+  normales: nada de deshidratación, diuréticos ni saunas. Fibra 25-35 g.
+  Alcohol 0 durante el mini-cut.
+- Pesarse **cada mañana** (tras el baño, antes de desayunar) y juzgar solo la
+  **media de 7 días** + cintura + fotos. Nunca un día suelto.
+- Válvula de escape del mini-cut: si cae mucho el rendimiento, el hambre no se
+  controla, se duerme peor o el peso cae demasiado rápido → subir ya a
+  1 800-1 900. No se sacrifica músculo por un número en la báscula.
+- Objetivo realista del mini-cut: ~0,8-1,2 kg de grasa real en 14 días (la
+  báscula bajará más por agua/glucógeno).
+
+## Entrenamiento durante el mini-cut
+
+Primera semana de vuelta (28 ago - 4 sep): **RIR 2, sin fallo, sin drop sets
+ni rest-pause, y un 15-20 % menos de volumen**. Recuperar rendimiento y
+mantener señal de conservación muscular, no batir récords. La carrera CaCo
+sigue igual (3 días suaves); nada de HIIT ni de correr para quemar calorías.
+
+## Fechas estéticas e hitos de medidas
+
+- **24 ago** — cintura + foto (punto de partida)
+- **29 ago** — fecha estética · cintura + foto (pump suave de torso unas horas antes, sin fallo)
+- **4 sep** — fecha estética · cintura + foto (ídem)
+- **8 sep** — cintura + foto (cierre del mini-cut)
+- **15 sep** — cintura + foto (fin de la semana de mantenimiento)
+
+## Volumen limpio (desde el 16-sep)
+
+Superávit mínimo (+100-150 kcal), objetivo **+100-200 g/semana** o incluso
+peso estable si la fuerza y las medidas suben sin que crezca la cintura.
+Las kcal extra van a carbohidratos (gym + carrera a la vez).
+
+Algoritmo de ajuste (por 2-3 semanas de datos):
+- **A** Peso estable + gym progresa → no tocar nada.
+- **B** Peso estable + gym estancado → **+100 kcal**.
+- **C** Sube >300 g/semana y crece la cintura → **−100 kcal**.
+
+Cada 4 semanas: fotos + medidas (brazo, pecho, cintura, hombros, muslo).
+Ojo: cuando las carreras se alarguen, el gasto sube — 2 500 kcal pueden pasar
+de superávit a mantenimiento; se ajusta con la respuesta real, no con
+calculadoras.
