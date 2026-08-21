@@ -26,6 +26,7 @@ export const FASES_DIETA = [
     macros: { proteina: "190-200 g", grasa: "50-60 g", carbos: "~100 g" },
     ejemplo: "195 P · 55 G · ~105 C ≈ 1 695 kcal",
     comidas: "4 comidas · 45-50 g de proteína cada una · los hidratos, antes y/o después del gym",
+    porComida: { proteina: "45-50 g", grasa: "~10-15 g", carbos: "~25 g" },
     nota: "Corto y agresivo para quitar el exceso de vacaciones. Carbohidratos alrededor del gym. Si el rendimiento cae mucho, el hambre no se controla o duermes peor: sube ya a 1 800-1 900.",
   },
   {
@@ -36,6 +37,7 @@ export const FASES_DIETA = [
     macros: { proteina: "190-200 g", grasa: "55-65 g", carbos: "~125-150 g" },
     ejemplo: "195 P · 60 G · ~120-145 C",
     comidas: "4 comidas · 45-50 g de proteína cada una · la subida de kcal va a hidratos alrededor del gym",
+    porComida: { proteina: "45-50 g", grasa: "~15 g", carbos: "~30-35 g" },
     nota: "Punto de partida razonable: 1 850. Se afloja el déficit y la subida va a carbohidratos, para rendir en el gym. El viernes 4 (día visual), parte de los hidratos antes de entrenar.",
   },
   {
@@ -46,6 +48,7 @@ export const FASES_DIETA = [
     macros: { proteina: "180-190 g", grasa: "65-75 g", carbos: "~255 g" },
     ejemplo: "185 P · 70 G · ~255-260 C ≈ 2 400 kcal",
     comidas: "3-4 comidas · ~45-50 g de proteína cada una · hidratos repartidos, con parte alrededor del entreno",
+    porComida: { proteina: "~45-50 g", grasa: "~15-20 g", carbos: "~60-65 g" },
     nota: "Semana para comprobar el mantenimiento real con la media de 7 días: si el peso aguanta estable, 2 400 es tu número; si sigue bajando, tu gasto es mayor.",
   },
   {
@@ -56,6 +59,7 @@ export const FASES_DIETA = [
     macros: { proteina: "180-190 g", grasa: "65-75 g", carbos: "~280-295 g" },
     ejemplo: "185 P · 70 G · ~280-295 C",
     comidas: "3-4 comidas · ~45-50 g de proteína cada una · las kcal extra sobre mantenimiento, a hidratos",
+    porComida: { proteina: "~45-50 g", grasa: "~15-20 g", carbos: "~70 g" },
     nota: "Superávit mínimo (+100-150 kcal): ganar +100-200 g/semana como mucho. Peso estable 2-3 sem pero el gym progresa → no tocar. Nada progresa → +100 kcal. Subes >300 g/sem y crece la cintura → −100 kcal. Cuando la carrera se alargue, estas kcal pueden pasar a ser mantenimiento: se ajusta con los datos.",
   },
 ];
