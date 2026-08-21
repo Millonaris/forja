@@ -3,7 +3,7 @@
 ## Qué es esto
 
 App personal de entrenamiento de Jose (un solo usuario): gimnasio, plan de carrera
-0→20K en 26 semanas, postura y peso diario. La dieta se REGISTRA en Fitia, fuera
+0→20 km en 30 semanas, postura y peso diario. La dieta se REGISTRA en Fitia, fuera
 de la app; aquí solo se enseña el plan por fases (tarjeta DIETA en Cuerpo, datos
 en planDieta.js, plan completo en docs/plan-dieta.md): mini-cut 26-ago→8-sep,
 mantenimiento ~2 400 kcal, volumen limpio desde el 16-sep. PWA instalable, 100 % local: sin
@@ -55,13 +55,14 @@ cosas en lenguaje de usuario, sin jerga: qué verá en pantalla y qué cambia pa
   sesión baja las series (`seriesLight` + `enRampaSuave`, RIR 3), del 2 al
   8-sep volumen completo a RIR 2 y desde el 9 el 100 %. Rutina postural de
   5 ejercicios + 2 estiramientos extra (L-X-V).
-- Carrera con fechas reales: empieza el vie 14-ago-2026, 20K el sáb
-  13-feb-2027. Todo suave (RPE 3-4/10, «corro pero no sufro»).
-- Fase 1 (S1-S8): CaCo. La S1 fueron 2 sesiones (vie 14 y lun 17 ago); desde
-  la S2, TRES por semana: martes, jueves y sábado. Fases 2-3 (S9-S26):
-  cortas martes y jueves + larga el sábado. Entre fases, transición sin
-  carreras (4-12 oct). Descargas S12, S16, S20 y S24; larga máxima 18 km
-  (S25); la S26 solo tiene un rodaje suave el martes y el 20K.
+- Carrera (plan definitivo 21-ago): 30 semanas SIN fecha de carrera ni
+  cronómetro, todo fácil (poder hablar, 3-4/10). Días: martes + jueves +
+  domingo (S1-S3 son de 2 días). F1 (S1-S10): intervalos hasta 30 min
+  seguidos en la S10. F2 (S11-S18): por minutos, larga de 35→60 min,
+  descargas S14 y S18. F3 (S19-S30): por km, larga de 8→18 y los 20 km en
+  la S30 (dom 7-mar-2027 si no se repite semana); descargas S22, S26 y S29.
+  Hitos: 30 min (S10) · 60 min (S17) · 10 km (S21) · 20 km (S30). Semana
+  que pesa se repite (desfase en Ajustes); nada de series/HIIT/tempo.
 - **Los entrenos los hace con su reloj Garmin** (llevan los mismos nombres:
   `S3 - 5x 3c 2a`): la app NO tiene temporizador de carrera, solo se marcan
   las sesiones como hechas (DialogoCarrera precargado con lo del plan).

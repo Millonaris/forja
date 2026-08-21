@@ -197,7 +197,7 @@ function Resumen({ ajustes, semana, rutina, principales, hechos, posturaPorDia, 
               {fotoDeEstaSemana ? "HECHA" : "HOY TOCA"}
             </div>
             <div style={{ font: "400 11.5px/1.3 var(--f-ui)", color: "var(--f-texto2)", marginTop: 5 }}>
-              Semana {semana} de 26
+              Semana {semana}
             </div>
           </div>
         </div>

@@ -1,108 +1,101 @@
-# Plan 0 → 20K — PLAN FINAL del entrenador (con fechas reales)
+# Plan de carrera 0 → 20 km — PLAN DEFINITIVO (21-ago-2026)
 
-**Perfil:** 41 años, 96 kg, 20+ años sin correr. Empezó el **viernes 14-ago-2026**.
-**Objetivo:** 🏁 **20K el sábado 13 de febrero de 2027**.
-**Filosofía:** el enemigo no es el cardio, es el impacto acumulado. Todo se corre
-en Z2 (poder hablar sin ahogarse; tramos de correr ≤125 ppm). Los entrenos están
-cargados en su Garmin Forerunner 165 (`S1 - 8x 1c 2a`, `S2 - 6x 2c 2a`…); la app
-FORJA no lleva temporizador: enseña qué toca y las sesiones se marcan como hechas.
+**Objetivo:** correr **20 km seguidos, cómodo y sin acabar destrozado**, en
+~30 semanas (7 meses). Sin fecha de carrera, sin cronómetro: da igual si son
+2 h 15 o 2 h 30. *"Primero hacemos un corredor; después haremos un corredor
+rápido."* Si todo cuadra, los 20 km caen el **domingo 7-mar-2027**.
 
----
+## Las 4 reglas
 
-## Reglas fijas (mandan sobre todo)
+1. **Todas las carreras son fáciles**: poder hablar, esfuerzo 3-4/10. Si el
+   Garmin marca Z3 en una cuesta, no pasa nada.
+2. **Nunca dos días seguidos corriendo**: martes + jueves + domingo (las
+   semanas 1-3 son de 2 días).
+3. **Una semana se puede repetir**: si pesa, no se pasa a la siguiente. 33
+   semanas en vez de 30 no es fracasar, es entrenar bien (Ajustes → "Semana
+   de carrera").
+4. **El dolor manda**: molestia localizada que aparece corriendo, empeora,
+   cambia la pisada o sigue al día siguiente → no se progresa.
 
-1. **Mínimo 1 día de descanso entre carreras.** Si se mueve una sesión, se respeta eso.
-2. **Semana dura = se repite** y todo se desplaza 7 días, sin drama (en la app:
-   Ajustes → "Semana de carrera").
-3. **Todo a ritmo de hablar sin ahogarse** (Z2, tramos de correr ≤125 ppm).
-4. **Parar, no aguantar:** dolor que empeora corriendo, que hace cojear, o que
-   duele al caminar al día siguiente.
-5. **Pierna intensa (gym o gomas) nunca el día antes de correr.**
-6. Calentamiento y enfriamiento: **5′ andando antes y 5′ después, siempre.
-   El enfriamiento no se salta.**
-7. Nada de series, cuestas ni ritmos objetivo este ciclo.
+**No hay en este plan:** series, 400s, HIIT, VO₂max, tempos, 5K a tope ni
+récords de Strava. La velocidad llegará (4×20 s alegres tras una carrera
+fácil) cuando la larga esté en 10-12 km y todo vaya perfecto — y ni entonces
+hace falta para los 20 km.
 
----
+## FASE 1 — Aprender a correr (S1-S10)
 
-## FASE 1 — CaCo 3 días/semana (S1-S8) · intervalos corre/camina
+Siempre: 5-10 min andando antes + 5 después. El ritmo da exactamente igual.
 
-La S1 fueron 2 sesiones (viernes y lunes). En la revisión del 19-ago el
-entrenador subió a **3 CaCo por semana: MARTES, JUEVES y SÁBADO**, con la
-misma progresión (RPE 3-4/10: "estoy corriendo, pero no voy sufriendo").
+| Sem | Días | Sesión |
+|-----|------|--------|
+| 1 | 2 | 6× (1′ correr + 2′ caminar) — ✅ vie 14 · lun 17 ago |
+| 2 | 2 | 6× (1½′ + 2′) — jue 20 · sáb 22 ago |
+| 3 | 2* | 6× (2′ + 2′) — jue 27 · dom 30 (el mar 25 es el regreso; el sáb 29, día visual) |
+| 4 | 3 | 5× (3′ + 2′) — mar 1 · jue 3 · dom 6 sep |
+| 5 | 3 | 4× (5′ + 2′) |
+| 6 | 3 | 3× (7′ + 2′) |
+| 7 | 3 | 3× (8′ + 2′) |
+| 8 | 3 | 2× (12′ + 2′) |
+| 9 | 3 | 2× (15′ + 2′) |
+| 10 | 3 | 25′ / 25′ / **30′ CONTINUOS** 🏁 hito 1 |
 
-| Sem | Sesión (c = min corriendo, a = andando) | Fechas |
-|-----|------------------------------------------|--------|
-| S1 | 8× (1c + 2a) | ✅ vie 14 · lun 17 ago (hecha) |
-| S2 | 6× (2c + 2a) | mar 18 · jue 20 · sáb 22 ago |
-| S3 | 5× (3c + 2a) | mar 25 · jue 27 · **dom 30** (el sáb 29 es día visual) |
-| S4 | 4× (5c + 2a) | mar 1 · jue 3 (MUY fácil) · **dom 6** (el sáb 5, descanso) |
-| S5 | 3× (8c + 3a) | 8 · 10 · 12 sep |
-| S6 | 2× (10c + 3a) | 15 · 17 · 19 sep |
-| S7 | 2× (15c + 3a) | 22 · 24 · 26 sep |
-| S8 | 30′ seguidos | 29 sep · 1 · 3 oct |
+En la S10 no hay obligación de clavar los 30′: si hace falta caminar un
+minuto, se camina.
 
-Vacaciones sin gym hasta el 23-ago (la vuelta es el lunes 24, en versión
-Light y con mini-cut): hasta entonces, caminata Z2 30′ los días que se
-quiera y mínimo 1 día a la semana sin nada.
+## FASE 2 — Crear el motor (S11-S18) · por MINUTOS
 
-Del 4 al 12 de octubre no hay carreras: transición entre fases, a propósito.
-Cuando las carreras pasen de 45-60 min se revisará la carga conjunta; si algo
-tiene que ceder, cede el cardio antes que la hipertrofia.
+Martes / jueves / domingo. Todo muy fácil.
 
-## FASE 2 — 3 días: MARTES y JUEVES (corta Z2) + SÁBADO (larga) · S9-S16
+| Sem | C1 | C2 | Larga |
+|-----|----|----|-------|
+| 11 | 30′ | 30′ | **35′** |
+| 12 | 30′ | 35′ | **40′** |
+| 13 | 35′ | 35′ | **45′** |
+| 14 ↓ | 30′ | 30′ | **35′** (absorber, no retroceder) |
+| 15 | 35′ | 40′ | **50′** |
+| 16 | 35′ | 40′ | **55′** |
+| 17 | 40′ | 40′ | **60′** 🏁 hito 2 |
+| 18 ↓ | 35′ | 35′ | **45′** |
 
-| Sem | Cortas | Larga | Fechas |
-|-----|--------|-------|--------|
-| S9 | 30′ | 5K | mar 13 · jue 15 · sáb 17 oct |
-| S10 | 30′ | 6K | 20 · 22 · 24 oct |
-| S11 | 35′ | 7K | 27 · 29 · 31 oct |
-| S12 **descarga** | 30′ | 5K | 3 · 5 · 7 nov |
-| S13 | 35′ | 8K | 10 · 12 · 14 nov |
-| S14 | 35′ | 9K | 17 · 19 · 21 nov |
-| S15 | 35′ | 10K | 24 · 26 · 28 nov |
-| S16 **descarga** | 30′ | 6K | 1 · 3 · 5 dic |
+El 5K saldrá solo por el camino: no se hace prueba.
 
-## FASE 3 — mismos días · S17-S26
+## FASE 3 — De 1 hora a 20 km (S19-S30) · por KILÓMETROS
 
-| Sem | Cortas | Larga | Fechas |
-|-----|--------|-------|--------|
-| S17 | 35′ | 11K | 8 · 10 · 12 dic |
-| S18 | 40′ | 12K | 15 · 17 · 19 dic |
-| S19 | 40′ | 13K | 22 · 24 · 26 dic |
-| S20 **descarga** | 30′ | 8K | 29 · 31 dic · 2 ene |
-| S21 | 40′ | 14K | 5 · 7 · 9 ene |
-| S22 | 40′ | 15K | 12 · 14 · 16 ene |
-| S23 | 40′ | 16K | 19 · 21 · 23 ene |
-| S24 **descarga** | 30′ | 10K | 26 · 28 · 30 ene |
-| S25 | 40′ | **18K (larga máxima)** | 2 · 4 · 6 feb |
-| S26 | 30′ suave solo el martes 9 feb | 🏁 **20K sáb 13 feb 2027** | |
+| Sem | C1 | C2 | Larga |
+|-----|----|----|-------|
+| 19 | 5 km | 5 km | **8 km** |
+| 20 | 5 | 5 | **9** |
+| 21 | 5 | 6 | **10** 🏁 hito 3 |
+| 22 ↓ | 5 | 5 | **8** |
+| 23 | 6 | 6 | **11** |
+| 24 | 6 | 6 | **12,5** |
+| 25 | 6 | 7 | **14** |
+| 26 ↓ | 5 | 5 | **10** |
+| 27 | 7 | 7 | **16** |
+| 28 | 7 | 8 | **18** |
+| 29 ↓ | 5 | 6 | **12** |
+| 30 | 6 | 7 | 🎯 **20 km** 🏁 hito 4 |
 
----
+**Semana 30:** no es una competición. Tan tranquilo que los primeros 5 km
+parezcan ridículamente fáciles.
 
-## Los extras sin impacto (caminata y piscina)
+## Cuándo pasar de semana
 
-Opcionales, para ganar motor aeróbico sin castigar huesos ni tendones:
+- 🟢 Sesiones terminadas, sin dolor, recuperado al día siguiente → **siguiente**.
+- 🟡 Terminadas pero muy justo (piernas cargadas 2 días, molestias leves) → **repetir**.
+- 🔴 Dolor localizado / que empeora / que cambia la pisada → **no progresar**.
 
-- **Caminata rápida Z2:** 30-45′, los días que se quiera (vale a diario).
-- **Piscina:** 20-30′, 1-2 días/semana. Impacto cero.
+**Si pierdes entrenos:** una sesión → nada (no se recupera pegándola a la
+siguiente). Una semana → repetir la última hecha. Dos o más semanas → volver
+~2 semanas atrás.
 
-Reglas de los extras: si falta tiempo o energía, lo primero que se cae son los
-extras (gym y carreras no se tocan); siempre suaves; nada de extras intensos la
-víspera de la tirada larga; los extras sí pueden ser diarios, correr dos días
-seguidos jamás.
+## Notas
 
-## Qué esperar (para no desanimarse ni acelerarse)
-
-- Semanas 1-3: fácil de pulmón y raro de piernas. Normal, no acelerar.
-- Semanas 3-4: primer cambio real — mismo esfuerzo, menos ahogo.
-- Mes 2-3: el cambio grande; correr 30′ seguidos parecerá normal.
-- Cada kg que baje de 96 = ~1 % más de resistencia gratis.
-- Dormir 7-8 h es donde se construye el motor de verdad.
-
-## Chuleta rápida
-
-- **Suave = hablar sin ahogarse (≤125 ppm corriendo).** Siempre.
-- **Nunca dos días seguidos corriendo.**
-- **Molestia que persiste por la mañana → parar y/o repetir semana.**
-- **Descargas (S12, S16, S20, S24): se respetan aunque se sienta bien.**
-- **El enfriamiento no se salta.**
+- **Pasos:** los 10 000 se mantienen como actividad diaria, pero la carrera
+  cuenta — un domingo de 14 km con 18 000 pasos NO obliga a caminar más.
+- **Gym:** L-X-V como siempre. Cuando las largas lleguen a 12-18 km, proteger
+  las piernas: nada de pierna a morir el viernes con 18 km el domingo. La
+  fuerza ayuda al running, no compite contra él.
+- **Garmin:** pantalla con tiempo, distancia, ritmo y pulso — pero sin correr
+  persiguiendo el pulso. La referencia es "voy tranquilo y podría seguir
+  bastante más".

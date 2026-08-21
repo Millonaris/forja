@@ -62,7 +62,7 @@ export default function Cuerpo() {
 
   return (
     <div className="f-pantalla">
-      <Cabecera titulo="Cuerpo" sub={`SEMANA ${semana} DE 26`} />
+      <Cabecera titulo="Cuerpo" sub={`SEMANA ${semana}`} />
 
       <div className="f-scroll">
         {/* ---- El peso de hoy, en grande ---- */}

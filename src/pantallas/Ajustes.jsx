@@ -124,8 +124,8 @@ export default function Ajustes() {
   const desfase = ajustes.desfaseCarrera || 0;
   const semanaNatural = semanaCarreraPorFecha(hoyISO());
   const semanaPlan = Math.min(Math.max(semanaNatural + desfase, 1), SEMANAS_PLAN);
-  // El día del 20K: el sábado de la última semana del plan (13-feb-2027 si
-  // no se ha repetido ninguna semana).
+  // El día de los 20 km: el domingo de la última semana del plan (7-mar-2027
+  // si no se ha repetido ninguna semana).
   const diaDel20K = [...construirCalendario(ajustes.startDate, desfase).values()].find(
     (d) => d.carrera?.esCarreraObjetivo,
   )?.iso;
@@ -177,7 +177,7 @@ export default function Ajustes() {
             etiqueta="Rutina de postura"
             valor={`${RUTINA_POSTURAL.length} + ${EXTRAS_POSTURALES.length} extras`}
           />
-          <FilaDato etiqueta="Plan de carrera" valor="0 → 20K · 3 fases" />
+          <FilaDato etiqueta="Plan de carrera" valor="0 → 20 km · 30 semanas" />
         </Grupo>
 
         {/* ---- Apariencia y avisos ---- */}
@@ -355,10 +355,12 @@ function Grupo({ titulo, children }) {
 
 /** Qué toca en cada semana del plan de carrera, para el selector. */
 function textoSemanaPlan(s) {
-  if (s <= 8) return `Sem ${s} · ${INTERVALOS_F1[s].texto}`;
+  if (s <= 9) return `Sem ${s} · ${INTERVALOS_F1[s].texto}`;
+  if (s === 10) return `Sem ${s} · 25′/25′/30′ seguidos`;
   const larga = LARGAS[s];
-  if (larga.carrera) return `Sem ${s} · la semana del 20K`;
-  return `Sem ${s} · larga ${larga.km} km${larga.descarga ? " · descarga" : ""}`;
+  if (larga.carrera) return `Sem ${s} · la semana de los 20 km`;
+  const dosis = larga.km ? `${String(larga.km).replace(".", ",")} km` : `${larga.min} min`;
+  return `Sem ${s} · larga ${dosis}${larga.descarga ? " · descarga" : ""}`;
 }
 
 /**

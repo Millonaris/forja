@@ -6,7 +6,7 @@
  * que viven en planCarrera.js) y postura. De dieta nada: eso lo lleva Fitia.
  *
  * El gimnasio se ancla a la fecha de inicio de la app; la carrera se ancla a
- * sus propias fechas (14-ago-2026 → 20K el 13-feb-2027). `desfase` recoloca
+ * sus propias fechas (14-ago-2026 → los 20 km el 7-mar-2027). `desfase` recoloca
  * SOLO el plan de carrera en semanas enteras: repetir una semana = todo el
  * plan de correr se desplaza 7 días. El gimnasio no se mueve.
  *
@@ -56,9 +56,9 @@ export function construirCalendario(fechaInicio, desfase = 0) {
 
   const lunes1 = lunesDe(fechaInicio);
 
-  // El calendario tiene que llegar SIEMPRE hasta el día del 20K (que con
-  // desfase negativo se retrasa), aunque la fecha de inicio de la app sea
-  // anterior al arranque del plan de carrera.
+  // El calendario tiene que llegar SIEMPRE hasta el día de los 20 km (que
+  // con desfase negativo se retrasa), aunque la fecha de inicio de la app
+  // sea anterior al arranque del plan de carrera.
   const fecha20K = sumarDias(DIA_20K, -7 * desfase);
   const totalSemanas = Math.max(SEMANAS_PLAN, Math.ceil((diasEntre(lunes1, fecha20K) + 1) / 7));
 
@@ -112,12 +112,10 @@ export function construirCalendario(fechaInicio, desfase = 0) {
                   : iso >= "2026-09-02" && iso <= "2026-09-08"
                     ? "Mini-cut sem 2: volumen ya casi completo, RIR 2, todavía sin fallo. El día 4, entrena unas horas antes del momento visual."
                     : esPierna
-                    ? enPlanCarrera && semanaCarrera >= 25
-                      ? "Semana de taper: pierna a MITAD de peso y volumen. Nada nuevo."
-                      : sesionCarreraDelDia(sumarDias(iso, 1), desfase)
+                      ? sesionCarreraDelDia(sumarDias(iso, 1), desfase)
                         ? "Mañana se corre: pierna sin llegar al fallo, nada de récords."
                         : "Antes de empezar: bisagra de cadera 2×8."
-                    : null,
+                      : null,
             }
           : null,
         carrera: sesionCarreraDelDia(iso, desfase),

@@ -1,5 +1,5 @@
 /*
- * FORJA · Diario de 26 semanas.
+ * FORJA · Diario del plan.
  *
  * Los checks NO se marcan a mano: salen de lo que has registrado de verdad.
  * Si guardaste la sesión de gym el miércoles, el check del miércoles ya está

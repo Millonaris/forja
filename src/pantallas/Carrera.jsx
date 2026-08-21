@@ -1,7 +1,7 @@
 /*
  * FORJA · Carrera.
  *
- * La sesión de hoy manda; el plan de 26 semanas queda como contexto, resumido
+ * La sesión de hoy manda; el plan de 30 semanas queda como contexto, resumido
  * en una rejilla que cabe entera en pantalla. Los entrenos se hacen con el
  * reloj (Garmin): aquí solo se marca cada sesión como hecha.
  */
@@ -109,7 +109,7 @@ export default function Carrera() {
         ) : (
           <div className="f-tarjeta" style={{ borderStyle: "dashed", padding: 22, textAlign: "center" }}>
             <div className="f-pretty" style={{ font: "400 13px/1.5 var(--f-ui)", color: "var(--f-texto3)" }}>
-              El plan de 26 semanas ha terminado. Enhorabuena por el 20K.
+              El plan ha terminado. Enhorabuena: ya eres corredor de 20 km.
             </div>
           </div>
         )}
@@ -224,16 +224,15 @@ export default function Carrera() {
 
         {/* ---- El plan entero en una rejilla ---- */}
         <div className="f-tarjeta" style={{ padding: "14px 15px", borderRadius: 16 }}>
-          <div className="f-etiqueta" style={{ marginBottom: 12 }}>PLAN 26 SEMANAS</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(13,1fr)", gap: 5 }}>
+          <div className="f-etiqueta" style={{ marginBottom: 12 }}>PLAN {SEMANAS_PLAN} SEMANAS</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(15,1fr)", gap: 5 }}>
             {Array.from({ length: SEMANAS_PLAN }, (_, i) => i + 1).map((s) => {
               const larga = LARGAS[s];
               const actual = s === semana;
               const hechas = corridasPorSemana.get(s) || 0;
-              // S1 fueron 2 sesiones (vie+lun) y la S3 también (el martes 25
-              // es el regreso del viaje); la semana 26 solo tiene el rodaje
-              // del martes y el 20K. El resto, 3 (M-J-S/D).
-              const previstas = s === 1 || s === 3 || s === SEMANAS_PLAN ? 2 : 3;
+              // S1 y S2 son de 2 días, y la S3 también (el martes 25 es el
+              // regreso del viaje). Desde la S4, tres: martes, jueves y domingo.
+              const previstas = s <= 3 ? 2 : 3;
 
               // El color sale de lo que REALMENTE corriste, no de que la fecha
               // haya pasado: pintar de verde una semana en blanco sería mentir.
@@ -254,7 +253,7 @@ export default function Carrera() {
                   key={s}
                   onClick={() => setSemanaElegida(s)}
                   aria-label={`Ver las sesiones de la semana ${s}`}
-                  title={`Semana ${s} · fase ${faseDeSemana(s)} · ${estado}${larga ? ` · larga ${num(larga.km, 1)} km` : ""}`}
+                  title={`Semana ${s} · fase ${faseDeSemana(s)} · ${estado}${larga?.km ? ` · larga ${num(larga.km, 1)} km` : larga?.min ? ` · larga ${larga.min} min` : ""}`}
                   style={{
                     height: 16,
                     padding: 0,
