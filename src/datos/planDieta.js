@@ -130,7 +130,7 @@ export const KCAL_DIA_A_DIA = [
   { fecha: "2026-08-26", kcal: "1 700", nota: "Día 1 del mini-cut" },
   { fecha: "2026-08-27", kcal: "1 700" },
   { fecha: "2026-08-28", kcal: "1 700", nota: "Cena normal, sin atracón: mañana es día visual" },
-  { fecha: "2026-08-29", kcal: "1 700", nota: "Día visual (día 4): comida normal del plan, nada raro ni deshidratación" },
+  { fecha: "2026-08-29", kcal: "1 700", nota: "DÍA VISUAL: sigue el protocolo detallado (tarjeta de arriba)" },
   { fecha: "2026-08-30", kcal: "1 700" },
   { fecha: "2026-08-31", kcal: "1 700" },
   { fecha: "2026-09-01", kcal: "1 700", nota: "Último día de la semana fuerte" },
@@ -142,3 +142,37 @@ export const KCAL_DIA_A_DIA = [
   { fecha: "2026-09-07", kcal: "1 850" },
   { fecha: "2026-09-08", kcal: "1 850", nota: "Último día del mini-cut: desde mañana, ~2 400 de mantenimiento" },
 ];
+
+/**
+ * Protocolo del primer día visual (sábado 29-ago), palabra por palabra del
+ * entrenador: verse menos hinchado y con congestión SIN tocar las 1 700 kcal
+ * ni deshidratarse. Desaparece de la pantalla cuando pasa el día. El del
+ * 4-sep llegará aparte: ese día hay Torso A y más margen de hidratos.
+ */
+export const PROTOCOLO_VISUAL = {
+  titulo: "PROTOCOLO · DÍA VISUAL (SÁB 29)",
+  hasta: "2026-08-29",
+  bloques: [
+    {
+      dia: "Viernes 28 · preparación",
+      lineas: [
+        "Nutrición: 1 700 kcal y macros normales (195 P / 105 H / 55 G). Comida predecible y fácil de digerir.",
+        "Evitar por la tarde-noche: atracón, alcohol, comida basura, salsas, fibra exagerada y lo que sepas que te hincha.",
+        "Cena moderada dentro de macros: proteína magra + pocos hidratos (sin quitarlos del todo) + verdura que toleres + grasa controlada. Nada de cenar enorme ni de cenar nada \"para pesar menos\".",
+        "Agua y sal: normales. Ni más ni menos.",
+        "Gym: Pierna A al 75-80 % del volumen, RIR ~3, sin fallo ni técnicas. Salir pensando \"podría haber hecho bastante más\".",
+      ],
+    },
+    {
+      dia: "Sábado 29 · día visual",
+      lineas: [
+        "Mismas 1 700 kcal y macros: ni cheat day, ni recarga, ni ayuno. Nada de deshidratar ni quitar sal — beber poco te deja peor y el músculo más plano.",
+        "Desayuno habitual (45 P / 40 H / 15 G). La avena vale si no te hincha; si te hincha, cambia la fuente de hidratos ese día por comodidad digestiva.",
+        "Para verte mejor a una hora concreta: reserva 20-30 g de hidratos DEL PROPIO día (plátano, pan, tortitas de arroz, arroz) para 60-120 min antes del pump, restándolos de otra comida.",
+        "Pump opcional 1-3 h antes del momento, 10-15 min y a RIR 2-3 (congestionar, no fatigar; descansos 45-60 s): laterales 3×15-20 · pullover o jalón ligero 2×12-15 · press ligero o flexiones 2×12-15 · bíceps 2×12-15 · tríceps 2×12-15.",
+        "CaCo: mejor moverlo al domingo 30 (así está ya en el plan). Si corres sí o sí, que sea después del momento importante y muy fácil.",
+        "Objetivo real: menos hinchazón, abdomen más plano y hombros/espalda congestionados. En 4 días no cambia la grasa: cambia el aspecto.",
+      ],
+    },
+  ],
+};

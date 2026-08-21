@@ -8,7 +8,14 @@
  */
 
 import Cabecera from "../componentes/Cabecera.jsx";
-import { ESTRUCTURA_DIA, FASES_DIETA, HITOS_DIETA, KCAL_DIA_A_DIA, faseDietaDe } from "../datos/planDieta.js";
+import {
+  ESTRUCTURA_DIA,
+  FASES_DIETA,
+  HITOS_DIETA,
+  KCAL_DIA_A_DIA,
+  PROTOCOLO_VISUAL,
+  faseDietaDe,
+} from "../datos/planDieta.js";
 import { formatoCorto, formatoDia, hoyISO } from "../logica/fechas.js";
 
 export default function Dieta() {
@@ -52,6 +59,34 @@ export default function Dieta() {
           )}
 
         </div>
+
+        {/* ---- Protocolo del día visual (desaparece al pasar el día) ---- */}
+        {hoy <= PROTOCOLO_VISUAL.hasta && (
+          <div className="f-tarjeta f-tarjeta--aviso" style={{ padding: "14px 15px", borderRadius: 16 }}>
+            <div className="f-etiqueta" style={{ color: "var(--f-aviso)", marginBottom: 4 }}>
+              {PROTOCOLO_VISUAL.titulo}
+            </div>
+            {PROTOCOLO_VISUAL.bloques.map((b) => (
+              <div key={b.dia} style={{ marginTop: 10 }}>
+                <div style={{ font: "600 12.5px/1.3 var(--f-ui)", color: "var(--f-aviso)" }}>{b.dia}</div>
+                {b.lineas.map((linea) => (
+                  <div
+                    key={linea}
+                    className="f-pretty"
+                    style={{ display: "flex", gap: 8, font: "400 12.5px/1.5 var(--f-ui)", color: "var(--f-texto2)", marginTop: 6 }}
+                  >
+                    <span style={{ flex: "none", color: "var(--f-texto3)" }}>·</span>
+                    <span>{linea}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+            <div style={{ font: "400 11.5px/1.5 var(--f-ui)", color: "var(--f-texto3)", marginTop: 10 }}>
+              El protocolo del 4-sep será distinto (y mejor): ese día toca Torso A y el propio entreno hará
+              de pump, con más margen de hidratos.
+            </div>
+          </div>
+        )}
 
         {/* ---- Las comidas del día: la tabla exacta del entrenador ---- */}
         <div className="f-tarjeta" style={{ padding: "14px 15px", borderRadius: 16 }}>
