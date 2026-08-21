@@ -31,12 +31,12 @@ export { SEMANAS_PLAN };
 const DIAS_GYM = [1, 3, 5];
 
 /**
- * Vacaciones de agosto 2026 (Jarandilla), sin gimnasio. Según el supercontexto
- * del entrenador (20-ago), la vuelta es el LUNES 24 con Torso A en versión
- * Light, arrancando a la vez que el mini-cut. Los días de vacaciones no se
+ * Vacaciones de agosto 2026 (Jarandilla): el martes 25 es el regreso a casa y
+ * el MIÉRCOLES 26 empieza todo a la vez (mini-cut + vuelta al gym con Torso A,
+ * según el supercontexto definitivo del 21-ago). Hasta entonces no se
  * planifica sesión ni avanza la rotación T-P-T-P. En su lugar: caminatas Z2.
  */
-const VACACIONES_HASTA = "2026-08-23";
+const VACACIONES_HASTA = "2026-08-25";
 
 const cache = new Map();
 
@@ -79,13 +79,6 @@ export function construirCalendario(fechaInicio, desfase = 0) {
     }
   }
 
-  // Cambio fijo del supercontexto: el viernes 4-sep es día visual y se
-  // adelanta el Torso B (llega congestionado); la Pierna A pasa al lunes 7.
-  // La rotación no se altera: solo se intercambian esos dos días.
-  if (gymPorDia.get("2026-09-04") === "PIERNA A" && gymPorDia.get("2026-09-07") === "TORSO B") {
-    gymPorDia.set("2026-09-04", "TORSO B");
-    gymPorDia.set("2026-09-07", "PIERNA A");
-  }
 
   // 2) Día a día: gym + carrera + postura.
   for (let semana = 1; semana <= totalSemanas; semana++) {
@@ -110,14 +103,14 @@ export function construirCalendario(fechaInicio, desfase = 0) {
           ? {
               sessionName,
               esPierna,
-              // Prioridad de avisos: la primera semana de vuelta (con mini-cut)
-              // manda sobre todo; luego el taper del 20K; luego los de pierna
+              // Prioridad de avisos: la rampa de vuelta (con mini-cut) manda
+              // sobre todo; luego el taper del 20K; luego los de pierna
               // (regla fija: pierna intensa nunca la víspera de correr).
               aviso:
-                iso >= "2026-08-24" && iso <= "2026-08-31"
-                  ? "Mini-cut sem 1, versión Light: RIR 2 (2-3 si las sensaciones son malas), nada de fallo ni récords."
-                  : iso >= "2026-09-01" && iso <= "2026-09-08"
-                    ? "Mini-cut sem 2, versión Light: RIR 1-2, sin fallo. El día 4, entrena unas horas antes del momento visual."
+                iso >= "2026-08-26" && iso <= "2026-09-01"
+                  ? "Rampa de vuelta: 75-80 % del volumen (la app baja las series sola), RIR 3, nada de fallo ni récords."
+                  : iso >= "2026-09-02" && iso <= "2026-09-08"
+                    ? "Mini-cut sem 2: volumen ya casi completo, RIR 2, todavía sin fallo. El día 4, entrena unas horas antes del momento visual."
                     : esPierna
                     ? enPlanCarrera && semanaCarrera >= 25
                       ? "Semana de taper: pierna a MITAD de peso y volumen. Nada nuevo."

@@ -12,8 +12,8 @@ con datos reales** en la semana del 9-sep.
 
 | Fase | Fechas | Kcal | Proteína | Grasa | Carbos |
 |------|--------|------|----------|-------|--------|
-| Mini-cut sem 1 | 24-31 ago | **1 700** | 190-200 g | 50-60 g | ~100 g |
-| Mini-cut sem 2 | 1-8 sep | **1 800-1 900** | 190-200 g | 55-65 g | ~125-150 g |
+| Mini-cut sem 1 | 26 ago - 1 sep | **1 700** | 190-200 g | 50-60 g | ~100 g |
+| Mini-cut sem 2 | 2-8 sep | **1 800-1 900** | 190-200 g | 55-65 g | ~125-150 g |
 | Mantenimiento (comprobación) | 9-15 sep | **~2 400** | 180-190 g | 65-75 g | ~255 g |
 | Volumen limpio | desde 16 sep | **2 500-2 550** | 180-190 g | 65-75 g | ~280-295 g |
 
@@ -52,14 +52,14 @@ Si el volumen sube a 2 550: los +50 van a hidratos (desayuno ~80, comida
 
 ## Entrenamiento durante el mini-cut
 
-Primera semana de vuelta (28 ago - 4 sep): **RIR 2, sin fallo, sin drop sets
+Rampa de vuelta (26 ago - 1 sep): **75-80 % del volumen, RIR ~3, sin fallo, sin drop sets
 ni rest-pause, y un 15-20 % menos de volumen**. Recuperar rendimiento y
 mantener señal de conservación muscular, no batir récords. La carrera CaCo
 sigue igual (3 días suaves); nada de HIIT ni de correr para quemar calorías.
 
 ## Fechas estéticas e hitos de medidas
 
-- **24 ago** — cintura + foto (punto de partida)
+- **26 ago** — cintura + foto (punto de partida; el 25 es el regreso del viaje)
 - **29 ago** — fecha estética · cintura + foto (pump suave de torso unas horas antes, sin fallo)
 - **4 sep** — fecha estética · cintura + foto (ídem)
 - **8 sep** — cintura + foto (cierre del mini-cut)

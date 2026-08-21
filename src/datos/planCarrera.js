@@ -158,7 +158,11 @@ const SESIONES = (() => {
   // mucho) y el sáb 5 es descanso antes de la Pierna A del lunes.
   for (let s = 2; s <= 8; s++) {
     const martes = sumarDias(INICIO_MJS, (s - 2) * 7);
-    for (const salto of [0, 2, s === 3 || s === 4 ? 5 : 4]) {
+    // S3: el martes 25 es el regreso del viaje (sin CaCo) y el sábado 29 es
+    // día visual → jueves 27 y domingo 30. S4: la tercera va al domingo 6
+    // (el sábado 5 es descanso tras el día visual del viernes).
+    const saltos = s === 3 ? [2, 5] : s === 4 ? [0, 2, 5] : [0, 2, 4];
+    for (const salto of saltos) {
       m.set(sumarDias(martes, salto), { semana: s, ...sesionIntervalos(s) });
     }
   }

@@ -217,7 +217,7 @@ export default function Cuerpo() {
         >
           <div className="f-fila-sb">
             <span className="f-etiqueta">
-              DIETA · {faseDieta ? faseDieta.nombre : "EMPIEZA EL LUNES 24"}
+              DIETA · {faseDieta ? faseDieta.nombre : "EMPIEZA EL MIÉRCOLES 26"}
             </span>
             <span style={{ color: "var(--f-texto3)", font: "600 16px/1 var(--f-ui)" }}>›</span>
           </div>

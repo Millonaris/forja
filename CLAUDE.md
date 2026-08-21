@@ -5,7 +5,7 @@
 App personal de entrenamiento de Jose (un solo usuario): gimnasio, plan de carrera
 0→20K en 26 semanas, postura y peso diario. La dieta se REGISTRA en Fitia, fuera
 de la app; aquí solo se enseña el plan por fases (tarjeta DIETA en Cuerpo, datos
-en planDieta.js, plan completo en docs/plan-dieta.md): mini-cut 24-ago→8-sep,
+en planDieta.js, plan completo en docs/plan-dieta.md): mini-cut 26-ago→8-sep,
 mantenimiento ~2 400 kcal, volumen limpio desde el 16-sep. PWA instalable, 100 % local: sin
 servidor, sin cuentas; todos los datos viven en el móvil (IndexedDB con Dexie).
 React + Vite. Se publica en GitHub Pages: https://millonaris.github.io/forja/
@@ -43,17 +43,18 @@ cosas en lenguaje de usuario, sin jerga: qué verá en pantalla y qué cambia pa
 
 ## El plan de entrenamiento (resumen operativo)
 
-- **Documento maestro: docs/supercontexto-2026-08.md** (todo el contexto de
-  entrenamiento, nutrición y postura que dio el entrenador el 20-ago).
+- **Documento maestro: docs/supercontexto-2026-08.md** (versión DEFINITIVA del
+  21-ago: todo el contexto de entrenamiento, nutrición y postura).
 - **Gym (ver docs/plan-gym-postura.md):** bloque de especialización de 12
   semanas — deltoide lateral + dorsal + espalda alta; pecho en mantenimiento.
   Todo en máquina/polea, sin superseries; grandes RIR 1-2 y descanso 2-3 min,
   aislados con última serie RIR 0-1 y descanso 90-120 s. Sóleo y tibial se
   quedan en los días de pierna (protección de la carrera) y el core va al
-  final de esos días. Vuelta de vacaciones el LUNES 24-ago; durante el
-  mini-cut (24-ago a 8-sep) el motor de sesión usa las series Light
-  (`seriesLight` + `enMiniCut`). Rutina postural de 5 ejercicios + 2
-  estiramientos extra (L-X-V).
+  final de esos días. Vuelta de vacaciones el MIÉRCOLES 26-ago (el 25 es el
+  regreso); es UNA sola rutina con rampa: del 26-ago al 1-sep el motor de
+  sesión baja las series (`seriesLight` + `enRampaSuave`, RIR 3), del 2 al
+  8-sep volumen completo a RIR 2 y desde el 9 el 100 %. Rutina postural de
+  5 ejercicios + 2 estiramientos extra (L-X-V).
 - Carrera con fechas reales: empieza el vie 14-ago-2026, 20K el sáb
   13-feb-2027. Todo suave (RPE 3-4/10, «corro pero no sufro»).
 - Fase 1 (S1-S8): CaCo. La S1 fueron 2 sesiones (vie 14 y lun 17 ago); desde

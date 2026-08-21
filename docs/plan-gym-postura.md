@@ -4,12 +4,15 @@
 > [supercontexto-2026-08.md](supercontexto-2026-08.md). Este archivo es el
 > resumen operativo del gym y la postura.
 
-**Vuelta al gym: lunes 24-ago, a la vez que el mini-cut.** Del 24-ago al
-8-sep las sesiones se hacen en **versión Light** (la app baja las series
-sola): RIR 2 la primera semana (2-3 si las sensaciones son malas), RIR 1-2
-la segunda; nada de fallo, drop sets ni récords. El sábado 29-ago y el
-viernes 4-sep son días visuales: como mucho un mini-pump de torso sin fallo
-(el 4-sep, entrenar el Torso B unas horas antes del momento importante).
+**Vuelta al gym: MIÉRCOLES 26-ago, a la vez que el mini-cut** (el 25 es solo
+el regreso). Es UNA sola rutina — ya no hay versión "Light" — con rampa de
+dosis: del 26-ago al 1-sep, 75-80 % del volumen (la app baja las series
+sola: 4→3, 3→2) a RIR ~3; del 2 al 8-sep, volumen casi completo a RIR ~2;
+desde el 9, el 100 % a RIR 1-2. Nada de fallo, drop sets ni récords en toda
+la rampa. El sábado 29-ago y el viernes 4-sep son días visuales: el 29 como
+mucho un mini-pump sin fallo, y el 4 cae en Torso A — entrenar unas horas
+antes del momento importante. Calendario: X26 Torso A · V28 Pierna A ·
+L31 Torso B · X2 Pierna B · V4 Torso A · L7 Pierna A · X9 Torso B…
 
 **Objetivo: cambiar la silueta, no solo "ser grande".** Bloque de
 especialización de 12 semanas: **1) deltoide lateral · 2) dorsal ·

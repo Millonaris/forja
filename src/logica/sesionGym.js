@@ -7,7 +7,7 @@
  */
 
 import { REGLAS_GYM, ejerciciosDe } from "../datos/ejercicios.js";
-import { enMiniCut } from "../datos/planDieta.js";
+import { enRampaSuave } from "../datos/planDieta.js";
 import { hoyISO } from "./fechas.js";
 
 /** Segundos que se tarda en ejecutar una serie (sin contar el descanso). */
@@ -16,11 +16,11 @@ const SEG_POR_SERIE = 40;
 const MIN_CALENTAMIENTO = 8;
 
 /**
- * Series que tocan HOY de un ejercicio: durante el mini-cut (24-ago a 8-sep)
- * se usa la versión Light del entrenador; fuera de él, las series completas.
+ * Series que tocan HOY de un ejercicio: durante la rampa de vuelta (26-ago a
+ * 1-sep) se hace el 75-80 % del volumen (seriesLight); después, las completas.
  */
 export function seriesDe(ejercicio, iso = hoyISO()) {
-  return (enMiniCut(iso) ? ejercicio.seriesLight : ejercicio.series) || 0;
+  return (enRampaSuave(iso) ? ejercicio.seriesLight : ejercicio.series) || 0;
 }
 
 /**

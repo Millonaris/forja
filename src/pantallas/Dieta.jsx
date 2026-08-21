@@ -24,7 +24,7 @@ export default function Dieta() {
         {/* ---- La fase de hoy ---- */}
         <div className="f-tarjeta f-tarjeta--destacada" style={{ padding: 18, borderRadius: 18 }}>
           <div className="f-etiqueta" style={{ color: "var(--f-acento)", letterSpacing: ".16em" }}>
-            {fase ? `AHORA · ${fase.nombre}` : "AHORA · COMER NORMAL (EMPIEZA EL LUNES 24)"}
+            {fase ? `AHORA · ${fase.nombre}` : "AHORA · COMER NORMAL (EMPIEZA EL MIÉRCOLES 26)"}
           </div>
 
           {fase && (

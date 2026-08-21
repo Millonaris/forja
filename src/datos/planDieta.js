@@ -26,8 +26,8 @@ export const ESTRUCTURA_DIA =
  */
 export const FASES_DIETA = [
   {
-    desde: "2026-08-24",
-    hasta: "2026-08-31",
+    desde: "2026-08-26",
+    hasta: "2026-09-01",
     nombre: "MINI-CUT · SEMANA 1",
     kcal: "~1 700",
     macros: { proteina: "195 g", grasa: "55 g", carbos: "105 g" },
@@ -39,10 +39,10 @@ export const FASES_DIETA = [
     ],
     notaComidas:
       "Desayuno tipo: avena + whey, queso fresco batido o yogur proteico. De los 105 g de hidratos, ~85 van entre desayuno y post-entreno: justo donde interesan con 1 700 kcal.",
-    nota: "Corto y agresivo para quitar el exceso de vacaciones. Si el rendimiento cae mucho, el hambre no se controla o duermes peor: sube ya a 1 800-1 900.",
+    nota: "Corto y agresivo para quitar el exceso de vacaciones (el 25 es solo el regreso; se empieza el 26). Si hay mareo, el hambre no se controla o duermes peor: sube ya a 1 800-1 900.",
   },
   {
-    desde: "2026-09-01",
+    desde: "2026-09-02",
     hasta: "2026-09-08",
     nombre: "MINI-CUT · SEMANA 2",
     kcal: "~1 850",
@@ -95,12 +95,13 @@ export function faseDietaDe(iso) {
 }
 
 /**
- * ¿La fecha cae dentro del mini-cut (24-ago a 8-sep)? Durante ese tramo el
- * gimnasio se hace en versión Light: menos series en varios ejercicios, RIR 2
- * y nada de fallo — recuperar rendimiento con 1 700-1 900 kcal, no récords.
+ * Rampa de vuelta al gimnasio (26-ago a 1-sep): misma rutina definitiva pero
+ * al 75-80 % del volumen (la app baja las series sola) y RIR ~3 — dos semanas
+ * sin pesas + 1 700 kcal. La semana del 2 al 8 ya se hace el volumen completo
+ * a RIR ~2, y desde el 9, el 100 % a RIR 1-2.
  */
-export function enMiniCut(iso) {
-  return iso >= "2026-08-24" && iso <= "2026-09-08";
+export function enRampaSuave(iso) {
+  return iso >= "2026-08-26" && iso <= "2026-09-01";
 }
 
 /**
@@ -108,7 +109,7 @@ export function enMiniCut(iso) {
  * cuentan más que la báscula para juzgar el mini-cut.
  */
 export const HITOS_DIETA = [
-  { fecha: "2026-08-24", texto: "Cintura y foto: punto de partida del mini-cut" },
+  { fecha: "2026-08-26", texto: "Cintura y foto: punto de partida del mini-cut" },
   { fecha: "2026-08-29", texto: "Fecha estética · cintura y foto (pump suave de torso antes, sin fallo)" },
   { fecha: "2026-09-04", texto: "Fecha estética · cintura y foto (pump suave de torso antes, sin fallo)" },
   { fecha: "2026-09-08", texto: "Cintura y foto: cierre del mini-cut" },
@@ -126,18 +127,16 @@ export function proximoHitoDieta(iso) {
  * entrenos de cada día ya los enseñan las pestañas Hoy, Gym y Carrera.
  */
 export const KCAL_DIA_A_DIA = [
-  { fecha: "2026-08-24", kcal: "1 700" },
-  { fecha: "2026-08-25", kcal: "1 700" },
-  { fecha: "2026-08-26", kcal: "1 700" },
+  { fecha: "2026-08-26", kcal: "1 700", nota: "Día 1 del mini-cut" },
   { fecha: "2026-08-27", kcal: "1 700" },
   { fecha: "2026-08-28", kcal: "1 700", nota: "Cena normal, sin atracón: mañana es día visual" },
-  { fecha: "2026-08-29", kcal: "1 700", nota: "Día visual: comida normal del plan, nada raro ni deshidratación" },
+  { fecha: "2026-08-29", kcal: "1 700", nota: "Día visual (día 4): comida normal del plan, nada raro ni deshidratación" },
   { fecha: "2026-08-30", kcal: "1 700" },
   { fecha: "2026-08-31", kcal: "1 700" },
-  { fecha: "2026-09-01", kcal: "1 850", nota: "Empieza la semana 2: sube de 1 700 a 1 850" },
-  { fecha: "2026-09-02", kcal: "1 850" },
+  { fecha: "2026-09-01", kcal: "1 700", nota: "Último día de la semana fuerte" },
+  { fecha: "2026-09-02", kcal: "1 850", nota: "Empieza la fase moderada: sube de 1 700 a 1 850" },
   { fecha: "2026-09-03", kcal: "1 850", nota: "Sin cena exagerada y evita lo que te hinche: mañana es el día visual grande" },
-  { fecha: "2026-09-04", kcal: "1 850-1 900", nota: "Día visual: parte de los hidratos antes del entreno de la tarde" },
+  { fecha: "2026-09-04", kcal: "1 850-1 900", nota: "Día visual (día 10): hidratos concentrados en desayuno y post-entreno" },
   { fecha: "2026-09-05", kcal: "1 850" },
   { fecha: "2026-09-06", kcal: "1 850" },
   { fecha: "2026-09-07", kcal: "1 850" },
