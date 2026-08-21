@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="FORJA">
+  <rect width="512" height="512" rx="112" fill="#000000"/>
+  <!-- La F de FORJA en geometría pura, igual que el icono de la app -->
+  <g fill="#2FD8F5">
+    <rect x="150" y="110" width="56" height="292" rx="10"/>
+    <rect x="150" y="110" width="214" height="56" rx="10"/>
+    <rect x="150" y="222" width="160" height="56" rx="10"/>
+  </g>
+</svg>
