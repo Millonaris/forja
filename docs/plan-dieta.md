@@ -17,10 +17,28 @@ con datos reales** en la semana del 9-sep.
 | Mantenimiento (comprobación) | 9-15 sep | **~2 400** | 180-190 g | 65-75 g | ~255 g |
 | Volumen limpio | desde 16 sep | **2 500-2 550** | 180-190 g | 65-75 g | ~280-295 g |
 
+## Estructura del día y reparto por comidas (definitivo, 21-ago)
+
+**09:00 desayuno → 12:00 pesas → 13:00-13:30 comida → 17-18 h merienda →
+21:00 cena.** Sin preentreno por obligación. Desayuno tipo: avena + whey /
+queso fresco batido / yogur proteico.
+
+Gramos por comida (P / H / G):
+
+| Comida | Corte ~1 700 | Corte ~1 850 | Manten. ~2 400 | Volumen ~2 500 |
+|--------|--------------|---------------|----------------|-----------------|
+| Desayuno 09:00 | 45/40/15 | 45/45/15 | 45/70/15 | 45/75/15 |
+| Comida (post) 13:00-13:30 | 55/45/10 | 55/60/10 | 55/100/15 | 55/110/15 |
+| Merienda 17-18 h | 40/10/10 | 40/10/10 | 40/35/10 | 40/40/10 |
+| Cena 21:00 | 55/10/20 | 55/15/25 | 45/53/30 | 45/58/30 |
+| **Total** | **195/105/55** | **195/130/60** | **185/258/70** | **185/283/70** |
+
+Si el volumen sube a 2 550: los +50 van a hidratos (desayuno ~80, comida
+~115, cena ~60; total 185/295/70).
+
 ## Reglas fijas
 
-- 3-4 comidas al día, proteína repartida (~40-55 g por comida); buena parte
-  de los carbohidratos alrededor del gym.
+- Los carbohidratos se concentran en desayuno y post-entreno.
 - Creatina **5 g diarios siempre** (no se quita para pesar menos). Agua y sal
   normales: nada de deshidratación, diuréticos ni saunas. Fibra 25-35 g.
   Alcohol 0 durante el mini-cut.

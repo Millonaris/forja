@@ -2,65 +2,90 @@
  * FORJA · Plan de dieta por fases (plan del entrenador, ago-2026).
  *
  * La dieta se REGISTRA en Fitia, no aquí: la app solo enseña el objetivo de
- * la fase en la que estás (kcal y macros) y los hitos de medidas, para no
- * tener que recordar fechas ni números. El progreso se valora con la media
- * de 7 días del peso (pesarse cada mañana, tras el baño y antes de desayunar),
- * la cintura y las fotos — nunca con el peso de un día suelto.
+ * la fase en la que estás (kcal, macros y el reparto por comidas con horario)
+ * y los hitos de medidas. El progreso se valora con la media de 7 días del
+ * peso (pesarse cada mañana, tras el baño y antes de desayunar), la cintura
+ * y las fotos — nunca con el peso de un día suelto.
+ *
+ * Estructura del día (sin preentreno por obligación):
+ * 09:00 desayuno → 12:00 pesas → 13:00-13:30 comida → merienda → 21:00 cena.
  *
  * Reglas que valen para todas las fases: creatina 5 g diarios (no se quita
  * para pesar menos), agua y sal normales (nada de deshidratación ni saunas),
  * fibra 25-35 g, alcohol 0 durante el mini-cut.
  */
 
+/** La estructura horaria del día, igual en todas las fases. */
+export const ESTRUCTURA_DIA =
+  "09:00 desayuno → 12:00 pesas → 13:00-13:30 comida → 17:00-18:00 merienda → 21:00 cena";
+
 /**
  * Fases con fechas reales. `hasta` es inclusivo; la última fase no tiene fin.
- * kcal y macros son texto porque son rangos objetivo, no números exactos:
- * el plan pide cumplir aproximadamente calorías y proteína, sin obsesionarse.
+ * `comidasDetalle` son las tablas exactas del entrenador: proteína / hidratos /
+ * grasas por comida. Los hidratos van a propósito al desayuno y al post-entreno.
  */
 export const FASES_DIETA = [
   {
     desde: "2026-08-24",
     hasta: "2026-08-31",
     nombre: "MINI-CUT · SEMANA 1",
-    kcal: "1 700",
-    macros: { proteina: "190-200 g", grasa: "50-60 g", carbos: "~100 g" },
-    ejemplo: "195 P · 55 G · ~105 C ≈ 1 695 kcal",
-    comidas: "4 comidas · 45-50 g de proteína cada una · los hidratos, antes y/o después del gym",
-    porComida: { proteina: "45-50 g", grasa: "~10-15 g", carbos: "~25 g" },
-    nota: "Corto y agresivo para quitar el exceso de vacaciones. Carbohidratos alrededor del gym. Si el rendimiento cae mucho, el hambre no se controla o duermes peor: sube ya a 1 800-1 900.",
+    kcal: "~1 700",
+    macros: { proteina: "195 g", grasa: "55 g", carbos: "105 g" },
+    comidasDetalle: [
+      { nombre: "Desayuno", hora: "09:00", p: 45, h: 40, g: 15 },
+      { nombre: "Comida (post-entreno)", hora: "13:00-13:30", p: 55, h: 45, g: 10 },
+      { nombre: "Merienda", hora: "17:00-18:00", p: 40, h: 10, g: 10 },
+      { nombre: "Cena", hora: "21:00", p: 55, h: 10, g: 20 },
+    ],
+    notaComidas:
+      "Desayuno tipo: avena + whey, queso fresco batido o yogur proteico. De los 105 g de hidratos, ~85 van entre desayuno y post-entreno: justo donde interesan con 1 700 kcal.",
+    nota: "Corto y agresivo para quitar el exceso de vacaciones. Si el rendimiento cae mucho, el hambre no se controla o duermes peor: sube ya a 1 800-1 900.",
   },
   {
     desde: "2026-09-01",
     hasta: "2026-09-08",
     nombre: "MINI-CUT · SEMANA 2",
-    kcal: "1 800-1 900",
-    macros: { proteina: "190-200 g", grasa: "55-65 g", carbos: "~125-150 g" },
-    ejemplo: "195 P · 60 G · ~120-145 C",
-    comidas: "4 comidas · 45-50 g de proteína cada una · la subida de kcal va a hidratos alrededor del gym",
-    porComida: { proteina: "45-50 g", grasa: "~15 g", carbos: "~30-35 g" },
-    nota: "Punto de partida razonable: 1 850. Se afloja el déficit y la subida va a carbohidratos, para rendir en el gym. El viernes 4 (día visual), parte de los hidratos antes de entrenar.",
+    kcal: "~1 850",
+    macros: { proteina: "195 g", grasa: "60 g", carbos: "130 g" },
+    comidasDetalle: [
+      { nombre: "Desayuno", hora: "09:00", p: 45, h: 45, g: 15 },
+      { nombre: "Comida (post-entreno)", hora: "13:00-13:30", p: 55, h: 60, g: 10 },
+      { nombre: "Merienda", hora: "17:00-18:00", p: 40, h: 10, g: 10 },
+      { nombre: "Cena", hora: "21:00", p: 55, h: 15, g: 25 },
+    ],
+    notaComidas: "Los hidratos que se suman respecto a la semana 1 van al desayuno y al post-entreno.",
+    nota: "Se afloja el déficit para rendir en el gym. El viernes 4 (día visual), parte de los hidratos antes de entrenar.",
   },
   {
     desde: "2026-09-09",
     hasta: "2026-09-15",
     nombre: "MANTENIMIENTO · COMPROBACIÓN",
     kcal: "~2 400",
-    macros: { proteina: "180-190 g", grasa: "65-75 g", carbos: "~255 g" },
-    ejemplo: "185 P · 70 G · ~255-260 C ≈ 2 400 kcal",
-    comidas: "3-4 comidas · ~45-50 g de proteína cada una · hidratos repartidos, con parte alrededor del entreno",
-    porComida: { proteina: "~45-50 g", grasa: "~15-20 g", carbos: "~60-65 g" },
+    macros: { proteina: "185 g", grasa: "70 g", carbos: "258 g" },
+    comidasDetalle: [
+      { nombre: "Desayuno", hora: "09:00", p: 45, h: 70, g: 15 },
+      { nombre: "Comida (post-entreno)", hora: "13:00-13:30", p: 55, h: 100, g: 15 },
+      { nombre: "Merienda", hora: "17:00-18:00", p: 40, h: 35, g: 10 },
+      { nombre: "Cena", hora: "21:00", p: 45, h: 53, g: 30 },
+    ],
+    notaComidas: "Ya hay combustible: 170 de los 258 g de hidratos van entre desayuno y post-entreno.",
     nota: "Semana para comprobar el mantenimiento real con la media de 7 días: si el peso aguanta estable, 2 400 es tu número; si sigue bajando, tu gasto es mayor.",
   },
   {
     desde: "2026-09-16",
     hasta: null,
     nombre: "VOLUMEN LIMPIO",
-    kcal: "2 500-2 550",
-    macros: { proteina: "180-190 g", grasa: "65-75 g", carbos: "~280-295 g" },
-    ejemplo: "185 P · 70 G · ~280-295 C",
-    comidas: "3-4 comidas · ~45-50 g de proteína cada una · las kcal extra sobre mantenimiento, a hidratos",
-    porComida: { proteina: "~45-50 g", grasa: "~15-20 g", carbos: "~70 g" },
-    nota: "Superávit mínimo (+100-150 kcal): ganar +100-200 g/semana como mucho. Peso estable 2-3 sem pero el gym progresa → no tocar. Nada progresa → +100 kcal. Subes >300 g/sem y crece la cintura → −100 kcal. Cuando la carrera se alargue, estas kcal pueden pasar a ser mantenimiento: se ajusta con los datos.",
+    kcal: "~2 500",
+    macros: { proteina: "185 g", grasa: "70 g", carbos: "283 g" },
+    comidasDetalle: [
+      { nombre: "Desayuno", hora: "09:00", p: 45, h: 75, g: 15 },
+      { nombre: "Comida (post-entreno)", hora: "13:00-13:30", p: 55, h: 110, g: 15 },
+      { nombre: "Merienda", hora: "17:00-18:00", p: 40, h: 40, g: 10 },
+      { nombre: "Cena", hora: "21:00", p: 45, h: 58, g: 30 },
+    ],
+    notaComidas:
+      "La distribución favorita del entrenador para ganar: mucho combustible alrededor de las pesas sin comer constantemente. Si toca subir a 2 550, los +50 van a hidratos (desayuno ~80, comida ~115, cena ~60).",
+    nota: "Superávit mínimo (+100-150 kcal): ganar +100-200 g/semana como mucho. Peso estable 2-3 sem pero el gym progresa → no tocar. Nada progresa → +100 kcal. Subes >300 g/sem y crece la cintura → −100 kcal.",
   },
 ];
 

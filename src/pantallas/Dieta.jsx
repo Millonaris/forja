@@ -8,7 +8,7 @@
  */
 
 import Cabecera from "../componentes/Cabecera.jsx";
-import { FASES_DIETA, HITOS_DIETA, KCAL_DIA_A_DIA, faseDietaDe } from "../datos/planDieta.js";
+import { ESTRUCTURA_DIA, FASES_DIETA, HITOS_DIETA, KCAL_DIA_A_DIA, faseDietaDe } from "../datos/planDieta.js";
 import { formatoCorto, formatoDia, hoyISO } from "../logica/fechas.js";
 
 export default function Dieta() {
@@ -45,10 +45,7 @@ export default function Dieta() {
                   </div>
                 ))}
               </div>
-              <div style={{ font: "500 12px/1.4 var(--f-mono)", color: "var(--f-texto3)", marginTop: 10 }}>
-                EJEMPLO DEL DÍA · {fase.ejemplo}
-              </div>
-              <div className="f-pretty" style={{ font: "400 13px/1.5 var(--f-ui)", color: "var(--f-texto2)", marginTop: 10 }}>
+              <div className="f-pretty" style={{ font: "400 13px/1.5 var(--f-ui)", color: "var(--f-texto2)", marginTop: 12 }}>
                 {fase.nota}
               </div>
             </>
@@ -56,56 +53,53 @@ export default function Dieta() {
 
         </div>
 
-        {/* ---- Las comidas del día, con sus tres macros ---- */}
+        {/* ---- Las comidas del día: la tabla exacta del entrenador ---- */}
         <div className="f-tarjeta" style={{ padding: "14px 15px", borderRadius: 16 }}>
-          <div className="f-etiqueta" style={{ marginBottom: 10 }}>LAS COMIDAS DEL DÍA</div>
+          <div className="f-etiqueta" style={{ marginBottom: 8 }}>LAS COMIDAS DEL DÍA</div>
+          <div style={{ font: "500 11px/1.5 var(--f-mono)", color: "var(--f-texto3)", marginBottom: 10 }}>
+            {ESTRUCTURA_DIA.toUpperCase()}
+          </div>
           {(() => {
-            const c = (fase ?? FASES_DIETA[0]).porComida;
+            const f = fase ?? FASES_DIETA[0];
+            const total = f.comidasDetalle.reduce(
+              (t, c) => ({ p: t.p + c.p, h: t.h + c.h, g: t.g + c.g }),
+              { p: 0, h: 0, g: 0 },
+            );
+            const columnas = { display: "grid", gridTemplateColumns: "1fr 44px 44px 44px", gap: "0 8px", alignItems: "center" };
             return (
               <>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr auto auto auto",
-                    gap: "0 12px",
-                    font: "500 9.5px/1 var(--f-mono)",
-                    letterSpacing: ".1em",
-                    color: "var(--f-texto3)",
-                    padding: "0 0 7px",
-                  }}
-                >
+                <div style={{ ...columnas, font: "500 9.5px/1 var(--f-mono)", letterSpacing: ".08em", color: "var(--f-texto3)", paddingBottom: 7 }}>
                   <span />
-                  <span>PROTEÍNA</span>
-                  <span>GRASA</span>
-                  <span>CARBOS</span>
+                  <span style={{ textAlign: "right" }}>PROT</span>
+                  <span style={{ textAlign: "right" }}>HIDR</span>
+                  <span style={{ textAlign: "right" }}>GRASA</span>
                 </div>
-                {["COMIDA 1", "COMIDA 2", "COMIDA 3", "COMIDA 4"].map((nombre) => (
-                  <div
-                    key={nombre}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr auto auto auto",
-                      gap: "0 12px",
-                      alignItems: "center",
-                      padding: "8px 0",
-                      borderTop: "1px solid var(--f-borde-sutil)",
-                    }}
-                  >
-                    <span style={{ font: "500 13px/1.2 var(--f-ui)" }}>{nombre}</span>
-                    <span style={{ font: "700 12px/1 var(--f-mono)", color: "var(--f-acento)", textAlign: "right" }}>{c.proteina}</span>
-                    <span style={{ font: "600 12px/1 var(--f-mono)", color: "var(--f-texto2)", textAlign: "right" }}>{c.grasa}</span>
-                    <span style={{ font: "600 12px/1 var(--f-mono)", color: "var(--f-texto2)", textAlign: "right" }}>{c.carbos}</span>
+                {f.comidasDetalle.map((c) => (
+                  <div key={c.nombre} style={{ ...columnas, padding: "8px 0", borderTop: "1px solid var(--f-borde-sutil)" }}>
+                    <span style={{ minWidth: 0 }}>
+                      <span style={{ display: "block", font: "500 13px/1.2 var(--f-ui)" }}>{c.nombre}</span>
+                      <span style={{ display: "block", font: "500 10px/1.2 var(--f-mono)", color: "var(--f-texto3)", marginTop: 3 }}>
+                        {c.hora}
+                      </span>
+                    </span>
+                    <span style={{ font: "700 13px/1 var(--f-mono)", color: "var(--f-acento)", textAlign: "right" }}>{c.p} g</span>
+                    <span style={{ font: "600 13px/1 var(--f-mono)", color: "var(--f-texto2)", textAlign: "right" }}>{c.h} g</span>
+                    <span style={{ font: "600 13px/1 var(--f-mono)", color: "var(--f-texto2)", textAlign: "right" }}>{c.g} g</span>
                   </div>
                 ))}
+                <div style={{ ...columnas, padding: "9px 0 2px", borderTop: "2px solid var(--f-borde)" }}>
+                  <span style={{ font: "600 12px/1 var(--f-mono)", letterSpacing: ".08em" }}>TOTAL</span>
+                  <span style={{ font: "700 13px/1 var(--f-mono)", color: "var(--f-acento)", textAlign: "right" }}>{total.p} g</span>
+                  <span style={{ font: "700 13px/1 var(--f-mono)", textAlign: "right" }}>{total.h} g</span>
+                  <span style={{ font: "700 13px/1 var(--f-mono)", textAlign: "right" }}>{total.g} g</span>
+                </div>
+                <div className="f-pretty" style={{ font: "400 12.5px/1.6 var(--f-ui)", color: "var(--f-texto2)", marginTop: 10 }}>
+                  {f.notaComidas} Sin obsesionarse con el gramo: lo que manda es clavar aproximadamente las
+                  calorías y la proteína del día.
+                </div>
               </>
             );
           })()}
-          <div className="f-pretty" style={{ font: "400 12.5px/1.6 var(--f-ui)", color: "var(--f-texto2)", marginTop: 10 }}>
-            Los <strong>carbos</strong> del día NO van a partes iguales: concentra la mayor parte en las comidas
-            de antes y después del gym, y deja el resto repartido. Las <strong>grasas</strong>, donde caigan
-            cómodas. Si un día haces 3 comidas, sube la proteína a ~60-65 g por comida. Sin obsesionarse con el
-            gramo: lo que manda es clavar aproximadamente las calorías y la proteína del día.
-          </div>
         </div>
 
         {/* ---- Las cuatro fases, semana a semana ---- */}
