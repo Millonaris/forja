@@ -19,6 +19,9 @@ export default function DialogoCarrera({ fecha, semana, plan, existente = null, 
   const [notas, setNotas] = useState(existente?.notes ?? "");
 
   const tipo = existente?.type ?? plan?.tipo ?? "corta";
+  // En los intervalos corre/camina no se piden números: los km mezclan correr
+  // y andar y no significan nada. Se guarda solo el tiempo total del plan.
+  const esIntervalos = tipo === "intervalos";
 
   const [guardando, setGuardando] = useState(false);
 
@@ -28,7 +31,7 @@ export default function DialogoCarrera({ fecha, semana, plan, existente = null, 
     const fila = {
       date: fecha,
       type: tipo,
-      km: Math.round(km * 10) / 10,
+      km: esIntervalos ? null : Math.round(km * 10) / 10,
       minutes: Math.round(minutos),
       notes: notas.trim(),
       weekNum: semana,
@@ -88,17 +91,28 @@ export default function DialogoCarrera({ fecha, semana, plan, existente = null, 
           </button>
         </div>
 
-        <div style={{ display: "flex", gap: 12 }}>
-          <Contador etiqueta="KM" valor={num(km, 1)} onMenos={() => setKm((v) => Math.max(0, Math.round((v - 0.1) * 10) / 10))} onMas={() => setKm((v) => Math.round((v + 0.1) * 10) / 10)} destacado />
-          <Contador etiqueta="MINUTOS" valor={Math.round(minutos)} onMenos={() => setMinutos((v) => Math.max(1, v - 1))} onMas={() => setMinutos((v) => v + 1)} />
-        </div>
+        {esIntervalos ? (
+          <div className="f-tarjeta" style={{ padding: "13px 15px" }}>
+            <div className="f-pretty" style={{ font: "400 13px/1.5 var(--f-ui)", color: "var(--f-texto2)" }}>
+              Sesión de correr/andar: se marca como hecha, sin distancia ni ritmo (mezclan correr y
+              caminar y no dicen nada). Se apuntan los {Math.round(minutos)} min del plan.
+            </div>
+          </div>
+        ) : (
+          <>
+            <div style={{ display: "flex", gap: 12 }}>
+              <Contador etiqueta="KM" valor={num(km, 1)} onMenos={() => setKm((v) => Math.max(0, Math.round((v - 0.1) * 10) / 10))} onMas={() => setKm((v) => Math.round((v + 0.1) * 10) / 10)} destacado />
+              <Contador etiqueta="MINUTOS" valor={Math.round(minutos)} onMenos={() => setMinutos((v) => Math.max(1, v - 1))} onMas={() => setMinutos((v) => v + 1)} />
+            </div>
 
-        <div className="f-tarjeta" style={{ padding: "12px 15px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span className="f-etiqueta">RITMO MEDIO</span>
-          <span className="f-cifra f-acento" style={{ fontSize: 28 }}>
-            {ritmo(km, minutos)} <span style={{ fontSize: 13, color: "var(--f-texto2)" }}>/km</span>
-          </span>
-        </div>
+            <div className="f-tarjeta" style={{ padding: "12px 15px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span className="f-etiqueta">RITMO MEDIO</span>
+              <span className="f-cifra f-acento" style={{ fontSize: 28 }}>
+                {ritmo(km, minutos)} <span style={{ fontSize: 13, color: "var(--f-texto2)" }}>/km</span>
+              </span>
+            </div>
+          </>
+        )}
 
         <textarea
           className="f-area"

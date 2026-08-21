@@ -89,7 +89,7 @@ export default function Carrera() {
                 style={{ marginTop: 16 }}
                 onClick={() => setDialogo({ fecha: hoy, existente: hechaHoy })}
               >
-                {num(hechaHoy.km, 1)} KM · {hechaHoy.minutes} MIN · EDITAR
+                {hechaHoy.km != null ? `${num(hechaHoy.km, 1)} KM · ` : ""}{hechaHoy.minutes} MIN · HECHA · EDITAR
               </button>
             ) : (
               <>
@@ -208,14 +208,14 @@ export default function Carrera() {
               >
                 <span style={{ flex: 1, minWidth: 0 }}>
                   <span style={{ display: "block", font: "500 13.5px/1.2 var(--f-ui)" }}>
-                    {formatoDia(c.date)} · {num(c.km, 1)} km
+                    {formatoDia(c.date)}{c.km != null ? ` · ${num(c.km, 1)} km` : ""}
                   </span>
                   <span style={{ display: "block", font: "400 11.5px/1.2 var(--f-ui)", color: "var(--f-texto3)", marginTop: 4 }}>
                     {c.minutes} min · {c.type}
                   </span>
                 </span>
                 <span style={{ font: "700 16px/1 var(--f-mono)", color: "var(--f-texto2)", flex: "none" }}>
-                  {ritmo(c.km, c.minutes)}
+                  {c.km != null ? ritmo(c.km, c.minutes) : "HECHA"}
                 </span>
               </button>
             ))
